@@ -2,14 +2,17 @@
     margin: 0px;
     padding: 0px;
 }
+
 html {
     height: 100vh;
     overflow: hidden;
 }
+
 body {
     font-family: 'Montserrat', Arial, sans-serif;
     height: 100vh;
     transform-origin: center center;
+    will-change: transform;
     animation-name: rotate;
     animation-duration: 3600s;
     animation-iteration-count: infinite;
@@ -17,14 +20,8 @@ body {
 
 body:active {
     animation-iteration-count: infinite;
-} 
-
-@keyframes hoverButtonMenu {
-    to {
-        color: white;
-        transform: rotate(360deg);
-    }
 }
+
 @keyframes rotate {
     to {
         transform: rotate(360deg);
@@ -52,24 +49,34 @@ nav#menu {
 
 .opcje > div {
     display: flex;
-    padding-left: 1rem;
+    margin-left: 1rem;
+    padding: 1rem;
     cursor: pointer;
+
 }
 
-.opcje > div:hover {
+@keyframes hoverButtonMenu {
+    to {
+        color: white;
+        transform: rotate(360deg);
+    }
+}
+
+.opcje>div:hover {
     animation-name: hoverButtonMenu;
     animation-duration: 0.3s;
     animation-iteration-count: infinite;
+    will-change: transform, color;
 }
 
 nav#menu #o-mnie {
     justify-self: flex-end;
-    
+
     width: auto;
     margin-left: auto;
 }
 
-nav#menu #o-mnie > div {
+nav#menu #o-mnie>div {
     padding-left: 1rem;
 }
 
@@ -85,15 +92,17 @@ main {
         transform: translateY(0px);
         font-size: 1rem;
     }
+
     to {
-      transform: translateY(-15px);
-      font-size: 10rem;
+        transform: translateY(-15px);
+        font-size: 10rem;
     }
 }
 
-main > p {
+main>p {
     animation: witamText 1s infinite alternate;
 }
-main > p:hover {
+
+main>p:hover {
     animation: witamText 1s infinite alternate;
 }
