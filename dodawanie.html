@@ -1,0 +1,34 @@
+
+
+<html>
+<head>
+</head>
+<body>
+<form action="baza_dodawanie.php" method="POST">
+
+
+<table>
+<tr>
+<td colspan="2">
+<p><input type="radio" name="wybor" value="dodawanie" checked="checked"> Dodawanie rekordów</p>
+<p><input type="radio" name="wybor" value="szukanie">Wyszukiwanie rekordów</p>
+<p><input type="radio" name="wybor" value="kasowanie">Usuwanie rekordów</p>
+</td></tr>
+
+<tr>
+<td style="text-align: center;">Podaj imiê</td>
+<td style="text-align: center;">Podaj nazwisko</td>
+</tr>
+<tr>
+<td style="text-align: center;">
+<input type="text" name="imie" size="30" maxlength="40"></td>
+<td style="text-align: center;">
+<input type="text" name="nazwisko" size="30" maxlength="40"></td>
+</tr>
+<tr>
+<td colspan="2" align="right">
+<input type="submit" value="Dodaj dane"></td></tr>
+</table>
+</form>
+</body>
+</html>

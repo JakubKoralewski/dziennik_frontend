@@ -62,7 +62,7 @@ nav#menu {
     }
 }
 
-.opcje>div:hover {
+.opcje > div:hover {
     animation-name: hoverButtonMenu;
     animation-duration: 0.3s;
     animation-iteration-count: infinite;
@@ -76,7 +76,7 @@ nav#menu #o-mnie {
     margin-left: auto;
 }
 
-nav#menu #o-mnie>div {
+nav#menu #o-mnie > div {
     padding-left: 1rem;
 }
 
@@ -106,3 +106,110 @@ main>p {
 main>p:hover {
     animation: witamText 1s infinite alternate;
 }
+
+/* sass
+
+* {
+	margin: 0px;
+	padding: 0px;
+}
+html {
+	height: 100vh;
+	overflow: hidden;
+}
+body {
+	font-family: 'Montserrat', Arial, sans-serif;
+	height: 100vh;
+	transform-origin: center center;
+	will-change: transform;
+	animation-name: rotate;
+	animation-duration: 3600s;
+	animation-iteration-count: infinite;
+	&:active {
+		animation-iteration-count: infinite;
+	}
+}
+@keyframes {
+	rotate {
+		to {
+        transform: rotate(360deg);
+	}
+	hoverButtonMenu {
+		to {
+        color: white;
+		transform: rotate(360deg);
+	}
+	witamText {
+		from {
+        transform: translateY(0px);
+		font-size: 1rem;
+	}
+}
+} {
+	nav#menu {
+		padding: 1rem 7rem;
+		display: flex;
+		align-items: center;
+		background-color: pink;
+		color: black;
+		height: 2rem;
+	}
+	.opcje {
+		& > div {
+			&:hover {
+				animation-name: hoverButtonMenu;
+				animation-duration: 0.3s;
+				animation-iteration-count: infinite;
+				will-change: transform, color;
+			}
+		}
+	}
+	main {
+		& > p {
+			animation: witamText 1s infinite alternate;
+		}
+	}
+}
+#title {
+	font-weight: 800;
+	font-size: 1rem;
+	width: 20rem;
+}
+.opcje {
+	display: flex;
+	& > div {
+		display: flex;
+		margin-left: 1rem;
+		padding: 1rem;
+		cursor: pointer;
+	}
+}
+nav#menu {
+	#o-mnie {
+		justify-self: flex-end;
+		width: auto;
+		margin-left: auto;
+		& > div {
+			padding-left: 1rem;
+		}
+	}
+}
+main {
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	& > p {
+		&:hover {
+			animation: witamText 1s infinite alternate;
+		}
+	}
+}
+to {
+	transform: translateY(-15px);
+	font-size: 10rem;
+}
+
+
+
+*/
