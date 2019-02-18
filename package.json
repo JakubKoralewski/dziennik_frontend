@@ -3,8 +3,8 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"serve": "vue-cli-service serve",
-		"build": "vue-cli-service build",
+		"serve": "(set NODE_ENV=development || export NODE_ENV=development) && vue-cli-service serve",
+		"build": "(set NODE_ENV=production || export NODE_ENV=production) && vue-cli-service build",
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
@@ -20,8 +20,11 @@
 		"babel-eslint": "^10.0.1",
 		"eslint": "^5.8.0",
 		"eslint-plugin-vue": "^5.0.0",
+		"jsdoc-vuejs": "^2.4.2",
 		"node-sass": "^4.9.0",
 		"sass-loader": "^7.1.0",
+		"ts-loader": "^5.3.3",
+		"typescript": "^3.3.3",
 		"vue-template-compiler": "^2.5.21"
 	},
 	"eslintConfig": {

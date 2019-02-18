@@ -1,14 +1,12 @@
 <template>
-	<div class="nav">
+	<div class="search">
+		search
 	</div>
 </template>
 
 <script>
 	export default {
-		name: "Nav",
-		props: {
-			msg: String
-		}
+		name: 'Search',
 	};
 </script>
 

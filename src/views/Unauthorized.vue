@@ -3,14 +3,18 @@
 
 <template>
 	<div class="unauthorized">
-		
-		
+		unauthorized
+		<login prop-logo="logo.png" name="Harwart"></login>
 	</div>
 </template>
 
 <script>
+	import Login from '@/components/Login.vue';
+
 	export default {
-	
+		components: {
+			Login,
+		},
 	};
 </script>
 
