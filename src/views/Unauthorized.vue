@@ -46,10 +46,29 @@
 	img.bg {
 		position: absolute;
 		z-index: -1;
-		margin-left: 50%;
-		transform: translateX(-50%);
+		/* margin-left: 50%;
+																																									transform: translateX(-50%); */
+		/* left: 50%;
+																																		top: 50%; */
 		pointer-events: none;
 		opacity: 0.3;
+
+		animation-name: slowZoom;
+		animation-duration: 40s;
+		animation-iteration-count: infinite;
+		animation-direction: alternate-reverse;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: both;
+		/* animation-delay: 2s; */
+	}
+
+	@keyframes slowZoom {
+		0% {
+			transform: scale(0.8) translateX(0%) translateY(0);
+		}
+		100% {
+			transform: scale(3) translateX(0%) translateY(0%);
+		}
 	}
 
 	.noselect {
