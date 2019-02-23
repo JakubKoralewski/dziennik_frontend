@@ -11,8 +11,8 @@
 
 <script>
 	/* const config = require('@/config.js'); */
-	/* import Vue from 'vue'; */
-	export default /* Vue.extend( */{
+	import Vue from 'vue';
+	export default Vue.extend({
 		name: 'Login',
 		props: {
 			propName: {
@@ -75,7 +75,7 @@
 				this.$router.push('zalogowany');
 			},
 		},
-	};
+	});
 </script>
 
 <style scoped lang="scss">
