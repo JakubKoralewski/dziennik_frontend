@@ -51,12 +51,14 @@
 				loginButton: null,
 				loginInput: null,
 				hasloInput: null,
+				wasLoginSuccessful: false,
 			} as {
 				login: string;
 				haslo: string;
 				loginButton: HTMLButtonElement | null;
-				loginInput: HTMLButtonElement | null;
-				hasloInput: HTMLButtonElement | null;
+				loginInput: HTMLInputElement | null;
+				hasloInput: HTMLInputElement | null;
+				wasLoginSuccessful: boolean;
 			};
 		},
 		mounted() {
@@ -79,6 +81,21 @@
 		},
 		methods: {
 			loginRequest() {
+				const invalidInputs = this.credentialsValid([
+					this.loginInput as HTMLInputElement,
+					this.hasloInput as HTMLInputElement,
+				]);
+				if (invalidInputs != false) {
+					console.log('Found invalid inputs', invalidInputs);
+					if (!this.wasLoginSuccessful) {
+						[
+							this.loginInput as HTMLInputElement,
+							this.hasloInput as HTMLInputElement,
+						].forEach(input => input.classList.remove('login-failed'));
+					}
+					this.loginError(invalidInputs as HTMLInputElement[]);
+					return;
+				}
 				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
 				fetch('http://localhost/projekt_php_backend/api/login.php', {
 					method: 'POST',
@@ -94,7 +111,10 @@
 							console.log('zalogowano.');
 							this.loginSuccessful();
 						} else {
-							this.loginError();
+							this.loginError([
+								this.loginInput as HTMLInputElement,
+								this.hasloInput as HTMLInputElement,
+							]);
 						}
 						return response.json();
 					})
@@ -106,12 +126,35 @@
 					});
 			},
 			loginSuccessful() {
+				this.wasLoginSuccessful = true;
 				this.$router.push('zalogowany');
 			},
-			loginError() {
-				[this.loginInput, this.hasloInput].forEach(input => {
+			loginError(inputs: Array<HTMLInputElement | null>) {
+				this.wasLoginSuccessful = false;
+				inputs.forEach(input => {
 					input!.classList.add('login-failed');
 				});
+			},
+			/** If invalid, returns HTMLInputElement that was invalid  */
+			credentialsValid(
+				inputs: Array<HTMLInputElement | null>
+			): HTMLInputElement[] | true {
+				const invalidInputs = inputs
+					.map((input: HTMLInputElement) => {
+						if (!!(input as HTMLInputElement)!.value == false) {
+							return input;
+						}
+						return null;
+					})
+					.filter((input: HTMLInputElement | null) => {
+						return !!input;
+					});
+				if (invalidInputs == null) {
+					console.log('credentials valid');
+					return true;
+				} else {
+					return invalidInputs;
+				}
 			},
 		},
 	});

@@ -21,9 +21,9 @@
 </script>
 
 <style lang="scss">
-	body {
-		overflow: hidden;
-	}
+	// body {
+	// 	overflow: hidden;
+	// }
 </style>
 
 <style lang="scss" scoped>
@@ -59,6 +59,7 @@
 		animation-direction: alternate-reverse;
 		animation-timing-function: ease-in-out;
 		animation-fill-mode: both;
+		clip: rect(0px,60px,200px,0px);
 		/* animation-delay: 2s; */
 	}
 
@@ -67,7 +68,7 @@
 			transform: scale(0.8) translateX(0%) translateY(0);
 		}
 		100% {
-			transform: scale(3) translateX(0%) translateY(0%);
+			transform: scale(1.2) translateX(0%) translateY(0%);
 		}
 	}
 

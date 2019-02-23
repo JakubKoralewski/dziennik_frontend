@@ -2,7 +2,7 @@
 	<div id="app">
 		<transition name="slide">
 			<!-- v-on:before-enter="beforeEnter"
-			v-on:enter="enter"
+			v-on:enter="await enter"
 			v-on:leave="leave"
 			v-bind:css="false"-->
 			<router-view class="router-view"/>
@@ -14,17 +14,12 @@
 	import Vue from 'vue';
 
 	export default Vue.extend({
-		/* 		methods: {
-										beforeEnter: function(el: HTMLDivElement) {
-											el.st
-										},
-										enter: function(el: HTMLDivElement, done: Function) {
-
-										},
-										leave: function(el: HTMLDivElement, done: Function) {
-											
-										},
-									}, */
+		// methods: {
+		// 	async enter(el: HTMLDivElement, done: Function) {
+		// 		await new Promise(x => setTimeout(x, 100));
+		// 		debugger;
+		// 	},
+		// },
 	});
 </script>
 
@@ -58,11 +53,24 @@
 	.slide-leave-active {
 		transition: transform 0.5s ease-in-out;
 	}
+
+	// .slide-enter-active {
+	// 	z-index: -10;
+	// }
+
+	// .slide-leave-active {
+	// 	z-index: -10;
+	// }
+
 	.slide-enter,
 	.slide-leave-to {
 		transform: translateY(100%);
 	}
-	.slide-leave {
+	.slide-leave,
+	.slide-enter-to {
 		transform: translateY(-100%);
 	}
+	// .slide-leave {
+	// 	transform: translateY(-100vh);
+	// }
 </style>

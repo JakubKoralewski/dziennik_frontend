@@ -14,12 +14,14 @@
 		"prettier": [true, "prettier.config.js"],
 
 		"no-console": false,
+		"no-debugger": false,
 		"max-line-length": [true, 120],
 		"variable-name": false,
 		"interface-name": false,
 		"ordered-imports": false,
 		"object-literal-sort-keys": false,
 		"no-consecutive-blank-lines": [true, 2],
+		"triple-equals": false,
 
 		"quotemark": [true, "single"],
 		"indent": [true, "tabs", 4],
