@@ -4,5 +4,12 @@ module.exports = {
 	useTabs: true,
 	arrowParens: "avoid",
 	semi: true,
-	singleQuote: true
+	singleQuote: true,
+	/* overrides: [{
+		files: "*.scss",
+		options: {
+			singleQuote: false,
+
+		}
+	}] */
 };

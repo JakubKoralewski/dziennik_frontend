@@ -3,6 +3,8 @@
 
 <template>
 	<div class="unauthorized">
+		<div id="cover"/>
+		<img class="bg noselect" src="@/assets/hogwarts.jpg" unselectable="on" draggable="false">
 		<login class="login" prop-logo="logo.png" name="Harwart"/>
 	</div>
 </template>
@@ -18,15 +20,56 @@
 	});
 </script>
 
+<style lang="scss">
+	body {
+		overflow: hidden;
+	}
+</style>
+
 <style lang="scss" scoped>
 	.unauthorized {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
+
+	div#cover {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background-color: black;
+		z-index: -2;
+	}
+
+	img.bg {
+		position: absolute;
+		z-index: -1;
+		margin-left: 50%;
+		transform: translateX(-50%);
+		pointer-events: none;
+		opacity: 0.3;
+	}
+
+	.noselect {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		user-drag: none;
+		user-select: none;
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+
 	.login {
+		background-color: white;
 		width: calc(100vw - 61vw);
-		height: 40vh;
-		margin-top: calc(vw/vh);
+		height: 360px;
+		margin-top: -20vh;
 	}
 </style>

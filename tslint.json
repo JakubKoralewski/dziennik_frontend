@@ -23,6 +23,6 @@
 
 		"quotemark": [true, "single"],
 		"indent": [true, "tabs", 4],
-		"arrow-parens": [true, "ban-single-arg-parens"],
+		"arrow-parens": [true, "ban-single-arg-parens"]
 	}
 }

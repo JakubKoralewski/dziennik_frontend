@@ -1,21 +1,36 @@
 <template>
-	<div>
-		<div id="login">
-			<div id="logo">Hogwart</div>
-			<p id="subtitle">Dziennik elektroniczny.</p>
-			<input id="login" v-model="login" type="login" placeholder="Twój login">
-			<input id="haslo" v-model="haslo" type="password" placeholder="Twoje hasło">
-			<input id="loginButton" type="button" value="Zaloguj się" @click="loginRequest()">
+	<div id="login-component">
+		<div id="wrapper">
+			<div id="login">
+				<div id="logo">{{propName}}</div>
+				<p id="subtitle">Dziennik elektroniczny.</p>
+				<p id="copyright">© 2019 Jakub Koralewski</p>
+				<hr>
+				<div class="login-inputs" id="login-container">
+					Login:
+					<input id="login" v-model="login" type="login" placeholder="Twój login">
+				</div>
+				<div class="login-inputs" id="haslo-container">
+					Hasło:
+					<input id="haslo" v-model="haslo" type="password" placeholder="Twoje hasło">
+				</div>
+
+				<input id="loginButton" type="button" value="Zaloguj się" @click="loginRequest()">
+			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
 	/* const config = require('@/config.js'); */
+	import MuggleCaptcha from '@/components/MuggleCaptcha.vue';
 	import Vue from 'vue';
 
 	export default Vue.extend({
 		name: 'Login',
+		components: {
+			MuggleCaptcha,
+		},
 		props: {
 			propName: {
 				type: String,
@@ -34,14 +49,21 @@
 				login: '',
 				haslo: '',
 				loginButton: null,
+				loginInput: null,
+				hasloInput: null,
 			} as {
 				login: string;
 				haslo: string;
 				loginButton: HTMLButtonElement | null;
+				loginInput: HTMLButtonElement | null;
+				hasloInput: HTMLButtonElement | null;
 			};
 		},
 		mounted() {
 			this.loginButton = document.querySelector('#loginButton');
+			this.loginInput = document.querySelector('input#login');
+			this.hasloInput = document.querySelector('input#haslo');
+
 			Array.from(document.querySelectorAll('#login, #haslo')).forEach(
 				input => {
 					input.addEventListener('keyup', (event: Event) => {
@@ -71,6 +93,8 @@
 						if (response.ok === true) {
 							console.log('zalogowano.');
 							this.loginSuccessful();
+						} else {
+							this.loginError();
 						}
 						return response.json();
 					})
@@ -84,37 +108,119 @@
 			loginSuccessful() {
 				this.$router.push('zalogowany');
 			},
+			loginError() {
+				[this.loginInput, this.hasloInput].forEach(input => {
+					input!.classList.add('login-failed');
+				});
+			},
 		},
 	});
 </script>
 
 <style lang="scss" scoped>
-	div#login {
+	input.login-failed {
+		background-color: lighten(red, 40%) !important;
+		color: darken(red, 20%) !important;
+	}
+
+	#login-component {
+		border-radius: 10px;
+		box-shadow: 0px 0px 21px 3px rgba(255, 255, 255, 0.4);
+		animation-name: shadowAnimation;
+		animation-duration: 24s;
+		animation-iteration-count: infinite;
+	}
+
+	@keyframes shadowAnimation {
+		0% {
+			box-shadow: 0px 0px 21px 3px rgba(0, 217, 255, 0.699);
+		}
+		25% {
+			box-shadow: 0px 0px 21px 3px rgba(255, 0, 234, 0.4);
+		}
+		50% {
+			box-shadow: 0px 0px 21px 3px rgba(30, 255, 0, 0.6);
+		}
+		75% {
+			box-shadow: 0px 0px 21px 3px rgba(255, 0, 0, 0.6);
+		}
+		100% {
+			box-shadow: 0px 0px 21px 3px rgba(0, 217, 255, 0.699);
+		}
+	}
+
+	div#wrapper {
 		width: 100%;
 		height: 100%;
-		padding: 2rem 2rem;
-		box-shadow: 0px 0px 21px 3px rgba(0, 0, 0, 0.2);
-		border-radius: 10px;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		grid-template-rows: 3fr 1fr;
-		/* justify-content: center;
-																						align-self: center; */
 
-		#logo {
-			font-family: 'Montserrat', Arial, sans-serif;
-			font-weight: 600;
-			font-size: 4rem;
-			grid-row: 1;
-			grid-column: 1/-1;
-			justify-self: center;
-			margin-bottom: 1rem;
-		}
+		display: inline-block;
+		div#login {
+			box-sizing: border-box;
+			display: flex;
+			height: 100%;
+			width: 100%;
+			padding: 1vw;
 
-		#login,
-		#haslo,
-		#loginButton {
-			grid-row: 2;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+
+			hr {
+				width: 100%;
+				margin-top: 2rem;
+				margin-bottom: 1rem;
+				opacity: 0.2;
+			}
+
+			.login-inputs {
+				font-size: 0.9rem;
+				input {
+					margin-left: 1rem;
+				}
+			}
+
+			#logo {
+				font-weight: 600;
+				font-size: 4rem;
+				justify-self: center;
+				margin-bottom: 0.2rem;
+			}
+
+			#copyright {
+				margin-top: 0.1rem;
+				font-weight: 200;
+				font-size: 0.7rem;
+			}
+
+			input#login {
+				margin-bottom: 0.5rem;
+			}
+
+			input#login,
+			input#haslo {
+				height: 1.2rem;
+				border-width: 0px;
+				border-radius: 4px;
+				background-color: transparentize(gray, 0.8);
+				padding: 0.3rem;
+			}
+
+			input#loginButton {
+				$color: rgb(175, 0, 0);
+				margin-top: 1rem;
+				width: 60%;
+				border-width: 0px;
+				background-color: $color;
+				color: white;
+				padding: 0.5rem 0;
+				border-radius: 8px;
+
+				&:hover {
+					cursor: pointer;
+					background-color: lighten($color, 2);
+				}
+			}
 		}
 	}
 </style>

@@ -15,4 +15,5 @@
 	"editor.insertSpaces": false,
 	"vetur.format.defaultFormatter.ts": "prettier",
 	"vetur.format.defaultFormatter.html": "prettyhtml",
+	"vetur.format.defaultFormatter.scss": "prettier",
 }
