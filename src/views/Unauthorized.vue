@@ -3,20 +3,30 @@
 
 <template>
 	<div class="unauthorized">
-		unauthorized
-		<login prop-logo="logo.png" name="Harwart"></login>
+		<login class="login" prop-logo="logo.png" name="Harwart"/>
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+	import Vue from 'vue';
 	import Login from '@/components/Login.vue';
 
-	export default {
+	export default Vue.extend({
 		components: {
 			Login,
 		},
-	};
+	});
 </script>
 
 <style lang="scss" scoped>
+	.unauthorized {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.login {
+		width: calc(100vw - 61vw);
+		height: 40vh;
+		margin-top: calc(vw/vh);
+	}
 </style>

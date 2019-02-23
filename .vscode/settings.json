@@ -1,36 +1,18 @@
 {
-	"editor.detectIndentation": false,
-	"editor.insertSpaces": false,
-	/* "prettier.disableLanguages": ["js"], */
-/* 	"prettier.eslintIntegration": true,
-
+	"vetur.format.styleInitialIndent": true,
+	"vetur.format.scriptInitialIndent": true,
+	/* "vetur.validation.template": false, */
+	/* 	"tslint.enable": true,
+		"tslint.autoFixOnSave ": true, */
+	"eslint.enable": false,
+	/* 	"editor.codeActionsOnSave": {
+			"source.fixAll.tslint": true
+		}, */
 	"editor.formatOnSave": true,
-	"[javascript]": {
-		"editor.formatOnSave": false
-	},
-	"eslint.enable": true,
-	"eslint.autoFixOnSave": true, */
-	/* "eslint.alwaysShowStatus": true, */
-/* 	"vetur.format.options.tabSize": 4,
-	"vetur.format.options.useTabs": true,
-	"vetur.trace.server": "verbose",
-	"vetur.validation.script": true,
-	"vetur.validation.style": true,
-	"vetur.validation.template": true,
-	"vetur.format.styleInitialIndent": true,
-	"vetur.format.scriptInitialIndent": true,
-	"vetur.format.defaultFormatter.js": "prettier-eslint",
-	"vetur.format.defaultFormatter.html": "js-beautify-html",
- */
-	"vetur.format.styleInitialIndent": true,
-	"vetur.format.scriptInitialIndent": true,
-	"eslint.validate": [
-		{ "language": "html", "autoFix": true },
-		{ "language": "vue", "autoFix": true },
-		{ "language": "javascript", "autoFix": true },
-		{ "language": "javascriptreact", "autoFix": true }
-	],
-	"editor.formatOnSave": false,
-	"eslint.autoFixOnSave": true,
-	"vetur.validation.template": false,
+	"prettier.tslintIntegration": true,
+	"editor.detectIndentation": false,
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"vetur.format.defaultFormatter.ts": "prettier",
+	"vetur.format.defaultFormatter.html": "prettyhtml",
 }

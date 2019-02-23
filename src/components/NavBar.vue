@@ -1,6 +1,6 @@
 <template>
-	<div class="search">
-		search
+	<div class="nav">
+		<p>NavBar</p>
 	</div>
 </template>
 
@@ -8,7 +8,7 @@
 	import Vue from 'vue';
 
 	export default Vue.extend({
-		name: 'Search',
+		name: 'NavBar',
 	});
 </script>
 

@@ -1,54 +1,28 @@
 {
-	"name": "projekt_php",
+	"name": "dziennik_php_frontend_ts",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"serve": "(set NODE_ENV=development || export NODE_ENV=development) && vue-cli-service serve",
-		"build": "(set NODE_ENV=production || export NODE_ENV=production) && vue-cli-service build",
+		"serve": "vue-cli-service serve",
+		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
-		"vue": "^2.5.22",
+		"vue": "^2.6.6",
 		"vue-router": "^3.0.1",
 		"vuex": "^3.0.1"
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-babel": "^3.0.5",
-		"@vue/cli-plugin-eslint": "^3.0.5",
+		"@vue/cli-plugin-typescript": "^3.0.5",
 		"@vue/cli-service": "^3.0.5",
-		"@vue/eslint-config-prettier": "^4.0.1",
-		"babel-eslint": "^10.0.1",
-		"eslint": "^5.8.0",
-		"eslint-plugin-vue": "^5.0.0",
-		"jsdoc-vuejs": "^2.4.2",
 		"node-sass": "^4.9.0",
+		"prettier": "^1.16.4",
+		"prettier-tslint": "^0.4.2",
 		"sass-loader": "^7.1.0",
-		"ts-loader": "^5.3.3",
-		"typescript": "^3.3.3",
+		"tslint-config-prettier": "^1.18.0",
+		"tslint-plugin-prettier": "^2.0.1",
+		"typescript": "^3.0.0",
 		"vue-template-compiler": "^2.5.21"
-	},
-	"eslintConfig": {
-		"root": true,
-		"env": {
-			"node": true
-		},
-		"extends": [
-			"plugin:vue/essential",
-			"@vue/prettier"
-		],
-		"rules": {},
-		"parserOptions": {
-			"parser": "babel-eslint"
-		}
-	},
-	"postcss": {
-		"plugins": {
-			"autoprefixer": {}
-		}
-	},
-	"browserslist": [
-		"> 1%",
-		"last 2 versions",
-		"not ie <= 8"
-	]
+	}
 }
