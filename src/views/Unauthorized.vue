@@ -3,8 +3,7 @@
 
 <template>
 	<div class="unauthorized">
-		unauthorized
-		<login prop-logo="logo.png" name="Harwart"></login>
+		<login class="login" prop-logo="logo.png" name="Harwart"/>
 	</div>
 </template>
 
@@ -20,7 +19,14 @@
 </script>
 
 <style lang="scss" scoped>
-
-
-
+	.unauthorized {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.login {
+		width: calc(100vw - 61vw);
+		height: 40vh;
+		margin-top: calc(vw/vh);
+	}
 </style>

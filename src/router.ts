@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Unauthorized from './views/Unauthorized.vue';
+import Unauthorized from '@/views/Unauthorized.vue';
+import Authorized from '@/views/Authorized.vue';
 
 Vue.use(Router);
 
@@ -12,6 +13,11 @@ export default new Router({
 			path: '/',
 			name: 'Unauthorized',
 			component: Unauthorized,
+		},
+		{
+			path: '/zalogowany',
+			name: 'Authorized',
+			component: Authorized,
 		},
 
 		/* ,
