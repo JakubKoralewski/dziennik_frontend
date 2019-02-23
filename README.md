@@ -1,4 +1,4 @@
-# projekt_php
+# dziennik_php_frontend_ts
 
 ## Project setup
 ```

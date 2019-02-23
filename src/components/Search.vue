@@ -4,10 +4,12 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		name: 'Search',
-	};
+<script lang="ts">
+	import Vue from 'vue';
+	
+	export default Vue.extend({
+		name: 'Search', 
+	});
 </script>
 
 <style scoped lang="scss">
