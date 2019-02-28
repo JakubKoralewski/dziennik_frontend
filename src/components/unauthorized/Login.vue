@@ -2,7 +2,7 @@
 	<div id="login-component">
 		<div id="wrapper">
 			<div id="login">
-				<div id="logo">{{propName}}</div>
+				<div id="logo">{{ propName }}</div>
 				<p id="subtitle">Dziennik elektroniczny.</p>
 				<p id="copyright">© 2019 Jakub Koralewski</p>
 				<hr>
@@ -14,7 +14,7 @@
 					Hasło:
 					<input id="haslo" v-model="haslo" type="password" placeholder="Twoje hasło">
 				</div>
-
+				<!-- <muggle-captcha /> -->
 				<input id="loginButton" type="button" value="Zaloguj się" @click="loginRequest()">
 			</div>
 		</div>
@@ -23,14 +23,14 @@
 
 <script lang="ts">
 	/* const config = require('@/config.js'); */
-	import MuggleCaptcha from '@/components/MuggleCaptcha.vue';
+	/* import MuggleCaptcha from '@/components/MuggleCaptcha.vue'; */
 	import Vue from 'vue';
 
 	export default Vue.extend({
 		name: 'Login',
-		components: {
-			MuggleCaptcha,
-		},
+		/* components: {
+				MuggleCaptcha,
+			}, */
 		props: {
 			propName: {
 				type: String,
@@ -127,6 +127,10 @@
 			},
 			loginSuccessful() {
 				this.wasLoginSuccessful = true;
+				[
+					this.loginInput as HTMLInputElement,
+					this.hasloInput as HTMLInputElement,
+				].forEach(input => input.classList.remove('login-failed'));
 				this.$router.push('zalogowany');
 			},
 			loginError(inputs: Array<HTMLInputElement | null>) {
@@ -140,8 +144,8 @@
 				inputs: Array<HTMLInputElement | null>
 			): HTMLInputElement[] | true {
 				const invalidInputs = inputs
-					.map((input: HTMLInputElement) => {
-						if (!!(input as HTMLInputElement)!.value == false) {
+					.map(input => {
+						if (!!input!.value == false) {
 							return input;
 						}
 						return null;
@@ -153,7 +157,7 @@
 					console.log('credentials valid');
 					return true;
 				} else {
-					return invalidInputs;
+					return invalidInputs as HTMLInputElement[];
 				}
 			},
 		},
