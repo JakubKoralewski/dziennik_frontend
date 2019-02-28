@@ -1,5 +1,8 @@
 <template>
-	<div class="nav-title">{{ title }}</div>
+	<div class="nav-title">
+		{{ title }}
+		<!-- <Search></Search> -->
+	</div>
 </template>
 
 <script lang="ts">
@@ -19,7 +22,7 @@
 	.nav-title {
 		display: flex;
 		flex-direction: column;
-		padding: 2rem;
+		padding: 2rem 10rem;
 		font-weight: 400;
 		font-size: 2rem;
 	}

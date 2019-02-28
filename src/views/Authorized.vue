@@ -1,12 +1,14 @@
 <template>
-	<div class="authorized">
-		<NavBar class="nav-bar"/>
-		<NavTitle class="nav-title"/>
+	<div id="authorized">
+		<NavBar id="nav-bar"/>
 		<div id="content">
+			<NavTitle id="nav-title"/>
 			<div id="wrapper">
-				<div class="student" v-for="student in students" :key="student.id">
-					{{ student.firstName }} {{student.lastName}} 
-				</div>
+				<div
+					class="student"
+					v-for="student of Object.values(this.students)"
+					:key="student.id"
+				>{{ student.imie }} {{ student.nazwisko }}</div>
 			</div>
 		</div>
 	</div>
@@ -16,6 +18,8 @@
 	import Vue from 'vue';
 	import NavBar from '@/components/NavBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
+
+	import { mapGetters } from 'vuex';
 
 	// import Search from '@/components/Search.vue';
 	// import Student from '@/components/Student.vue';
@@ -28,11 +32,16 @@
 			// Search,
 			// Student,
 		},
+		mounted() {
+			// for (const student of Object.values(this.students)) {
+			// 	console.log(student);
+			// }
+		},
 		computed: {
-			students: function() {
-				return this.$store.state.students;
-			}
-		}
+			...mapGetters({
+				students: 'getStudents',
+			}),
+		},
 	});
 </script>
 
@@ -44,22 +53,39 @@
 		border: $size solid darken($main-color, 20%);
 	}
 
-	.authorized {
+	#authorized {
 		display: flex;
 		flex-direction: row;
+		flex: auto;
+		// flex-flow: wrap;
 		background-color: $main-color;
 
-		.nav-bar {
+		$navbar-width: calc(3rem + 10vw);
+
+		#content {
+			height: 100%;
+			width: 100%;
+			#wrapper {
+				height: 100%;
+				.student {
+					// Single student HTMLDivElement
+				}
+			}
+		}
+
+		#nav-bar {
 			@include nav-shadow(1px);
 			@include nav-border(1px);
 			border-width: 0px;
 			border-right-width: 1px;
 			background-color: lighten($main-color, 2%);
 
-			width: calc(3rem + 10vw);
+			width: $navbar-width;
+			// flex-basis: $navbar-width;
 			height: 100vh;
+			order: 0;
 		}
-		.nav-title {
+		#nav-title {
 			@include nav-shadow(2px);
 			@include nav-border(1px);
 
@@ -68,7 +94,7 @@
 
 			background-color: lighten($main-color, 2%);
 
-			width: 100vw;
+			width: 100%;
 			height: calc(1vmin + 2rem);
 		}
 	}

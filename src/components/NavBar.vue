@@ -45,6 +45,7 @@
 
 <style scoped lang="scss">
 	.nav {
+		// The whole navigation div
 		display: flex;
 		flex-direction: column;
 		padding: 2rem;
@@ -58,6 +59,7 @@
 			width: 0px !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
+			transition: all 0.5s ease-in;
 			/* overflow: hidden; */
 
 			div#o-mnie,
@@ -72,14 +74,17 @@
 		}
 
 		#hide {
+			// Div containing checkmark icon
 			margin-left: auto;
 			cursor: pointer;
 			position: relative;
-			margin-bottom: 1rem;
+			margin-bottom: 2rem;
 
 			i {
+				// Checkmark icon
 				position: absolute;
 				left: 0;
+				padding: 5px;
 
 				&:hover {
 					transition: transform 0.2s ease-in-out;
@@ -94,12 +99,13 @@
 				}
 
 				transition: all 0.2s ease-out;
-				transition-property: left, transform;
+				transition-property: left, transform, opacity;
 
 				&.navbar-hidden {
 					position: absolute;
 					left: calc(0.5rem + 1vmin);
 					transform: rotate(180deg);
+					opacity: 0.4;
 
 					&:hover {
 						transform: rotate(180deg) translateX(-5px);
