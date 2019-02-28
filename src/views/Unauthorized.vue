@@ -11,7 +11,7 @@
 
 <script lang="ts">
 	import Vue from 'vue';
-	import Login from '@/components/Login.vue';
+	import Login from '@/components/unauthorized/Login.vue';
 
 	export default Vue.extend({
 		components: {
@@ -21,9 +21,9 @@
 </script>
 
 <style lang="scss">
-	// body {
-	// 	overflow: hidden;
-	// }
+	body {
+		overflow: hidden;
+	}
 </style>
 
 <style lang="scss" scoped>
@@ -46,10 +46,10 @@
 	img.bg {
 		position: absolute;
 		z-index: -1;
-		/* margin-left: 50%;
-																																									transform: translateX(-50%); */
-		/* left: 50%;
-																																		top: 50%; */
+		// margin-left: 50%;
+		// transform: translateX(-50%);
+		// left: 50%;
+		// top: 50%;
 		pointer-events: none;
 		opacity: 0.3;
 
@@ -59,7 +59,7 @@
 		animation-direction: alternate-reverse;
 		animation-timing-function: ease-in-out;
 		animation-fill-mode: both;
-		clip: rect(0px,60px,200px,0px);
+		/* clip: rect(0px, 100vw, 100vh, 0px); */
 		/* animation-delay: 2s; */
 	}
 

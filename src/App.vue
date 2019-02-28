@@ -51,7 +51,7 @@
 
 	.slide-enter-active,
 	.slide-leave-active {
-		transition: transform 0.5s ease-in-out;
+		transition: transform 0.5s ease-out, opacity 0.25s ease-in;
 	}
 
 	// .slide-enter-active {
@@ -65,10 +65,12 @@
 	.slide-enter,
 	.slide-leave-to {
 		transform: translateY(100%);
+		opacity: 0;
 	}
 	.slide-leave,
 	.slide-enter-to {
 		transform: translateY(-100%);
+		opacity: 1;
 	}
 	// .slide-leave {
 	// 	transform: translateY(-100vh);
