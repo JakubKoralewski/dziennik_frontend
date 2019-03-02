@@ -3,10 +3,10 @@
 		<NavBar id="nav-bar"/>
 		<div id="content">
 			<NavTitle id="nav-title"/>
-			<div id="wrapper">
+			<div id="wrapper" v-if="studentsLoaded">
 				<div
 					class="student"
-					v-for="student of Object.values(this.students)"
+					v-for="student of Object.values(students)"
 					:key="student.id"
 				>{{ student.imie }} {{ student.nazwisko }}</div>
 			</div>
@@ -32,15 +32,21 @@
 			// Search,
 			// Student,
 		},
-		mounted() {
-			// for (const student of Object.values(this.students)) {
-			// 	console.log(student);
-			// }
+		data() {
+			return {
+				students: [],
+				studentsLoaded: false,
+			};
 		},
 		computed: {
-			...mapGetters({
-				students: 'getStudents',
-			}),
+			...mapGetters(['getStudents']),
+		},
+		async mounted() {
+			this.getStudents.then((data: object[]) => {
+				this.students = data;
+				this.studentsLoaded = true;
+				console.log('this.students:', this.students);
+			});
 		},
 	});
 </script>

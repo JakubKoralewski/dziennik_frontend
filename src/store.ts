@@ -19,7 +19,7 @@ export default new Vuex.Store({
 			// if (state.students[0] == null) {
 			if (state.students[0] == null) {
 				// If not create API request
-				fetch(`api/uczniowie.php`, {
+				return fetch(`api/uczniowie.php`, {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json; charset=UTF-8',
@@ -28,9 +28,7 @@ export default new Vuex.Store({
 					},
 				})
 					.then(response => {
-						if (response.ok === true) {
-							console.log('Uczniowie zdobyci.');
-						} else {
+						if (response.ok !== true) {
 							console.error('Nie udało się zdobyć uczniów.');
 						}
 						return response.json();
@@ -39,12 +37,17 @@ export default new Vuex.Store({
 						for (const student of data) {
 							state.students[student.id] = student;
 						}
+						/** Return value.  */
+						const rv = state.students;
+						console.groupCollapsed('getStudents() zwraca: ');
+						console.log(rv);
+						console.groupEnd();
+						return rv;
 					})
 					.catch(error => {
 						console.error(error);
 					});
 			}
-			return state.students;
 		},
 	},
 });
