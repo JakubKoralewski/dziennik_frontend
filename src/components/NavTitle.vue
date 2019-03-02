@@ -22,7 +22,7 @@
 	.nav-title {
 		display: flex;
 		flex-direction: column;
-		padding: 2rem 10rem;
+		padding: 2rem calc(2rem + 5vw);
 		font-weight: 400;
 		font-size: 2rem;
 	}

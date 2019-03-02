@@ -15,8 +15,7 @@ export default new Vuex.Store({
 	actions: {},
 	getters: {
 		getStudents(state) {
-			// Check if students already gotten
-			// if (state.students[0] == null) {
+			// Check if students already fetched
 			if (state.students[0] == null) {
 				// If not create API request
 				return fetch(`api/uczniowie.php`, {
@@ -37,16 +36,13 @@ export default new Vuex.Store({
 						for (const student of data) {
 							state.students[student.id] = student;
 						}
-						/** Return value.  */
-						const rv = state.students;
-						console.groupCollapsed('getStudents() zwraca: ');
-						console.log(rv);
-						console.groupEnd();
-						return rv;
+						return state.students;
 					})
 					.catch(error => {
 						console.error(error);
 					});
+			} else {
+				return state.students;
 			}
 		},
 	},

@@ -21,9 +21,9 @@
 </script>
 
 <style lang="scss">
-	body {
-		overflow: hidden;
-	}
+	// body {
+	// 	overflow: hidden;
+	// }
 </style>
 
 <style lang="scss" scoped>
@@ -31,6 +31,8 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		overflow: hidden;
+		position: relative; // Fixes img not getting clipped
 	}
 
 	div#cover {

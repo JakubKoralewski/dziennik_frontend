@@ -25,14 +25,27 @@
 
 
 <style lang="scss">
-	html {
+	* {
+		margin: 0px;
+		padding: 0px;
+	}
+
+	html,
+	body {
 		height: 100%;
+		width: 100%;
+		overflow-x: hidden;
+	}
+
+	html {
+		min-height: 100%;
 		font-family: 'Montserrat', Arial, sans-serif;
+		overflow-x: hidden;
 	}
 
 	body {
-		width: 100vw;
-		height: 100vh;
+		width: 100%;
+		height: 100%;
 	}
 
 	#app {
@@ -42,11 +55,6 @@
 
 	.router-view {
 		height: 100%;
-	}
-
-	* {
-		margin: 0px;
-		padding: 0px;
 	}
 
 	.slide-enter-active,
