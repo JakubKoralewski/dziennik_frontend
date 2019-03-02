@@ -19,17 +19,14 @@ export default new Vuex.Store({
 			// if (state.students[0] == null) {
 			if (state.students[0] == null) {
 				// If not create API request
-				fetch(
-					'http://localhost/projekt_php_backend/api/uczniowie.php',
-					{
-						method: 'GET',
-						headers: {
-							'Content-Type': 'application/json; charset=UTF-8',
-							'Access-Control-Allow-Origin': '*',
-							'Access-Control-Allow-Credentials': 'true',
-						},
-					}
-				)
+				fetch(`api/uczniowie.php`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json; charset=UTF-8',
+						'Access-Control-Allow-Origin': '*',
+						'Access-Control-Allow-Credentials': 'true',
+					},
+				})
 					.then(response => {
 						if (response.ok === true) {
 							console.log('Uczniowie zdobyci.');

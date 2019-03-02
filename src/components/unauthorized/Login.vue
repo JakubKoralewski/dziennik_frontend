@@ -22,15 +22,14 @@
 </template>
 
 <script lang="ts">
-	/* const config = require('@/config.js'); */
 	/* import MuggleCaptcha from '@/components/MuggleCaptcha.vue'; */
 	import Vue from 'vue';
 
 	export default Vue.extend({
 		name: 'Login',
 		/* components: {
-				MuggleCaptcha,
-			}, */
+						MuggleCaptcha,
+					}, */
 		props: {
 			propName: {
 				type: String,
@@ -97,7 +96,7 @@
 					return;
 				}
 				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
-				fetch('http://localhost/projekt_php_backend/api/login.php', {
+				fetch(`api/login.php`, {
 					method: 'POST',
 					body: JSON.stringify({ login: this.login, haslo: this.haslo }),
 					headers: {
@@ -107,10 +106,7 @@
 					},
 				})
 					.then(response => {
-						if (response.ok === true) {
-							console.log('zalogowano.');
-							this.loginSuccessful();
-						} else {
+						if (response.ok !== true) {
 							this.loginError([
 								this.loginInput as HTMLInputElement,
 								this.hasloInput as HTMLInputElement,
@@ -120,6 +116,10 @@
 					})
 					.then(data => {
 						console.log(data);
+						if (data.status === true) {
+							console.log('zalogowano.');
+							this.loginSuccessful();
+						}
 					})
 					.catch(error => {
 						console.error(error);
