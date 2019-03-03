@@ -1,5 +1,9 @@
 # dziennik_php_frontend
 
+### Video demo:
+
+[![](https://i.imgur.com/oHurykc.png)](https://streamable.com/diqab)
+
 ## Project setup
 
 ```
