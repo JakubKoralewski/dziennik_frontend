@@ -1,11 +1,16 @@
 <template>
 	<div id="authorized">
 		<NavBar id="nav-bar"/>
+		<AddButton @click="addButtonClick"/>
 		<div id="content">
 			<NavTitle id="nav-title"/>
-			<div id="students" v-if="visibleStudents">
-				<!-- 				<transition-group name="transition-move" tag="div"> -->
-				<div class="student" v-for="student of visibleStudents" :key="student.id">
+			<div id="students" v-if="students">
+				<div
+					class="student"
+					v-for="student of students"
+					:key="student.id"
+					:class="{'invisible': !student.visible}"
+				>
 					<div id="header">
 						<div id="name">{{ student.imie }} {{ student.nazwisko }}</div>
 						<div id="tools">
@@ -24,7 +29,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- 				</transition-group> -->
 			</div>
 		</div>
 	</div>
@@ -34,14 +38,24 @@
 	import Vue from 'vue';
 	import NavBar from '@/components/NavBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
+	import AddButton from '@/components/AddButton.vue';
 
-	import { mapGetters, mapActions, mapState } from 'vuex';
+	import { mapGetters, mapActions, mapState, Computed } from 'vuex';
 	import { IStudent, IStudents } from '@/interfaces';
 
 	interface IAuthorizedData {
 		students: IStudent[];
 		studentsLoaded: boolean;
 		loadStudents: Promise<any>;
+	}
+
+	interface IAuthorizedMethods {
+		loadStudents(): void;
+		addButtonClick(): void;
+	}
+	interface IAuthorizedComputed {
+		students: IStudents;
+		visibleStudents: IStudent[];
 	}
 
 	// import Search from '@/components/Search.vue';
@@ -52,11 +66,13 @@
 		components: {
 			NavBar,
 			NavTitle,
+			AddButton,
 		},
 		computed: {
 			...mapState(['students']),
-			visibleStudents: function() {
-				const students: IStudent[] = Object.values(this.students);
+			visibleStudents: function(): IStudent[] {
+				// FIXME: (this as any).students is from mapState
+				const students: IStudent[] = Object.values((this as any).students);
 				console.groupCollapsed('visibleStudents');
 				console.log('students: ', students);
 				console.groupEnd();
@@ -67,7 +83,10 @@
 		},
 		methods: {
 			...mapActions(['loadStudents']),
-		},
+			addButtonClick: function() {
+				return;
+			},
+		} as IAuthorizedMethods,
 		async mounted() {
 			await this.loadStudents();
 		},
@@ -90,10 +109,6 @@
 	}
 
 	@import '@/scss/wiggle.scss';
-
-	.trasnsition-move-move {
-		transition: transform 1s;
-	}
 
 	#authorized {
 		display: flex;
@@ -138,6 +153,12 @@
 					@include nav-shadow;
 					display: flex;
 					flex-direction: column;
+					transition: opacity 0.25s ease-in-out;
+
+					&.invisible {
+						opacity: 0;
+						// display: none;
+					}
 
 					#content {
 						box-sizing: border-box;
