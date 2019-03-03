@@ -1,0 +1,6 @@
+@mixin nav-shadow($size: 1px) {
+	box-shadow: $size $size 72px -14px rgba(0, 0, 0, 0.1);
+}
+@mixin nav-border($size) {
+	border: $size solid darken($main-color, 20%);
+}
