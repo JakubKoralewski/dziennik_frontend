@@ -1,9 +1,10 @@
 <template>
 	<div id="authorized">
 		<NavBar id="nav-bar"/>
-		<AddButton @click="addButtonClick"/>
+		<AddButton @addButtonClick="addButtonClick()"/>
 		<div id="content">
 			<NavTitle id="nav-title"/>
+			<NewStudent v-if="showNewStudentDialog" @newStudentAdded="showNewStudentDialog=false"/>
 			<div id="students" v-if="students">
 				<Student
 					v-for="student of students"
@@ -21,6 +22,7 @@
 	import NavBar from '@/components/NavBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
 	import Student from '@/components/Student.vue';
+	import NewStudent from '@/components/NewStudent.vue';
 	import AddButton from '@/components/AddButton.vue';
 
 	import { mapGetters, mapActions, mapState, Computed } from 'vuex';
@@ -33,16 +35,10 @@
 	}
 
 	interface IAuthorizedMethods {
+		showNewStudentDialog: boolean;
 		loadStudents(): void;
 		addButtonClick(): void;
 	}
-	interface IAuthorizedComputed {
-		students: IStudents;
-		visibleStudents: IStudent[];
-	}
-
-	// import Search from '@/components/Search.vue';
-	// import Student from '@/components/Student.vue';
 
 	export default Vue.extend({
 		name: 'Authorized',
@@ -51,6 +47,12 @@
 			NavTitle,
 			AddButton,
 			Student,
+			NewStudent,
+		},
+		data() {
+			return {
+				showNewStudentDialog: false,
+			};
 		},
 		computed: {
 			...mapState(['students']),
@@ -67,8 +69,8 @@
 		},
 		methods: {
 			...mapActions(['loadStudents']),
-			addButtonClick: function() {
-				return;
+			addButtonClick() {
+				this.showNewStudentDialog = !this.showNewStudentDialog;
 			},
 		} as IAuthorizedMethods,
 		async mounted() {

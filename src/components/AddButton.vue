@@ -1,5 +1,5 @@
 <template>
-	<div class="add-button">
+	<div class="add-button" @click="$emit('addButtonClick')">
 		<i class="fas fa-user-plus"></i>
 	</div>
 </template>
@@ -22,6 +22,7 @@
 		right: calc(1rem + 5vmin);
 		bottom: calc(1rem + 5vmin);
 		cursor: pointer;
+		z-index: 100;
 		transition: all 100ms ease-in;
 		box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0);
 

@@ -4,7 +4,7 @@
 			<div id="name">{{ student.imie }} {{ student.nazwisko }}</div>
 			<div id="tools">
 				<i class="fas fa-edit"></i>
-				<i class="fas fa-trash-alt"></i>
+				<i class="fas fa-trash-alt" @click="deleteStudent"></i>
 			</div>
 		</div>
 		<div id="content">
@@ -23,6 +23,7 @@
 <script lang="ts">
 	import Vue from 'vue';
 	import { IStudent } from '@/interfaces';
+	import { mapActions } from 'vuex';
 
 	export default Vue.extend({
 		name: 'Student',
@@ -32,10 +33,17 @@
 				required: true,
 			},
 		},
+		methods: {
+			...mapActions({ storeDeleteStudent: 'deleteStudent' }),
+			deleteStudent() {
+				console.log(`deleting student nr. ${this.student.id}`);
+				(this as any).storeDeleteStudent(this.student.id);
+			},
+		},
 	});
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	@import '@/scss/_mixins.scss';
 	.student {
 		overflow: hidden;

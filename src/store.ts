@@ -3,10 +3,54 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import { IStudent, IStudents } from '@/interfaces';
+import { IStudent, IStudents, INewStudent } from '@/interfaces';
 
 interface IState {
 	students: IStudents;
+}
+
+interface IDeleteResponse {
+	/** The id   */
+	uczen: number;
+}
+
+function findId(students: number[]) {
+	// newId: https://i.imgur.com/JWBbOsb.png, but https://i.imgur.com/4Fvg0dv.png
+	if (students.length === 0) {
+		return 0;
+	} else if (students.length === 1) {
+		if (students[0] === 0) {
+			return 1;
+		} else {
+			return 0;
+		}
+	} else if (students.length === 2) {
+		if (students[0] > 0) {
+			// [>=1, >=2]
+			return 0;
+		} else {
+			// [0, >0]
+			if (students[1] == 1) {
+				return 2;
+			} else {
+				return 1;
+			}
+		}
+	} else {
+		for (let i = 1; i < students.length; i++) {
+			if (students[i] - students[i - 1] != 1) {
+				const firstValue = students[i - 1];
+				console.log('firstValue:', firstValue);
+				return firstValue + 1;
+			}
+		}
+		if (students[0] > 0) {
+			return 0;
+		} else {
+			return students[students.length - 1] + 1;
+		}
+	}
+	return 'ERROR';
 }
 
 export default new Vuex.Store({
@@ -24,12 +68,16 @@ export default new Vuex.Store({
 				}
 			} else if (data.hasOwnProperty('id')) {
 				console.log('Adding single student object.');
+				data.visible = true;
 				Vue.set(state.students, data.id, data);
 			} else {
 				console.error(
 					'Store `add` mutation neither array or an object containing `id` property.'
 				);
 			}
+		},
+		delete(state, id) {
+			Vue.delete(state.students, id);
 		},
 		/**
 		 *
@@ -113,6 +161,68 @@ export default new Vuex.Store({
 					newVisibility: true,
 				});
 			});
+		},
+		async addStudent({ state, commit }, newStudent: INewStudent) {
+			// Find new ID
+			const studentsIds = Object.keys(state.students)
+				.map(id => parseInt(id, 10))
+				.sort((a, b) => a - b);
+			const newId = findId(studentsIds);
+			const body = JSON.stringify(
+				Object.assign({ id: newId.toString() }, newStudent)
+			);
+			console.log('requestBody:', body);
+			return fetch(`api/uczniowie.php`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Credentials': 'true',
+				},
+				body,
+			})
+				.then(response => {
+					if (response.ok !== true) {
+						console.error('Nie udało się dodać ucznia.');
+					} else {
+						return response.json();
+					}
+				})
+				.then(data => {
+					console.log(`commit('add',`, data, `);`);
+					commit('add', data.uczen);
+					console.log('state.students', state.students);
+					return state.students;
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+		async deleteStudent({ state, commit }, id) {
+			return fetch(`api/uczniowie.php`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Credentials': 'true',
+				},
+				body: JSON.stringify({ id }),
+			})
+				.then(response => {
+					if (response.ok !== true) {
+						console.error('Nie udało się usunąć ucznia.');
+					}
+					return response.json() as Promise<IDeleteResponse>;
+				})
+				.then(data => {
+					console.log(`commit('add',`, data, `);`);
+					commit('delete', data.uczen);
+					console.log('state.students', state.students);
+					return state.students;
+				})
+				.catch(error => {
+					console.error(error);
+				});
 		},
 	},
 	getters: {},

@@ -7,6 +7,14 @@ export interface IStudent {
 	visible?: boolean;
 }
 
+export interface INewStudent {
+	imie: string;
+	nazwisko: string;
+	klasa: string;
+	telefon: string;
+	[key: string]: string;
+}
+
 export interface IStudents {
 	[index: number]: IStudent;
 }
