@@ -3,9 +3,9 @@
 		<NavBar id="nav-bar"/>
 		<div id="content">
 			<NavTitle id="nav-title"/>
-			<div id="students" v-if="studentsLoaded">
+			<div id="students" v-if="visibleStudents">
 				<!-- 				<transition-group name="transition-move" tag="div"> -->
-				<div class="student" v-for="student of Object.values(students)" :key="student.id">
+				<div class="student" v-for="student of visibleStudents" :key="student.id">
 					<div id="header">
 						<div id="name">{{ student.imie }} {{ student.nazwisko }}</div>
 						<div id="tools">
@@ -35,7 +35,14 @@
 	import NavBar from '@/components/NavBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
 
-	import { mapGetters } from 'vuex';
+	import { mapGetters, mapActions, mapState } from 'vuex';
+	import { IStudent, IStudents } from '@/interfaces';
+
+	interface IAuthorizedData {
+		students: IStudent[];
+		studentsLoaded: boolean;
+		loadStudents: Promise<any>;
+	}
 
 	// import Search from '@/components/Search.vue';
 	// import Student from '@/components/Student.vue';
@@ -45,24 +52,24 @@
 		components: {
 			NavBar,
 			NavTitle,
-			// Search,
-			// Student,
-		},
-		data() {
-			return {
-				students: [],
-				studentsLoaded: false,
-			};
 		},
 		computed: {
-			...mapGetters(['getStudents']),
+			...mapState(['students']),
+			visibleStudents: function() {
+				const students: IStudent[] = Object.values(this.students);
+				console.groupCollapsed('visibleStudents');
+				console.log('students: ', students);
+				console.groupEnd();
+				return students.filter((student: IStudent) => {
+					return student.visible;
+				});
+			},
+		},
+		methods: {
+			...mapActions(['loadStudents']),
 		},
 		async mounted() {
-			this.getStudents.then((data: object[]) => {
-				this.students = data;
-				this.studentsLoaded = true;
-				console.log('this.students:', this.students);
-			});
+			await this.loadStudents();
 		},
 	});
 </script>
@@ -232,7 +239,6 @@
 
 			background-color: lighten($main-color, 2%);
 
-			width: 100%;
 			height: calc(1vmin + 2rem);
 		}
 	}

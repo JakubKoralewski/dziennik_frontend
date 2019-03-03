@@ -22,6 +22,7 @@
 		"object-literal-sort-keys": false,
 		"no-consecutive-blank-lines": [true, 2],
 		"triple-equals": false,
+		"object-literal-shorthand": false,
 
 		"quotemark": [true, "single"],
 		"indent": [true, "tabs", 4],
