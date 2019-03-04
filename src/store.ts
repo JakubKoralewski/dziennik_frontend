@@ -4,6 +4,8 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 import { IStudent, IStudents, INewStudent } from '@/interfaces';
+import { API_URL } from '@/config';
+
 
 interface IState {
 	students: IStudents;
@@ -104,7 +106,7 @@ export default new Vuex.Store({
 	},
 	actions: {
 		async loadStudents({ state, commit }) {
-			return fetch(`api/uczniowie.php`, {
+			return fetch(`${API_URL}api/uczniowie.php`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json; charset=UTF-8',
@@ -176,7 +178,7 @@ export default new Vuex.Store({
 				Object.assign({ id: newId.toString() }, newStudent)
 			);
 			console.log('requestBody:', body);
-			return fetch(`api/uczniowie.php`, {
+			return fetch(`${API_URL}api/uczniowie.php`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json; charset=UTF-8',
@@ -203,7 +205,7 @@ export default new Vuex.Store({
 				});
 		},
 		async deleteStudent({ state, commit }, id) {
-			return fetch(`api/uczniowie.php`, {
+			return fetch(`${API_URL}api/uczniowie.php`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json; charset=UTF-8',

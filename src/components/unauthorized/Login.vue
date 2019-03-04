@@ -24,6 +24,7 @@
 <script lang="ts">
 	/* import MuggleCaptcha from '@/components/MuggleCaptcha.vue'; */
 	import Vue from 'vue';
+	import { API_URL } from '@/config';
 
 	export default Vue.extend({
 		name: 'Login',
@@ -96,7 +97,7 @@
 					return;
 				}
 				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
-				fetch(`api/login.php`, {
+				fetch(`${API_URL}api/login.php`, {
 					method: 'POST',
 					body: JSON.stringify({ login: this.login, haslo: this.haslo }),
 					headers: {
