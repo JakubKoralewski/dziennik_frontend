@@ -135,10 +135,14 @@ export default new Vuex.Store({
 			searchText = searchText.toLowerCase();
 			Object.values(state.students).forEach((student: IStudent) => {
 				console.log('student', student);
-				for (const property of Object.values(student)) {
+				for (let property of Object.values(student)) {
 					if (typeof property === 'boolean') {
 						continue;
-					} else if (property.toLowerCase().includes(searchText)) {
+					} else if (!isNaN(property)) {
+						property = (property as number).toString();
+					} else if (
+						(property as string).toLowerCase().includes(searchText)
+					) {
 						commit('changeVisibility', {
 							id: student.id,
 							newVisibility: true,
