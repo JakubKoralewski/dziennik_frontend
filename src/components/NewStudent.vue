@@ -87,19 +87,40 @@
 </script>
 
 <style lang="scss">
+	@mixin new-student-padding {
+		padding: 0 2rem;
+	}
 	div.new-student.student {
-		z-index: 20;
+		z-index: 101;
 		position: absolute;
-		width: calc(10rem + 50vw);
+		width: calc(10rem + 40vw);
 		height: calc(10rem + 30vh);
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
 
+		input {
+			width: calc(30% + 10vmin);
+		}
+
+		#header {
+			height: 8rem;
+			#name {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				justify-content: space-evenly;
+			}
+			@include new-student-padding();
+		}
+
 		#content {
 			height: 100%;
 			display: flex;
 			flex-direction: column;
+			@include new-student-padding();
+			padding-top: 2rem;
 
 			#checkmark {
 				margin: 2rem;
