@@ -30,8 +30,10 @@
 		padding: 2rem calc(2rem + 5vw);
 		font-weight: 400;
 		font-size: 2rem;
-		.search {
-			margin-left: auto;
+		// flex-wrap: wrap;
+		justify-content: space-between;
+		@media screen and (max-width: 600px) {
+			flex-direction: column;
 		}
 	}
 </style>

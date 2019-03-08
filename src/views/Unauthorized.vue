@@ -1,5 +1,5 @@
 <!-- Will have a prompt to Login. -->
-<!-- Will not have a navbar. -->
+<!-- Will not have a SideBar. -->
 
 <template>
 	<div class="unauthorized">

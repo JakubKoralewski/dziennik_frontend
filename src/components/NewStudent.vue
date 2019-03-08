@@ -81,7 +81,6 @@
 				}
 				this.$emit('newStudentAdded');
 				const response = await (this as any).addStudent(this.newStudent);
-				
 			},
 		},
 	});

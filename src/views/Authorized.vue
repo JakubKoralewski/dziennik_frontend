@@ -1,6 +1,6 @@
 <template>
 	<div id="authorized">
-		<NavBar id="nav-bar"/>
+		<SideBar id="nav-bar"/>
 		<AddButton @addButtonClick="addButtonClick()"/>
 		<div id="content">
 			<NavTitle id="nav-title"/>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 	import Vue from 'vue';
-	import NavBar from '@/components/NavBar.vue';
+	import SideBar from '@/components/SideBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
 	import Student from '@/components/Student.vue';
 	import NewStudent from '@/components/NewStudent.vue';
@@ -43,7 +43,7 @@
 	export default Vue.extend({
 		name: 'Authorized',
 		components: {
-			NavBar,
+			SideBar,
 			NavTitle,
 			AddButton,
 			Student,
@@ -67,6 +67,9 @@
 				});
 			},
 		},
+		beforeMount() {
+			console.log(screen.width);
+		},
 		methods: {
 			...mapActions(['loadStudents']),
 			addButtonClick() {
@@ -78,13 +81,6 @@
 		},
 	});
 </script>
-
-<style lang="scss">
-	// body {
-	// 	overflow-x: hidden;
-	// 	overflow-y: scroll;
-	// }
-</style>
 
 <style lang="scss" scoped>
 	@import '@/scss/_mixins.scss';
@@ -98,7 +94,7 @@
 		// flex-flow: wrap;
 		background-color: $main-color;
 
-		$navbar-width: calc(3rem + 10vw);
+		$SideBar-width: calc(3rem + 10vw);
 
 		#content {
 			height: 100%;
@@ -124,8 +120,8 @@
 			border-right-width: 1px;
 			background-color: lighten($main-color, 2%);
 
-			width: $navbar-width;
-			// flex-basis: $navbar-width;
+			width: $SideBar-width;
+			// flex-basis: $SideBar-width;
 			// height: 100vh; // with this too short
 			order: 0;
 		}
@@ -138,7 +134,7 @@
 
 			background-color: lighten($main-color, 2%);
 
-			height: calc(1vmin + 2rem);
+			// height: calc(1vmin + 2rem);
 		}
 	}
 </style>

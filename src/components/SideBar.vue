@@ -1,7 +1,7 @@
 <template>
-	<div class="nav" :class="{'navbar-hidden': !navBarVisible}">
+	<div class="nav" :class="{'SideBar-hidden': !SideBarVisible}">
 		<div id="hide">
-			<i class="fas fa-arrow-left" @click="navBarToggle()" :class="{'navbar-hidden': !navBarVisible}"></i>
+			<i class="fas fa-arrow-left" @click="SideBarToggle()" :class="{'SideBar-hidden': !SideBarVisible}"></i>
 		</div>
 		<div id="o-mnie">O mnie</div>
 		<div id="szkola">Szkoła</div>
@@ -15,34 +15,34 @@
 		elements: {
 			[name: string]: HTMLElement;
 		};
-		navBarVisible: boolean;
+		SideBarVisible: boolean;
 	}
 
 	/** Below this value, by default, the sidebar will be hidden.  */
 	const MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR = 800;
 
 	export default Vue.extend({
-		name: 'NavBar',
+		name: 'SideBar',
 		data() {
 			return {
 				elements: {},
-				navBarVisible: true,
+				SideBarVisible: true,
 			} as IData;
 		},
 		beforeMount() {
 			if (screen.width < MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR) {
-				this.navBarVisible = false;
+				this.SideBarVisible = false;
 			}
 		},
 		mounted() {
 			const elements = {
-				navBar: document.querySelector('div.nav'),
+				SideBar: document.querySelector('div.nav'),
 			};
 			this.elements = Object.assign(this.elements, elements);
 		},
 		methods: {
-			navBarToggle(el: HTMLElement, event: Event) {
-				this.navBarVisible = !this.navBarVisible;
+			SideBarToggle(el: HTMLElement, event: Event) {
+				this.SideBarVisible = !this.SideBarVisible;
 			},
 			showArrow(el: HTMLElement) {
 				console.log(el);
@@ -63,7 +63,7 @@
 		transition: all 0.2s ease-out;
 		transition-property: width, padding;
 
-		&.navbar-hidden {
+		&.SideBar-hidden {
 			width: 0px !important;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
@@ -109,7 +109,7 @@
 				transition: all 0.2s ease-out;
 				transition-property: left, transform, opacity;
 
-				&.navbar-hidden {
+				&.SideBar-hidden {
 					position: absolute;
 					left: calc(0.5rem + 1vmin);
 					transform: rotate(180deg);

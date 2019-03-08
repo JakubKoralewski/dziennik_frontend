@@ -16,6 +16,7 @@
 
 	interface ISearchData {
 		searchText: string;
+		// searchElement?: HTMLElement;
 		searchStudents(searchText: string): string;
 		showAllStudents(): void;
 	}
@@ -27,6 +28,9 @@
 				searchText: '',
 			} as ISearchData;
 		},
+		// mounted() {
+		// 	this.searchElement = document.querySelector('.search');
+		// },
 		methods: {
 			...mapActions(['searchStudents', 'showAllStudents']),
 			inputChanged: function() {
@@ -44,7 +48,7 @@
 	div.search {
 		input[type='text'] {
 			box-sizing: border-box;
-			height: 100%;
+			height: calc(2rem + 1.5vw);
 			border-width: 0px;
 			border-radius: 2rem;
 			border-style: solid;
@@ -52,7 +56,7 @@
 			color: darken(darkgray, 50%);
 			background-color: transparentize(gray, 0.8);
 			padding: 1rem 2rem;
-			width: calc(20rem + 5vw);
+			width: calc(10rem + 20vw);
 
 			&:focus {
 				outline: none;
