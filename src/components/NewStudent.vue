@@ -88,13 +88,13 @@
 
 <style lang="scss">
 	div.new-student.student {
+		z-index: 20;
 		position: absolute;
-		width: calc(100px + 50vw);
-		height: calc(100px + 30vh);
-		left: 0;
-		right: 0;
-		margin-left: auto;
-		margin-right: auto;
+		width: calc(10rem + 50vw);
+		height: calc(10rem + 30vh);
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 
 		#content {
 			height: 100%;
