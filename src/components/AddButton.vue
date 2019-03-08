@@ -16,25 +16,56 @@
 	.add-button {
 		border-radius: 100%;
 		background-color: lighten(red, 10%);
-		padding: 2rem;
+		padding: calc(1rem + 2vmin);
 		color: white;
 		position: fixed;
-		right: calc(1rem + 5vmin);
+		right: calc(0.1rem + 5vw);
 		bottom: calc(1rem + 5vmin);
 		cursor: pointer;
 		z-index: 100;
 		transition: all 100ms ease-in;
 		box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0);
 
-		font-size: 2rem;
+		font-size: calc(1.1rem + 1.7vw);
+
+		&.add-dialog-visible {
+			animation-name: rotateAddButton;
+			animation-duration: 500ms;
+			animation-timing-function: ease-in;
+			color: black !important;
+			background-color: white !important;
+		}
+
+		&.add-dialog-visible,
+		&:hover {
+			box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0.4);
+		}
+
+		@media screen and (max-width: 600px) {
+			// bottom: auto;
+			// top: calc(1rem + 5vmin);
+			// position: sticky;
+		}
+
 		&:hover {
 			transition: transform 100ms ease-in, box-shadow 300ms ease-out;
 			transform: scale(1.01);
-			box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0.4);
 		}
 		&:active {
 			transform: scale(0.95);
 			transition-duration: 50ms;
+		}
+	}
+
+	@keyframes rotateAddButton {
+		0% {
+			transform: rotate3d(0, 0, 0, 0deg) !important;
+		}
+		50% {
+			transform: rotate3d(0, -1, 0, 180deg) !important;
+		}
+		100% {
+			transform: rotate3d(0, 0, 0, 0deg) !important;
 		}
 	}
 </style>
