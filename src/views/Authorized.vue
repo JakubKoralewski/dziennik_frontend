@@ -1,17 +1,34 @@
 <template>
 	<div id="authorized">
-		<SideBar id="nav-bar"/>
-		<AddButton @addButtonClick="addButtonClick()"/>
-		<div id="content">
-			<NavTitle id="nav-title"/>
-			<NewStudent v-if="showNewStudentDialog" @newStudentAdded="showNewStudentDialog=false"/>
-			<div id="students" v-if="students">
-				<Student
-					v-for="student of students"
-					:key="student.id"
-					:class="{'invisible': !student.visible}"
-					:student="student"
-				/>
+		<NewStudent
+			v-if="showNewStudentDialog"
+			@newStudentAdded="showNewStudentDialog=false"
+			id="new-student"
+		/>
+		<AddButton
+			@addButtonClick="addButtonClick()"
+			:class="{'add-dialog-visible': showNewStudentDialog}"
+			id="add-button"
+		/>
+		<div
+			:class="{'visible': showNewStudentDialog, 'actually-hidden': coverActuallyHidden}"
+			id="cover"
+			@click="coverClick()"
+		/>
+		<div class="blur-container" :class="{'add-dialog-visible': showNewStudentDialog}">
+			<SideBar id="nav-bar"/>
+
+			<div id="content">
+				<NavTitle id="nav-title"/>
+
+				<div id="students" v-if="students">
+					<Student
+						v-for="student of students"
+						:key="student.id"
+						:class="{'invisible': !student.visible}"
+						:student="student"
+					/>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -29,15 +46,16 @@
 	import { IStudent, IStudents } from '@/interfaces';
 
 	interface IAuthorizedData {
-		students: IStudent[];
-		studentsLoaded: boolean;
-		loadStudents: Promise<any>;
+		showNewStudentDialog: boolean;
+		coverActuallyHidden?: boolean;
 	}
 
 	interface IAuthorizedMethods {
 		showNewStudentDialog: boolean;
-		loadStudents(): void;
+		// loadStudents(): void;
 		addButtonClick(): void;
+		toggleNewStudentDialog(): void;
+		coverClick(): void;
 	}
 
 	export default Vue.extend({
@@ -52,7 +70,8 @@
 		data() {
 			return {
 				showNewStudentDialog: false,
-			};
+				coverActuallyHidden: true,
+			} as IAuthorizedData;
 		},
 		computed: {
 			...mapState(['students']),
@@ -72,12 +91,28 @@
 		},
 		methods: {
 			...mapActions(['loadStudents']),
-			addButtonClick() {
+			toggleNewStudentDialog() {
+				/* If making NewStudentDialog appear show cover. */
+				if (this.showNewStudentDialog === false)
+					this.coverActuallyHidden = false;
 				this.showNewStudentDialog = !this.showNewStudentDialog;
 			},
-		} as IAuthorizedMethods,
+			addButtonClick() {
+				this.toggleNewStudentDialog();
+			},
+			coverClick() {
+				console.log('coverClick');
+				this.toggleNewStudentDialog();
+				/* If making NewStudentDialog disappear set cover to disappear after timeout. */
+				if (this.showNewStudentDialog === false)
+					setTimeout(() => {
+						console.log('running setTimeout');
+						this.coverActuallyHidden = true;
+					}, 100);
+			},
+		},
 		async mounted() {
-			await this.loadStudents();
+			await (this as any).loadStudents();
 		},
 	});
 </script>
@@ -88,13 +123,24 @@
 	@import '@/scss/wiggle.scss';
 
 	#authorized {
-		display: flex;
-		flex-direction: row;
-		flex: auto;
-		// flex-flow: wrap;
-		background-color: $main-color;
-
 		$SideBar-width: calc(3rem + 10vw);
+
+		#new-student {
+		}
+
+		.blur-container {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			flex: auto;
+			// flex-flow: wrap;
+			background-color: $main-color;
+
+			&.add-dialog-visible:not(#add-button):not(#new-student) {
+				filter: blur(1px);
+			}
+		}
 
 		#content {
 			height: 100%;
@@ -110,6 +156,29 @@
 
 				flex-direction: row;
 				flex-wrap: wrap;
+			}
+		}
+
+		div#cover {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			left: 0;
+			top: 0;
+			opacity: 0;
+			z-index: 10;
+			pointer-events: none;
+			background-color: black;
+			transition: opacity 300ms;
+
+			&.actually-hidden {
+				visibility: hidden !important;
+			}
+
+			&.visible {
+				visibility: visible;
+				opacity: 0.5;
+				pointer-events: all;
 			}
 		}
 
