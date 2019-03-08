@@ -8,6 +8,9 @@
 	/* 	"editor.codeActionsOnSave": {
 			"source.fixAll.tslint": true
 		}, */
+	"[html]": {
+		"prettier.printWidth": 200
+	},
 	"editor.formatOnSave": true,
 	"prettier.tslintIntegration": true,
 	"editor.detectIndentation": false,

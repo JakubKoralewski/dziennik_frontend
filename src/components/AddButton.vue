@@ -26,7 +26,7 @@
 		transition: all 100ms ease-in;
 		box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0);
 
-		font-size: calc(1.1rem + 1.7vw);
+		font-size: calc(1.1rem + 3vmin);
 
 		&.add-dialog-visible {
 			animation-name: rotateAddButton;

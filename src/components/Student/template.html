@@ -1,0 +1,29 @@
+<div class="student" :class="{'edit-mode-active': editMode}">
+	<div id="header">
+		<div id="name">
+			<span id="imie" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off" autocapitalize="off"
+			 spellcheck="false" title="Imię" v-html="someText">{{ student.imie }}</span>
+			<span id="nazwisko" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off"
+			 autocapitalize="off" spellcheck="false" title="Nazwisko">{{ student.nazwisko }}</span>
+		</div>
+		<div id="tools">
+			<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
+				<i class="fas fa-times" id="edit-cancel" title="Anuluj edycję" @click="cancelEdit"></i>
+				<i class="fas fa-check" id="edit-save" title="Zapisz edycję" @click="saveEdit"></i>
+			</div>
+			<i class="fas fa-edit" @click="toggleEditMode" :class="{'edit-mode-active': editMode}" title="Edytuj"></i>
+
+			<i class="fas fa-trash-alt" @click="deleteStudent" title="Usuń"></i>
+		</div>
+	</div>
+	<div id="content">
+		<div>
+			Klasa:
+			<span class="info" id="klasa" :contenteditable="editMode" @blur="editAnyText">{{student.klasa}}</span>
+		</div>
+		<div>
+			Telefon:
+			<span class="info" id="telefon" :contenteditable="editMode" @blur="editAnyText">{{student.telefon}}</span>
+		</div>
+	</div>
+</div>

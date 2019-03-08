@@ -6,7 +6,6 @@ Vue.use(Vuex);
 import { IStudent, IStudents, INewStudent } from '@/interfaces';
 import { API_URL } from '@/config';
 
-
 interface IState {
 	students: IStudents;
 }

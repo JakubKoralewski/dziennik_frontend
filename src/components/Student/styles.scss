@@ -1,0 +1,197 @@
+@import '@/scss/_mixins.scss';
+@import '@/scss/wiggle.scss';
+@import '@/scss/editModeHighlightAnim.scss';
+
+.student {
+	overflow: hidden;
+	/* width: 25%; */
+	// height: 25%; // makes elements unnaturally shrink when height very small
+
+	// flex-basis: 25%;
+	max-width: calc(61.8% + 6.18rem); // golden ratio
+
+	border-radius: 1rem;
+	$student-bg-color: lighten($main-color, 2%);
+	background-color: $student-bg-color;
+	flex-grow: 1;
+	margin-right: $students-left-padding;
+	margin-bottom: $students-top-padding;
+	@include nav-shadow;
+	display: flex;
+	flex-direction: column;
+	transition: opacity 0.25s ease-in-out;
+
+	/* On Edit Mode active somehow make it visible that these elements are editable. */
+	#imie,
+	#nazwisko,
+	#klasa,
+	#telefon {
+		cursor: default;
+	}
+
+	&.edit-mode-active {
+
+		#imie,
+		#nazwisko,
+		#klasa,
+		#telefon {
+			cursor: text;
+			position: relative;
+			padding: 0.2rem 0.5rem;
+			background-color: lighten($student-bg-color, 0.5%);
+
+			&:after {
+				$borderWidth: 1px;
+
+				content: '';
+				position: absolute;
+				top: calc(-1 * #{$borderWidth});
+				left: calc(-1 * #{$borderWidth});
+				height: calc(100% + #{$borderWidth} * 2);
+				width: calc(100% + #{$borderWidth} * 2);
+				background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab,
+					#5073b8, #1098ad, #07b39b, #6fba82);
+				border-radius: calc(2 * #{$borderWidth});
+				z-index: -1;
+				animation: editModeHighlightAnim 3s ease alternate infinite;
+				background-size: 300% 300%;
+			}
+		}
+
+	}
+
+	&.invisible {
+		opacity: 0;
+		// display: none;
+	}
+
+	#content {
+		box-sizing: border-box;
+		padding: 1rem;
+		font-weight: 300;
+
+		.info {
+			font-weight: 400;
+		}
+	}
+
+	#header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		width: auto;
+		padding: calc(0.5rem + 1vh) calc(0.5rem + 1vw);
+		background-color: darken($student-bg-color, 2%);
+		// background-color: lightblue;
+		// border-bottom-right-radius: 0.5rem;
+		// border-bottom-left-radius: 0.5rem;
+		border-style: solid;
+		border-width: 0px;
+		border-bottom-width: 1px;
+		border-color: transparentize(black, 0.9);
+
+		// height: calc(1rem + 1vh);
+		// height: 50rem;
+
+		#name {
+			text-align: center;
+			line-height: 100%;
+			height: 100%;
+			font-weight: 500;
+			word-break: break-word;
+			// display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 0.25rem;
+
+			#imie {
+				margin-right: 0.25rem;
+			}
+		}
+
+		#tools {
+			margin-left: auto;
+			// background-color: darken($main-color, 2%);
+			padding: 0.1rem;
+			border-radius: 0.1rem;
+			display: flex;
+			align-items: center;
+			overflow: hidden;
+
+			div#edit-mode-tools {
+				font-size: 1.5rem;
+				border-radius: 1rem;
+				background-color: lighten($student-bg-color, 1%);
+				padding: 0.5rem 1rem;
+				transform: translateX(4vw);
+				opacity: 0;
+				pointer-events: none;
+
+				display: flex;
+				width: calc(2.5rem + 2vw);
+				justify-content: space-between;
+
+				transition: transform 200ms ease-out, opacity 150ms ease-out;
+
+				#edit-save {
+					color: lighten(green, 20%);
+				}
+
+				#edit-cancel {
+					color: red;
+					/* Widen the X a bit, make it easier to hit.  */
+					padding: 0 2px;
+				}
+
+				&.edit-mode-active {
+					pointer-events: all;
+					opacity: 1;
+					transform: translateX(2vw);
+				}
+			}
+
+			i {
+
+				&.fa-edit,
+				&.fa-trash-alt {
+					margin-left: 1vw;
+
+					&:active {
+						transition: font-size 100ms ease-in;
+						font-size: 1.1rem;
+					}
+
+					&:hover {
+						animation-name: wiggle;
+						animation-duration: 800ms;
+						animation-iteration-count: infinite;
+						animation-timing-function: ease-in-out;
+
+						&.fa-trash-alt {
+							color: lighten(red, 20%);
+						}
+					}
+				}
+
+				&.fa-edit {
+					&.edit-mode-active {
+						opacity: 0;
+						pointer-events: none;
+					}
+
+					transition: opacity 200ms ease-out;
+				}
+
+				cursor: pointer;
+				transition: all 0.25s ease-in-out;
+				transition-property: color,
+				transform;
+				transform-origin: center center;
+
+				&.fa-edit:hover,
+				&.fa-edit.edit-mode-active {
+					color: lighten(blue, 20%);
+				}
+			}
+		}
+	}
+}

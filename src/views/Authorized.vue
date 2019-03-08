@@ -26,7 +26,7 @@
 						v-for="student of students"
 						:key="student.id"
 						:class="{'invisible': !student.visible}"
-						:student="student"
+						:initial-student="student"
 					/>
 				</div>
 			</div>
@@ -38,6 +38,7 @@
 	import Vue from 'vue';
 	import SideBar from '@/components/SideBar.vue';
 	import NavTitle from '@/components/NavTitle.vue';
+	// @ts-ignore https://github.com/vuejs/vue-cli/issues/1104
 	import Student from '@/components/Student.vue';
 	import NewStudent from '@/components/NewStudent.vue';
 	import AddButton from '@/components/AddButton.vue';
@@ -93,8 +94,9 @@
 			...mapActions(['loadStudents']),
 			toggleNewStudentDialog() {
 				/* If making NewStudentDialog appear show cover. */
-				if (this.showNewStudentDialog === false)
+				if (this.showNewStudentDialog === false) {
 					this.coverActuallyHidden = false;
+				}
 				this.showNewStudentDialog = !this.showNewStudentDialog;
 			},
 			addButtonClick() {
@@ -104,11 +106,12 @@
 				console.log('coverClick');
 				this.toggleNewStudentDialog();
 				/* If making NewStudentDialog disappear set cover to disappear after timeout. */
-				if (this.showNewStudentDialog === false)
+				if (this.showNewStudentDialog === false) {
 					setTimeout(() => {
 						console.log('running setTimeout');
 						this.coverActuallyHidden = true;
 					}, 100);
+				}
 			},
 		},
 		async mounted() {
