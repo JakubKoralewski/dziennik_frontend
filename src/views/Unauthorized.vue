@@ -90,8 +90,8 @@
 
 	.login {
 		background-color: white;
-		width: calc(100vw - 61vw);
+		width: calc(20vw + 15rem);
 		height: 360px;
-		margin-top: -20vh;
+		margin-top: -10vh;
 	}
 </style>
