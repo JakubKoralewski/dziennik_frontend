@@ -18,6 +18,9 @@
 		navBarVisible: boolean;
 	}
 
+	/** Below this value, by default, the sidebar will be hidden.  */
+	const MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR = 800;
+
 	export default Vue.extend({
 		name: 'NavBar',
 		data() {
@@ -25,6 +28,11 @@
 				elements: {},
 				navBarVisible: true,
 			} as IData;
+		},
+		beforeMount() {
+			if (screen.width < MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR) {
+				this.navBarVisible = false;
+			}
 		},
 		mounted() {
 			const elements = {
