@@ -10,8 +10,8 @@
   # Default build command.
   command = "NODE_ENV=production npm run build"
 
-[context]
-  NODE_ENV = "11.9.0"
+[context.production]
+  environment = { NODE_VERSION = "11.9.0" }
 
 
 # The following redirect is intended for use with most SPAs that handle
