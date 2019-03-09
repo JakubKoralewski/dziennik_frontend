@@ -28,12 +28,19 @@
 
 <script lang="ts">
 	import Vue from 'vue';
-	import { IStudent, INewStudent, IStudentsPropertiesRequiringValidation } from '@/interfaces';
+	import {
+		IStudent,
+		INewStudent,
+		IStudentsPropertiesRequiringValidation,
+	} from '@/interfaces';
 	import { mapActions } from 'vuex';
 	import propertiesValid from '@/mixins/propertiesValid';
 
 	interface INewStudentThis {
-		propertiesValid(student: IStudentsPropertiesRequiringValidation): boolean;
+		propertiesValid(
+			student: IStudentsPropertiesRequiringValidation,
+			shouldCreateAlerts?: boolean
+		): boolean;
 	}
 
 	export default Vue.extend({
@@ -47,12 +54,34 @@
 					klasa: '',
 					telefon: '',
 				} as INewStudent,
+				allPropertiesValid: false,
 			};
+		},
+		watch: {
+			newStudent: {
+				handler(oldValue, newValue) {
+					this.allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
+						this.newStudent,
+						false
+					);
+					const checkmarkColor = this.allPropertiesValid
+						? 'rgb(12, 237, 0)'
+						: 'red';
+					this.$el.setAttribute(
+						'style',
+						`--new-student-checkmark-color: ${checkmarkColor}`
+					);
+					console.log(this.$el);
+				},
+				deep: true,
+			},
 		},
 		methods: {
 			...mapActions(['addStudent']),
 			async addUser() {
-				const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(this.newStudent);
+				const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
+					this.newStudent
+				);
 				if (!allPropertiesValid) {
 					return;
 				}
@@ -75,9 +104,11 @@
 		left: 50%;
 		top: 50%;
 		transform: translate(-50%, -50%);
+		--new-student-checkmark-color: black;
 
 		input {
 			width: calc(30% + 10vmin);
+			cursor: text !important;
 		}
 
 		#header {
@@ -107,9 +138,7 @@
 				cursor: pointer;
 				transition: color 200ms ease-out;
 
-				&:hover {
-					color: red;
-				}
+				color: var(--new-student-checkmark-color);
 				i {
 					font-size: 2rem;
 				}

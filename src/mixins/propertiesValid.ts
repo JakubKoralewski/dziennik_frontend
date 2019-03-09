@@ -22,7 +22,8 @@ export default {
 		 *  Returns true if all properties valid else false.
 		 */
 		propertiesValid(
-			student: IStudentsPropertiesRequiringValidation
+			student: IStudentsPropertiesRequiringValidation,
+			shouldCreateAlerts: boolean = true
 		): boolean {
 			let foundInvalidInput = false;
 			for (const key of Object.keys(student)) {
@@ -30,12 +31,18 @@ export default {
 				if (!!value == false) {
 					// TODO: alert component
 					foundInvalidInput = true;
-					alert(`${studentProperties[key]} niepoprawne.`);
+					if (shouldCreateAlerts) {
+						alert(`${studentProperties[key]} niepoprawne.`);
+					}
 					break;
 				}
 				if (key === 'telefon' && isNaN(value as any)) {
 					foundInvalidInput = true;
-					alert(`${studentProperties[key]} powinien być numerem.`);
+					if (shouldCreateAlerts) {
+						alert(
+							`${studentProperties[key]} powinien być numerem.`
+						);
+					}
 					break;
 				}
 			}
