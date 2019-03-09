@@ -4,7 +4,7 @@
 <template>
 	<div class="unauthorized">
 		<div id="cover"/>
-		<img class="bg noselect" src="@/assets/hogwarts.jpg" unselectable="on" draggable="false">
+		<img class="bg noselect" src="hogwarts.jpg" unselectable="on" draggable="false">
 		<login class="login" prop-logo="logo.png" name="Harwart"/>
 	</div>
 </template>
