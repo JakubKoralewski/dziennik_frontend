@@ -2,7 +2,8 @@
 	<div class="new-student student">
 		<div id="header">
 			<div id="name">
-				<input type="text" id="imie" placeholder="Imię" v-model="newStudent.imie">
+				<!-- FIXME: autofocus works first time, but then doesn't -->
+				<input type="text" id="imie" placeholder="Imię" v-model="newStudent.imie" autofocus>
 				<input type="text" id="nazwisko" placeholder="Nazwisko" v-model="newStudent.nazwisko">
 			</div>
 		</div>
