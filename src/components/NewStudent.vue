@@ -28,26 +28,17 @@
 
 <script lang="ts">
 	import Vue from 'vue';
-	import { IStudent, INewStudent } from '@/interfaces';
+	import { IStudent, INewStudent, IStudentsPropertiesRequiringValidation } from '@/interfaces';
 	import { mapActions } from 'vuex';
+	import propertiesValid from '@/mixins/propertiesValid';
 
-	const studentProperties = {
-		imie: 'Imię',
-		nazwisko: 'Nazwisko',
-		klasa: 'Klasa',
-		telefon: 'Telefon',
-	} as IStudentProperties;
-
-	interface IStudentProperties {
-		imie: string;
-		nazwisko: string;
-		klasa: string;
-		telefon: string;
-		[key: string]: string;
+	interface INewStudentThis {
+		propertiesValid(student: IStudentsPropertiesRequiringValidation): boolean;
 	}
 
 	export default Vue.extend({
 		name: 'NewStudent',
+		mixins: [propertiesValid],
 		data() {
 			return {
 				newStudent: {
@@ -61,23 +52,8 @@
 		methods: {
 			...mapActions(['addStudent']),
 			async addUser() {
-				let foundInvalidInput = false;
-				// TODO: make this a function so it can be used from the edit panel to check whether new data is gut
-				for (const key of Object.keys(this.newStudent)) {
-					const value = this.newStudent[key];
-					if (!!value == false) {
-						// TODO: alert component
-						foundInvalidInput = true;
-						alert(`${studentProperties[key]} niepoprawne.`);
-						break;
-					}
-					if (key === 'telefon' && isNaN(value as any)) {
-						foundInvalidInput = true;
-						alert(`${studentProperties[key]} powinien być numerem.`);
-						break;
-					}
-				}
-				if (foundInvalidInput) {
+				const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(this.newStudent);
+				if (!allPropertiesValid) {
 					return;
 				}
 				this.$emit('newStudentAdded');

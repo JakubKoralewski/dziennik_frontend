@@ -1,7 +1,8 @@
 import Vue from 'vue';
 // import { IStudent } from '@/interfaces';
 import { mapActions } from 'vuex';
-import { IStudent } from '@/interfaces';
+import { IStudent, IStudentsPropertiesRequiringValidation } from '@/interfaces';
+import propertiesValid from '@/mixins/propertiesValid';
 
 // class Student implements IStudent {
 // 	constructor(public id: number, public imie: string,
@@ -20,10 +21,12 @@ interface IStudentData {
 	editMode: boolean;
 	backup: IStudent | {};
 	student: IStudent;
+	propertiesValid(student: IStudentsPropertiesRequiringValidation): boolean;
 }
 
 export default Vue.extend({
 	name: 'Student',
+	mixins: [propertiesValid],
 	props: {
 		initialStudent: {
 			type: Object,
@@ -93,7 +96,10 @@ export default Vue.extend({
 			}
 			if (!foundAnyNewProperties) {
 				alert('Żadna wartość nie została zmieniona.');
-				this.editMode = false;
+				return;
+			}
+			const allPropertiesValid = this.propertiesValid(new_properties);
+			if (!allPropertiesValid) {
 				return;
 			}
 			console.log(`Found new properties!`, new_properties);
@@ -104,6 +110,8 @@ export default Vue.extend({
 			});
 
 			this.editMode = false;
+
+			console.log('editResponse', editResponse);
 		},
 		editAnyText(event: IEditEvent) {
 			/* Content editable structure taken straight from here:
