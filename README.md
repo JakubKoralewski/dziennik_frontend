@@ -4,6 +4,11 @@
 
 [![](https://i.imgur.com/oHurykc.png)](https://streamable.com/diqab)
 
+#### Credentials:
+```
+Login: 'admin',
+Password: 'admin'
+```
 ## Project setup
 
 ```

@@ -1,6 +1,7 @@
 import Vue from 'vue';
 // import { IStudent } from '@/interfaces';
 import { mapActions } from 'vuex';
+import { IStudent } from '@/interfaces';
 
 // class Student implements IStudent {
 // 	constructor(public id: number, public imie: string,
@@ -9,6 +10,16 @@ import { mapActions } from 'vuex';
 
 interface IEditEvent extends Event {
 	target: HTMLSpanElement;
+}
+
+// interface IBackup {
+// 	[index: string]: string | number;
+// }
+
+interface IStudentData {
+	editMode: boolean;
+	backup: IStudent | {};
+	student: IStudent;
 }
 
 export default Vue.extend({
@@ -25,13 +36,16 @@ export default Vue.extend({
 			/** When user chooses to enter editMode this variable preserves the initial data in case of canceling the edit.  */
 			backup: {},
 			student: this.initialStudent,
-		};
+		} as IStudentData;
 	},
 	created() {
 		this.student = this.initialStudent;
 	},
 	methods: {
-		...mapActions({ storeDeleteStudent: 'deleteStudent' }),
+		...mapActions({
+			storeDeleteStudent: 'deleteStudent',
+			storeEditStudent: 'editStudent',
+		}),
 		deleteStudent() {
 			const wantsToDelete: boolean = confirm(
 				`Na pewno chcesz usunąć ucznia: ${this.student.imie} ${
@@ -63,14 +77,38 @@ export default Vue.extend({
 		cancelEdit() {
 			console.log('cancelEdit()');
 			this.editMode = false;
-			this.student = this.backup;
+			this.student = this.backup as IStudent;
 			// Vue.set(this, 'students', this.backup);
 			this.backup = {};
 		},
-		saveEdit() {
+		async saveEdit() {
 			console.log('saveEdit()');
+			const new_properties: { [index: string]: any } = {};
+			let foundAnyNewProperties = false;
+			for (const key of Object.keys(this.student)) {
+				if (this.student[key] !== (this.backup as IStudent)[key]) {
+					new_properties[key] = this.student[key];
+					foundAnyNewProperties = true;
+				}
+			}
+			if (!foundAnyNewProperties) {
+				alert('Żadna wartość nie została zmieniona.');
+				this.editMode = false;
+				return;
+			}
+			console.log(`Found new properties!`, new_properties);
+
+			const editResponse = await (this as any).storeEditStudent({
+				id: this.student.id,
+				new_properties,
+			});
+
+			this.editMode = false;
 		},
 		editAnyText(event: IEditEvent) {
+			/* Content editable structure taken straight from here:
+			 * https://gist.github.com/ctf0/2789d97b8301bcc6219b30734d224033
+			 */
 			/* event.target.id is the name of property, e.g.: 'imie', 'nazwisko' etc. */
 			this.student[event.target.id] = event.target.innerText;
 			console.log(this.student);

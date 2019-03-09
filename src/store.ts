@@ -3,17 +3,23 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import { IStudent, IStudents, INewStudent } from '@/interfaces';
+import { IStudent, IStudents, INewStudent, IEditData } from '@/interfaces';
 import { API_URL } from '@/config';
 import createPersistedState from 'vuex-persistedstate';
-
-interface IState {
-	students: IStudents;
-}
 
 interface IDeleteResponse {
 	/** The id   */
 	uczen: number;
+}
+
+interface IEditResponse {
+	/** New student  */
+	uczen: IStudent;
+}
+
+interface IState {
+	students: IStudents;
+	sideBarVisible: boolean;
 }
 
 function findId(students: number[]) {
@@ -234,6 +240,39 @@ export default new Vuex.Store({
 					commit('delete', data.uczen);
 					console.log('state.students', state.students);
 					return state.students;
+				})
+				.catch(error => {
+					console.error(error);
+				});
+		},
+		async editStudent({ state, commit }, edit_data: IEditData) {
+			return fetch(`${API_URL}api/uczniowie.php`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json; charset=UTF-8',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Credentials': 'true',
+				},
+				/* Should look like this:
+				{
+					"id": 2,
+					"new_data": {
+						"imie": 'xd2',
+						"telefon": 123123123
+					}
+				}
+				
+				*/
+				body: JSON.stringify({
+					id: parseInt(edit_data.id, 10),
+					new_data: edit_data.new_properties,
+				}),
+			})
+				.then(response => {
+					if (response.ok !== true) {
+						console.error('Nie udało się edytować ucznia.');
+					}
+					return response.json() as Promise<IEditResponse>;
 				})
 				.catch(error => {
 					console.error(error);

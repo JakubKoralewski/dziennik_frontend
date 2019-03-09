@@ -62,6 +62,7 @@
 			...mapActions(['addStudent']),
 			async addUser() {
 				let foundInvalidInput = false;
+				// TODO: make this a function so it can be used from the edit panel to check whether new data is gut
 				for (const key of Object.keys(this.newStudent)) {
 					const value = this.newStudent[key];
 					if (!!value == false) {
