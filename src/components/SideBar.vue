@@ -1,7 +1,11 @@
 <template>
-	<div class="nav" :class="{'SideBar-hidden': !SideBarVisible}">
+	<div class="nav" :class="{'SideBar-hidden': !sideBarVisible}">
 		<div id="hide">
-			<i class="fas fa-arrow-left" @click="SideBarToggle()" :class="{'SideBar-hidden': !SideBarVisible}"></i>
+			<i
+				class="fas fa-arrow-left"
+				@click="SideBarToggle()"
+				:class="{'SideBar-hidden': !sideBarVisible}"
+			></i>
 		</div>
 		<div id="o-mnie">O mnie</div>
 		<div id="szkola">Szkoła</div>
@@ -10,12 +14,12 @@
 
 <script lang="ts">
 	import Vue from 'vue';
+	import { mapState, mapMutations } from 'vuex';
 
 	interface IData {
 		elements: {
 			[name: string]: HTMLElement;
 		};
-		SideBarVisible: boolean;
 	}
 
 	/** Below this value, by default, the sidebar will be hidden.  */
@@ -26,12 +30,14 @@
 		data() {
 			return {
 				elements: {},
-				SideBarVisible: true,
 			} as IData;
+		},
+		computed: {
+			...mapState(['sideBarVisible']),
 		},
 		beforeMount() {
 			if (screen.width < MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR) {
-				this.SideBarVisible = false;
+				this.sideBarVisibilityChange(false);
 			}
 		},
 		mounted() {
@@ -41,8 +47,9 @@
 			this.elements = Object.assign(this.elements, elements);
 		},
 		methods: {
+			...mapMutations(['sideBarVisibilityChange']),
 			SideBarToggle(el: HTMLElement, event: Event) {
-				this.SideBarVisible = !this.SideBarVisible;
+				this.sideBarVisibilityChange(!this.sideBarVisible);
 			},
 			showArrow(el: HTMLElement) {
 				console.log(el);

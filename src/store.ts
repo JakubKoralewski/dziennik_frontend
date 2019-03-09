@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 import { IStudent, IStudents, INewStudent } from '@/interfaces';
 import { API_URL } from '@/config';
+import createPersistedState from 'vuex-persistedstate';
 
 interface IState {
 	students: IStudents;
@@ -57,7 +58,13 @@ function findId(students: number[]) {
 export default new Vuex.Store({
 	state: {
 		students: {},
+		sideBarVisible: false,
 	} as IState,
+	plugins: [
+		createPersistedState({
+			paths: ['sideBarVisible'],
+		}),
+	],
 	mutations: {
 		add(state, data) {
 			const newStudentState: IStudents = {};
@@ -76,6 +83,9 @@ export default new Vuex.Store({
 					'Store `add` mutation neither array or an object containing `id` property.'
 				);
 			}
+		},
+		sideBarVisibilityChange(state, new_value: boolean) {
+			state.sideBarVisible = new_value;
 		},
 		delete(state, id) {
 			Vue.delete(state.students, id);
