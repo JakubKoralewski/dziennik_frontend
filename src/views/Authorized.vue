@@ -1,7 +1,7 @@
 <template>
 	<div id="authorized">
 		<NewStudent
-			v-if="showNewStudentDialog"
+			v-show="showNewStudentDialog"
 			@newStudentAdded="showNewStudentDialog=false"
 			id="new-student"
 		/>
@@ -128,6 +128,13 @@
 			},
 			addButtonClick() {
 				this.toggleNewStudentDialog();
+				const firstNameElement: HTMLInputElement = document.querySelector(
+					'.new-student input#imie'
+				);
+				console.log('focusing', firstNameElement);
+				setTimeout(() => {
+					firstNameElement.focus();
+				}, 1);
 			},
 			coverClick() {
 				console.log('coverClick');
