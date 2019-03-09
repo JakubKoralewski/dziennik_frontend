@@ -1,14 +1,47 @@
 <template>
 	<div class="nav" :class="{'SideBar-hidden': !sideBarVisible}">
-		<div id="hide">
+		<a id="hide">
 			<i
 				class="fas fa-arrow-left"
 				@click="SideBarToggle()"
 				:class="{'SideBar-hidden': !sideBarVisible}"
 			></i>
-		</div>
-		<div id="o-mnie">O mnie</div>
-		<div id="szkola">Szkoła</div>
+		</a>
+		<a id="o-mnie" class="menu-item">O mnie</a>
+		<a id="szkola" class="menu-item">Szkoła</a>
+		<a
+			href="https://github.com/JakubKoralewski/dziennik_php_frontend"
+			title="GitHub repozytorium frontendu - dziennik_php_backend"
+			target="_blank"
+			class="menu-item gh"
+			id="frontend"
+		>
+			<i class="fab fa-github"></i>
+			<p>frontend</p>
+			<i class="fas fa-external-link-alt"></i>
+		</a>
+		<a
+			href="https://github.com/JakubKoralewski/dziennik_php_backend"
+			title="GitHub repozytorium backendu - dziennik_php_backend"
+			target="_blank"
+			class="menu-item gh"
+			id="backend"
+		>
+			<i class="fab fa-github"></i>
+			<p>backend</p>
+			<i class="fas fa-external-link-alt"></i>
+		</a>
+		<a
+			href="https://github.com/JakubKoralewski"
+			title="Profil GitHub - Jakub Koralewski"
+			target="_blank"
+			class="menu-item gh"
+			id="gh-profile"
+		>
+			<i class="fab fa-github"></i>
+			<p>profil</p>
+			<i class="fas fa-external-link-alt"></i>
+		</a>
 	</div>
 </template>
 
@@ -77,14 +110,13 @@
 			transition: all 0.5s ease-in;
 			/* overflow: hidden; */
 
-			div#o-mnie,
-			div#szkola {
+			.menu-item {
 				transition: opacity 0.1s ease-out;
 				opacity: 0;
 			}
 		}
 
-		div:not(:nth-child(1)) {
+		a:not(:nth-child(1)) {
 			margin-top: 1rem;
 		}
 
@@ -129,14 +161,14 @@
 			}
 		}
 
-		div#o-mnie,
-		div#szkola {
+		.menu-item {
 			display: flex;
 			text-align: center;
 			justify-content: center;
+			flex-direction: row;
 			align-items: center;
 			box-sizing: border-box;
-			padding: 0rem;
+			padding: 1rem;
 
 			width: 100%;
 			border-radius: 0.2rem;
@@ -146,6 +178,24 @@
 			transition: color 100ms ease-out;
 			font-size: 1.1rem;
 			background-color: darken($main-color, 3%);
+			text-decoration: none;
+			color: inherit;
+
+			&.gh {
+				display: flex;
+				justify-content: space-evenly;
+				p {
+					font-size: 0.9rem;
+					font-weight: 400;
+				}
+				.fa-github {
+					font-size: 1.2rem;
+				}
+				.fa-external-link-alt {
+					font-size: 0.5rem;
+					opacity: 0.5;
+				}
+			}
 
 			&:hover {
 				color: darken($main-color, 50%);
