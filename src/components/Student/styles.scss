@@ -34,6 +34,7 @@
 	#klasa,
 	#telefon {
 		min-width: 2px;
+		z-index: 1;
 	}
 
 	&.edit-mode-active {
@@ -46,8 +47,12 @@
 			cursor: text;
 			position: relative;
 			min-width: 1rem;
+			z-index: 1;
 			// padding: 0.2rem 0.5rem;
 			background-color: lighten($student-bg-color, 0.5%);
+			border-width: 1px;
+			border-color: lightblue;
+			border-style: solid;
 
 			&:after {
 				$borderWidth: 1px;
@@ -58,11 +63,16 @@
 				left: calc(-1 * #{$borderWidth});
 				height: calc(100% + #{$borderWidth} * 2);
 				width: calc(100% + #{$borderWidth} * 2);
-				background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab,
-					#5073b8, #1098ad, #07b39b, #6fba82);
+				background: linear-gradient(60deg, rgb(255, 255, 255) 0%, rgb(203, 232, 255) 50%, rgb(255, 255, 255));
 				border-radius: calc(2 * #{$borderWidth});
 				z-index: -1;
-				animation: editModeHighlightAnim 3s ease alternate infinite;
+
+				animation-name: editModeHighlightAnim;
+				animation-duration: 2s;
+				animation-timing-function: linear;
+				animation-direction: alternate;
+				animation-iteration-count: 1;
+				animation-fill-mode: forwards;
 				background-size: 300% 300%;
 			}
 		}
