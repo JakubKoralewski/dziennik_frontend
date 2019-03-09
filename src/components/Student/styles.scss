@@ -19,7 +19,12 @@
 	@include nav-shadow;
 	display: flex;
 	flex-direction: column;
+	height: auto;
 	transition: opacity 0.25s ease-in-out;
+
+	&.editing-in-progress {
+		opacity: 0.5;
+	}
 
 	/* On Edit Mode active somehow make it visible that these elements are editable. */
 	#imie,
@@ -35,6 +40,7 @@
 	#telefon {
 		min-width: 2px;
 		z-index: 1;
+		transition: all 0.25s ease;
 	}
 
 	&.edit-mode-active {
@@ -111,6 +117,7 @@
 		width: auto;
 		padding: calc(0.5rem + 1vh) calc(0.5rem + 1vw);
 		background-color: darken($student-bg-color, 2%);
+
 		// background-color: lightblue;
 		// border-bottom-right-radius: 0.5rem;
 		// border-bottom-left-radius: 0.5rem;
@@ -152,12 +159,22 @@
 				transform: translateX(4vw);
 				opacity: 0;
 				pointer-events: none;
+				align-items: center;
 
 				display: flex;
 				width: calc(2.5rem + 2vw);
 				justify-content: space-between;
 
 				transition: transform 200ms ease-out, opacity 150ms ease-out;
+
+				@media screen and (max-width: 500px) {
+					position: fixed;
+					top: 2rem;
+					height: 2rem;
+					right: 2rem;
+					box-shadow: 10px 10px 72px -14px rgba(0, 0, 0, 0.3);
+					z-index: 10;
+				}
 
 				#edit-save {
 					color: lighten(green, 20%);
@@ -170,6 +187,7 @@
 				}
 
 				&.edit-mode-active {
+					display: flex;
 					pointer-events: all;
 					opacity: 1;
 					transform: translateX(2vw);

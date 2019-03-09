@@ -77,12 +77,14 @@ export default Vue.extend({
 				this.editMode = false;
 			}
 		},
+		restoreBackup() {
+			this.student = this.backup as IStudent;
+			this.backup = {};
+		},
 		cancelEdit() {
 			console.log('cancelEdit()');
 			this.editMode = false;
-			this.student = this.backup as IStudent;
-			// Vue.set(this, 'students', this.backup);
-			this.backup = {};
+			this.restoreBackup();
 		},
 		async saveEdit() {
 			console.log('saveEdit()');
@@ -103,11 +105,18 @@ export default Vue.extend({
 				return;
 			}
 			console.log(`Found new properties!`, new_properties);
+			this.$el.classList.add('editing-in-progress');
 
 			const editResponse = await (this as any).storeEditStudent({
 				id: this.student.id,
 				new_properties,
 			});
+			this.$el.classList.remove('editing-in-progress');
+
+			if (editResponse == false) {
+				this.restoreBackup();
+				return;
+			}
 
 			this.editMode = false;
 
