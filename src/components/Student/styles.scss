@@ -29,15 +29,24 @@
 		cursor: default;
 	}
 
+	#imie,
+	#nazwisko,
+	#klasa,
+	#telefon {
+		min-width: 2px;
+	}
+
 	&.edit-mode-active {
 
 		#imie,
 		#nazwisko,
 		#klasa,
 		#telefon {
+			padding-left: 1px;
 			cursor: text;
 			position: relative;
-			padding: 0.2rem 0.5rem;
+			min-width: 1rem;
+			// padding: 0.2rem 0.5rem;
 			background-color: lighten($student-bg-color, 0.5%);
 
 			&:after {
@@ -67,11 +76,21 @@
 
 	#content {
 		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
 		padding: 1rem;
 		font-weight: 300;
 
 		.info {
 			font-weight: 400;
+		}
+
+		div {
+			display: flex;
+
+			div {
+				margin-left: 0.5rem;
+			}
 		}
 	}
 
@@ -99,9 +118,7 @@
 			height: 100%;
 			font-weight: 500;
 			word-break: break-word;
-			// display: grid;
-			grid-template-columns: 1fr 1fr;
-			grid-gap: 0.25rem;
+			display: flex;
 
 			#imie {
 				margin-right: 0.25rem;

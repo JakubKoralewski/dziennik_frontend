@@ -1,10 +1,10 @@
 <div class="student" :class="{'edit-mode-active': editMode}">
 	<div id="header">
 		<div id="name">
-			<span id="imie" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off" autocapitalize="off"
-			 spellcheck="false" title="Imię" v-html="someText">{{ student.imie }}</span>
-			<span id="nazwisko" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off"
-			 autocapitalize="off" spellcheck="false" title="Nazwisko">{{ student.nazwisko }}</span>
+			<div id="imie" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off" autocapitalize="off"
+			 spellcheck="false" title="Imię" v-html="student.imie"></div>
+			<div id="nazwisko" :contenteditable="editMode" @blur="editAnyText" autocomplete="off" autocorrect="off"
+			 autocapitalize="off" spellcheck="false" title="Nazwisko" v-html="student.nazwisko"></div>
 		</div>
 		<div id="tools">
 			<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
@@ -19,11 +19,11 @@
 	<div id="content">
 		<div>
 			Klasa:
-			<span class="info" id="klasa" :contenteditable="editMode" @blur="editAnyText">{{student.klasa}}</span>
+			<div class="info" id="klasa" :contenteditable="editMode" @blur="editAnyText" v-html="student.klasa"></div>
 		</div>
 		<div>
 			Telefon:
-			<span class="info" id="telefon" :contenteditable="editMode" @blur="editAnyText">{{student.telefon}}</span>
+			<div class="info" id="telefon" :contenteditable="editMode" @blur="editAnyText" v-html="student.telefon"></div>
 		</div>
 	</div>
 </div>
