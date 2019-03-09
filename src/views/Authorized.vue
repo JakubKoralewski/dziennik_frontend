@@ -51,6 +51,8 @@
 		coverActuallyHidden?: boolean;
 	}
 
+	const ADD_STUDENT_HASH_PATH = '#dodaj-ucznia';
+
 	interface IAuthorizedMethods {
 		showNewStudentDialog: boolean;
 		// loadStudents(): void;
@@ -67,6 +69,18 @@
 			AddButton,
 			Student,
 			NewStudent,
+		},
+		watch: {
+			$route(to, from) {
+				const currentRoute = this.$router.currentRoute;
+				const newHash = currentRoute.hash;
+				console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
+				if (newHash === ADD_STUDENT_HASH_PATH) {
+					this.showNewStudentDialog = true;
+				} else {
+					this.showNewStudentDialog = false;
+				}
+			},
 		},
 		data() {
 			return {
@@ -87,15 +101,28 @@
 				});
 			},
 		},
+		created() {
+			if (this.$route.hash === ADD_STUDENT_HASH_PATH) {
+				console.log('route hash is add-student-hash-path');
+				this.toggleNewStudentDialog();
+			}
+		},
 		beforeMount() {
 			console.log(screen.width);
 		},
 		methods: {
 			...mapActions(['loadStudents']),
 			toggleNewStudentDialog() {
-				/* If making NewStudentDialog appear show cover. */
 				if (this.showNewStudentDialog === false) {
+					// this.$router.push({ name: 'Add Student' });
+					/* Making the dialog appear */
+					history.pushState('', 'Dodaj ucznia', ADD_STUDENT_HASH_PATH);
 					this.coverActuallyHidden = false;
+					/* If making NewStudentDialog appear show cover. */
+				} else {
+					/* Making the dialog disappear */
+					console.log('Making the dialog disappear');
+					this.$router.push({ name: 'Authorized' });
 				}
 				this.showNewStudentDialog = !this.showNewStudentDialog;
 			},
