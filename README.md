@@ -10,6 +10,7 @@
 Login: 'admin',
 Password: 'admin'
 ```
+#### vue-i18n locales: <img style="margin-left: 2rem" src="https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/320px-Flag_of_Poland.svg.png" height="30" width="48"/> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/320px-Flag_of_the_United_Kingdom.svg.png" height="30" width="48" />
 
 ## Project setup
 
