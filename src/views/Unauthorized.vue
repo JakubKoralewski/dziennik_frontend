@@ -3,10 +3,10 @@
 
 <template>
 	<div class="unauthorized">
-		<div id="cover"/>
-		<img class="bg noselect" src="hogwarts.jpg" unselectable="on" draggable="false">
 		<Login class="login" prop-logo="logo.png" name="Harwart"/>
-		<canvas id="canvas"></canvas>
+		<div id="cover"/>
+		<canvas id="canvas" class="animate"></canvas>
+		<img class="bg noselect animate" src="hogwarts.jpg" unselectable="on" draggable="false">
 	</div>
 </template>
 
@@ -30,33 +30,29 @@
 		mounted() {
 			// https://codepen.io/ruigewaard/pen/JHDdF
 			const canvas: HTMLCanvasElement = document.querySelector('#canvas');
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
+			const img: HTMLImageElement = document.querySelector('img');
 
 			if (canvas.getContext) {
 				const ctx = canvas.getContext('2d');
-				ctx.globalAlpha = 0.5;
+				ctx.globalAlpha = 0.4;
 				const w = canvas.width;
 				const h = canvas.height;
 				ctx.strokeStyle = 'rgba(174,194,224,0.5)';
-				ctx.lineWidth = 1;
+				ctx.lineWidth = 0.5;
 				ctx.lineCap = 'round';
 
-				const init: object[] = [];
-				const maxParts = 100;
+				const particles: object[] = [];
+				let maxParts = 50;
+				let ySpeed = 2;
+				let xSpeed = 1;
 				for (let a = 0; a < maxParts; a++) {
-					init.push({
+					particles.push({
 						x: Math.random() * w,
 						y: Math.random() * h,
 						l: Math.random() * 1,
-						xs: -4 + Math.random() * 4 + 2,
-						ys: Math.random() * 10 + 10,
+						xs: -4 + Math.random() * xSpeed + 2,
+						ys: Math.random() * ySpeed,
 					});
-				}
-
-				const particles: object[] = [];
-				for (let b = 0; b < maxParts; b++) {
-					particles[b] = init[b];
 				}
 
 				function draw() {
@@ -68,10 +64,10 @@
 						ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
 						ctx.stroke();
 					}
-					move();
+					move(particles);
 				}
 
-				function move() {
+				function move(particles: object[]) {
 					for (let b = 0; b < particles.length; b++) {
 						const p: any = particles[b];
 						p.x += p.xs;
@@ -82,7 +78,6 @@
 						}
 					}
 				}
-
 				setInterval(draw, 30);
 			}
 		},
@@ -99,12 +94,10 @@
 	}
 
 	#canvas {
-		width: 100vw;
-		height: 100vh;
+		width: 1920px;
+		height: 1080px;
 		z-index: -2;
 		position: absolute;
-		left: 0;
-		top: 0;
 	}
 
 	div#cover {
@@ -114,27 +107,28 @@
 		width: 100%;
 		height: 100%;
 		background-color: black;
-		z-index: -3;
+		z-index: -4;
 	}
 
 	img.bg {
 		position: absolute;
-		z-index: -1;
+		z-index: -3;
 		// margin-left: 50%;
 		// transform: translateX(-50%);
 		// left: 50%;
 		// top: 50%;
 		pointer-events: none;
 		opacity: 0.3;
+	}
 
+	.animate {
 		animation-name: slowZoom;
 		animation-duration: 40s;
 		animation-iteration-count: infinite;
 		animation-direction: alternate-reverse;
 		animation-timing-function: ease-in-out;
 		animation-fill-mode: both;
-		/* clip: rect(0px, 100vw, 100vh, 0px); */
-		/* animation-delay: 2s; */
+		position: absolute;
 	}
 
 	@keyframes slowZoom {

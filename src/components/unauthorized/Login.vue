@@ -6,24 +6,27 @@
 				<p id="subtitle">{{$t('title')}}</p>
 				<p id="copyright">©2019 Jakub Koralewski</p>
 				<hr>
-				<div class="login-inputs" id="login-container">
-					Login:
-					<input
-						id="login"
-						v-model="login"
-						type="login"
-						:placeholder="$t('login.placeholders.login')"
-					>
+				<div class="login">
+					<div class="login-inputs" id="login-container">
+						Login:
+						<input
+							id="login"
+							v-model="login"
+							type="login"
+							:placeholder="$t('login.placeholders.login')"
+						>
+					</div>
+					<div class="login-inputs" id="haslo-container">
+						{{$t('login.password')}}:
+						<input
+							id="haslo"
+							v-model="haslo"
+							type="password"
+							:placeholder="$t('login.placeholders.password')"
+						>
+					</div>
 				</div>
-				<div class="login-inputs" id="haslo-container">
-					{{$t('login.password')}}:
-					<input
-						id="haslo"
-						v-model="haslo"
-						type="password"
-						:placeholder="$t('login.placeholders.password')"
-					>
-				</div>
+
 				<!-- <muggle-captcha /> -->
 				<input id="loginButton" type="button" :value="$t('login.loginCTA')" @click="loginRequest()">
 			</div>
@@ -39,8 +42,8 @@
 	export default Vue.extend({
 		name: 'Login',
 		/* components: {
-								MuggleCaptcha,
-							}, */
+																	MuggleCaptcha,
+																}, */
 		props: {
 			propName: {
 				type: String,
@@ -231,10 +234,31 @@
 				opacity: 0.2;
 			}
 
-			.login-inputs {
-				font-size: 0.9rem;
-				input {
+			div.login {
+				width: 50%;
+				input#login {
+					margin-bottom: 0.5rem;
+				}
+
+				input#login,
+				input#haslo {
+					height: 1.2rem;
+					border-width: 0px;
+					border-radius: 4px;
+					background-color: transparentize(gray, 0.8);
+					padding: 0.3rem;
 					margin-left: 1rem;
+				}
+
+				.login-inputs {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: flex-end;
+					font-size: 0.9rem;
+					input {
+						margin-left: auto;
+					}
 				}
 			}
 
@@ -249,19 +273,6 @@
 				margin-top: 0.1rem;
 				font-weight: 200;
 				font-size: 0.7rem;
-			}
-
-			input#login {
-				margin-bottom: 0.5rem;
-			}
-
-			input#login,
-			input#haslo {
-				height: 1.2rem;
-				border-width: 0px;
-				border-radius: 4px;
-				background-color: transparentize(gray, 0.8);
-				padding: 0.3rem;
 			}
 
 			input#loginButton {
