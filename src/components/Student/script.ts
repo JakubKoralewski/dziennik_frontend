@@ -13,10 +13,6 @@ interface IEditEvent extends Event {
 	target: HTMLSpanElement;
 }
 
-// interface IBackup {
-// 	[index: string]: string | number;
-// }
-
 interface IStudentData {
 	editMode: boolean;
 	backup: IStudent | {};
@@ -50,15 +46,19 @@ export default Vue.extend({
 			storeEditStudent: 'editStudent',
 		}),
 		deleteStudent() {
-			const wantsToDelete: boolean = confirm(
-				`Na pewno chcesz usunąć ucznia: ${this.student.imie} ${
-					this.student.nazwisko
-				}?`
-			);
+			const wantsToDelete: boolean = confirm(this.$t(
+				'alert.delete.areYouSure',
+				{
+					firstName: this.student.imie,
+					lastName: this.student.nazwisko,
+				}
+			) as string);
 			if (!wantsToDelete) {
 				return;
 			}
-			console.log(`deleting student nr. ${this.student.id}`);
+			console.log(
+				this.$t('alert.deletingStudent', { id: this.student.id })
+			);
 			(this as any).storeDeleteStudent(this.student.id);
 		},
 		toggleEditMode() {
@@ -97,14 +97,17 @@ export default Vue.extend({
 				}
 			}
 			if (!foundAnyNewProperties) {
-				alert('Żadna wartość nie została zmieniona.');
+				alert(this.$t('alert.noValueChanged'));
 				return;
 			}
 			const allPropertiesValid = this.propertiesValid(new_properties);
 			if (!allPropertiesValid) {
 				return;
 			}
-			console.log(`Found new properties!`, new_properties);
+			console.log(
+				`${this.$t('alert.foundNewProperties') as string}!`,
+				new_properties
+			);
 			this.$el.classList.add('editing-in-progress');
 
 			const editResponse = await (this as any).storeEditStudent({

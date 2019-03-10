@@ -1,0 +1,62 @@
+{
+	"title": "Dziennik elektroniczny",
+	"students": "Uczniowie",
+	"studentsCTA": "Zarządzaj uczniami",
+	"hashes": {
+		"addStudent": "dodaj-ucznia"
+	},
+	"loggedIn": "zalogowany",
+	"sidebar": {
+		"about": "O mnie",
+		"school": "Szkoła",
+		"profile": "Profil"
+	},
+	"edit": {
+		"edit": "Edytuj",
+		"cancel": "Anuluj edycję",
+		"save": "Zapisz edycję"
+	},
+	"delete": {
+		"delete": "Usuń ucznia"
+	},
+	"search": {
+		"placeholder": "Wyszukaj ucznia, np. 'xd'"
+	},
+	"github": {
+		"frontend": {
+			"info": "GitHub repozytorium frontendu - dziennik_php_frontend"
+		},
+		"backend": {
+			"info": "GitHub repozytorium backendu - dziennik_php_backend"
+		},
+		"profile": {
+			"info": "Profil GitHub - Jakub Koralewski"
+		}
+	},
+	"student": {
+		"firstName": "Imię",
+		"lastName": "Nazwisko",
+		"phoneNumber": "Telefon",
+		"class": "Klasa"
+	},
+	"login": {
+		"placeholders": {
+			"login": "Twój login",
+			"password": "Twoje hasło"
+		},
+		"password": "Hasło",
+		"loginCTA": "Zaloguj się"
+	},
+	"alert": {
+		"deletingStudent": "Usuwam ucznia nr. {id}",
+		"noValueChanged": "Żadna wartość nie została zmieniona",
+		"foundNewProperties": "Znaleziono nowe własności ucznia",
+		"delete": {
+			"areYouSure": "Na pewno chcesz usunąć ucznia {firstName} {lastName}?"
+		},
+		"propertyInvalid": "Niepoprawna wartość: {property}!",
+		"shouldBeANumber": "Wartość {property}u powinna być numerem."
+	},
+	"notAMuggle": "Nie jestem mugolem"
+
+}

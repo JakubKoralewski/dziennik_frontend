@@ -1,10 +1,10 @@
 import { IStudentsPropertiesRequiringValidation } from '@/interfaces';
 
 const studentProperties = {
-	imie: 'Imię',
-	nazwisko: 'Nazwisko',
-	klasa: 'Klasa',
-	telefon: 'Telefon',
+	imie: 'firstName',
+	nazwisko: 'lastName',
+	klasa: 'class',
+	telefon: 'phoneNumber',
 } as IStudentProperties;
 
 interface IStudentProperties {
@@ -32,15 +32,28 @@ export default {
 					// TODO: alert component
 					foundInvalidInput = true;
 					if (shouldCreateAlerts) {
-						alert(`${studentProperties[key]} niepoprawne.`);
+						const property: string = (this as any).$t(
+							`student.${studentProperties[key]}`
+						);
+
+						alert(
+							(this as any).$t('alert.propertyInvalid', {
+								property,
+							})
+						);
 					}
 					break;
 				}
 				if (key === 'telefon' && isNaN(value as any)) {
 					foundInvalidInput = true;
 					if (shouldCreateAlerts) {
+						const property: string = (this as any).$t(
+							`student.${studentProperties[key]}`
+						);
 						alert(
-							`${studentProperties[key]} powinien być numerem.`
+							(this as any).$t('alert.shouldBeANumber', {
+								property,
+							})
 						);
 					}
 					break;

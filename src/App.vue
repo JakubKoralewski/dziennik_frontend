@@ -1,10 +1,6 @@
 <template>
 	<div id="app">
 		<transition name="slide">
-			<!-- v-on:before-enter="beforeEnter"
-			v-on:enter="await enter"
-			v-on:leave="leave"
-			v-bind:css="false"-->
 			<router-view class="router-view"/>
 		</transition>
 	</div>
@@ -14,12 +10,7 @@
 	import Vue from 'vue';
 
 	export default Vue.extend({
-		// methods: {
-		// 	async enter(el: HTMLDivElement, done: Function) {
-		// 		await new Promise(x => setTimeout(x, 100));
-		// 		debugger;
-		// 	},
-		// },
+		name: 'App',
 	});
 </script>
 

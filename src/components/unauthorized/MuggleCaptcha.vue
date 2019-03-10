@@ -10,13 +10,9 @@
 
 	export default Vue.extend({
 		name: 'MuggleCaptcha',
-		props: {
-			message: {
-				default: 'Nie jestem mugolem',
-			},
-		},
 		data() {
 			return {
+				message: this.$t('notAMuggle'),
 				googleSiteKey: '6LegZZQUAAAAAC3jJvQncCC5U2t64ioYtyR-FmOT',
 			};
 		},

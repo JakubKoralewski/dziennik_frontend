@@ -3,19 +3,29 @@
 		<div id="wrapper">
 			<div id="login">
 				<div id="logo">{{ propName }}</div>
-				<p id="subtitle">Dziennik elektroniczny.</p>
-				<p id="copyright">© 2019 Jakub Koralewski</p>
+				<p id="subtitle">{{$t('title')}}</p>
+				<p id="copyright">©2019 Jakub Koralewski</p>
 				<hr>
 				<div class="login-inputs" id="login-container">
 					Login:
-					<input id="login" v-model="login" type="login" placeholder="Twój login">
+					<input
+						id="login"
+						v-model="login"
+						type="login"
+						:placeholder="$t('login.placeholders.login')"
+					>
 				</div>
 				<div class="login-inputs" id="haslo-container">
-					Hasło:
-					<input id="haslo" v-model="haslo" type="password" placeholder="Twoje hasło">
+					{{$t('login.password')}}:
+					<input
+						id="haslo"
+						v-model="haslo"
+						type="password"
+						:placeholder="$t('login.placeholders.password')"
+					>
 				</div>
 				<!-- <muggle-captcha /> -->
-				<input id="loginButton" type="button" value="Zaloguj się" @click="loginRequest()">
+				<input id="loginButton" type="button" :value="$t('login.loginCTA')" @click="loginRequest()">
 			</div>
 		</div>
 	</div>
@@ -29,8 +39,8 @@
 	export default Vue.extend({
 		name: 'Login',
 		/* components: {
-						MuggleCaptcha,
-					}, */
+								MuggleCaptcha,
+							}, */
 		props: {
 			propName: {
 				type: String,
@@ -132,7 +142,7 @@
 					this.loginInput as HTMLInputElement,
 					this.hasloInput as HTMLInputElement,
 				].forEach(input => input.classList.remove('login-failed'));
-				this.$router.push('zalogowany');
+				this.$router.push(this.$t('loggedIn'));
 			},
 			loginError(inputs: Array<HTMLInputElement | null>) {
 				this.wasLoginSuccessful = false;

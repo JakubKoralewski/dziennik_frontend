@@ -1,11 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Meta from 'vue-meta';
+
 import Unauthorized from '@/views/Unauthorized.vue';
 import Authorized from '@/views/Authorized.vue';
 
 Vue.use(Router);
+Vue.use(Meta);
 
-export default new Router({
+const router = new Router({
 	mode: 'history',
 	base: process.env.BASE_URL,
 	routes: [
@@ -18,6 +21,17 @@ export default new Router({
 			path: '/zalogowany',
 			name: 'Authorized',
 			component: Authorized,
+			meta: {
+				locale: 'pl',
+			},
+		},
+		{
+			path: '/logged-in',
+			name: 'Authorized',
+			component: Authorized,
+			meta: {
+				locale: 'en',
+			},
 		},
 
 		/* ,
@@ -32,3 +46,5 @@ export default new Router({
 		}, */
 	],
 });
+
+export default router;

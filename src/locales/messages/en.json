@@ -1,0 +1,63 @@
+{
+	"title": "Online school register",
+	"students": "Students",
+	"studentsCTA": "Manage students",
+	"loggedIn": "logged-in",
+	"sidebar": {
+		"about": "About",
+		"school": "School",
+		"profile": "Profile"
+	},
+	"hashes": {
+		"addStudent": "add-student"
+	},
+	"edit": {
+		"edit": "Edit",
+		"cancel": "Cancel edit",
+		"save": "Save edit"
+	},
+	"delete": {
+		"delete": "Delete student"
+	},
+	"search": {
+		"placeholder": "Search for a student, e.g.: 'xd'"
+	},
+	"github": {
+		"frontend": {
+			"info": "GitHub frontend respository - dziennik_php_frontend"
+		},
+		"backend": {
+			"info": "GitHub backend repository - dziennik_php_backend"
+		},
+		"profile": {
+			"info": "GitHub profile - Jakub Koralewski"
+		}
+	},
+	"alert": {
+		"deletingStudent": "Deleting student no. {id}",
+		"noValueChanged": "No value changed.",
+		"foundNewProperties": "Found new properties",
+		"delete": {
+			"areYouSure": "Are you sure you want to delete student {firstName} {lastName}?"
+		},
+		"propertyInvalid": "{property}'s value is invalid.",
+		"shouldBeANumber": "The value of {property} should be a number!"
+	},
+	"notAMuggle": "I'm not a muggle",
+
+	"student": {
+		"firstName": "First name",
+		"lastName": "Last name",
+		"phoneNumber": "Phone",
+		"class": "Class"
+	},
+
+	"login": {
+		"placeholders": {
+			"login": "Your login",
+			"password": "Your password"
+		},
+		"password": "Password",
+		"loginCTA": "Log in"
+	}
+}

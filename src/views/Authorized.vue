@@ -7,7 +7,7 @@
 		/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
-			:class="{'add-dialog-visible': showNewStudentDialog}"
+			:class="{'blur-visible': showNewStudentDialog}"
 			id="add-button"
 		/>
 		<div
@@ -15,8 +15,8 @@
 			id="cover"
 			@click="coverClick()"
 		/>
-		<div class="blur-container" :class="{'add-dialog-visible': showNewStudentDialog}">
-			<SideBar id="nav-bar"/>
+		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog}">
+			<SideBar id="nav-bar" @sideBarToggle="sideBarToggle"/>
 
 			<div id="content">
 				<NavTitle id="nav-title"/>
@@ -49,9 +49,8 @@
 	interface IAuthorizedData {
 		showNewStudentDialog: boolean;
 		coverActuallyHidden?: boolean;
+		ADD_STUDENT_HASH_PATH: string;
 	}
-
-	const ADD_STUDENT_HASH_PATH = '#dodaj-ucznia';
 
 	interface IAuthorizedMethods {
 		showNewStudentDialog: boolean;
@@ -70,12 +69,21 @@
 			Student,
 			NewStudent,
 		},
+		metaInfo() {
+			return {
+				title: (this as any).$t('title'),
+				titleTemplate: `${(this as any).$t('studentsCTA')}!`,
+				htmlAttrs: {
+					lang: this.$i18n.locale,
+				},
+			};
+		},
 		watch: {
 			$route(to, from) {
 				const currentRoute = this.$router.currentRoute;
 				const newHash = currentRoute.hash;
 				console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
-				if (newHash === ADD_STUDENT_HASH_PATH) {
+				if (newHash === this.ADD_STUDENT_HASH_PATH) {
 					this.showNewStudentDialog = true;
 				} else {
 					this.showNewStudentDialog = false;
@@ -86,6 +94,7 @@
 			return {
 				showNewStudentDialog: false,
 				coverActuallyHidden: true,
+				ADD_STUDENT_HASH_PATH: '',
 			} as IAuthorizedData;
 		},
 		computed: {
@@ -102,7 +111,8 @@
 			},
 		},
 		created() {
-			if (this.$route.hash === ADD_STUDENT_HASH_PATH) {
+			(this as any).ADD_STUDENT_HASH_PATH = this.$t('hashes.addStudent');
+			if (this.$route.hash === this.ADD_STUDENT_HASH_PATH) {
 				console.log('route hash is add-student-hash-path');
 				this.toggleNewStudentDialog();
 			}
@@ -116,7 +126,7 @@
 				if (this.showNewStudentDialog === false) {
 					// this.$router.push({ name: 'Add Student' });
 					/* Making the dialog appear */
-					history.pushState('', 'Dodaj ucznia', ADD_STUDENT_HASH_PATH);
+					history.pushState('', 'Dodaj ucznia', this.ADD_STUDENT_HASH_PATH);
 					this.coverActuallyHidden = false;
 					/* If making NewStudentDialog appear show cover. */
 				} else {
@@ -147,6 +157,9 @@
 					}, 100);
 				}
 			},
+			sideBarToggle(newState: boolean) {
+				console.log('sideBarToggle(), newState: ', newState);
+			},
 		},
 		async mounted() {
 			await (this as any).loadStudents();
@@ -160,21 +173,14 @@
 	@import '@/scss/wiggle.scss';
 
 	#authorized {
-		$SideBar-width: calc(3rem + 10vw);
-
-		#new-student {
-		}
+		$SideBar-width: calc(10rem + 10vw);
 
 		.blur-container {
 			width: 100%;
 			height: 100%;
-			display: flex;
-			flex-direction: row;
-			flex: auto;
-			// flex-flow: wrap;
 			background-color: $main-color;
 
-			&.add-dialog-visible:not(#add-button):not(#new-student) {
+			&.blur-visible:not(#add-button):not(#new-student) {
 				filter: blur(1px);
 			}
 		}

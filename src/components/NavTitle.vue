@@ -1,6 +1,6 @@
 <template>
 	<div class="nav-title">
-		{{ title }}
+		{{ $t('students') }}
 		<Search class="search"/>
 	</div>
 </template>
@@ -13,11 +13,6 @@
 		name: 'NavTitle',
 		components: {
 			Search,
-		},
-		props: {
-			title: {
-				default: 'Uczniowie',
-			},
 		},
 	});
 </script>

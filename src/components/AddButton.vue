@@ -28,7 +28,7 @@
 
 		font-size: calc(1.1rem + 3vmin);
 
-		&.add-dialog-visible {
+		&.blur-visible {
 			animation-name: rotateAddButton;
 			animation-duration: 500ms;
 			animation-timing-function: ease-in;
@@ -36,7 +36,7 @@
 			background-color: white !important;
 		}
 
-		&.add-dialog-visible,
+		&.blur-visible,
 		&:hover {
 			box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0.4);
 		}

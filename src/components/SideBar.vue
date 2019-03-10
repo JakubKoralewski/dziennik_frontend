@@ -3,45 +3,60 @@
 		<a id="hide">
 			<i
 				class="fas fa-arrow-left"
-				@click="SideBarToggle()"
+				@click="sideBarToggle()"
 				:class="{'SideBar-hidden': !sideBarVisible}"
 			></i>
 		</a>
-		<a id="o-mnie" class="menu-item">O mnie</a>
-		<a id="szkola" class="menu-item">Szkoła</a>
-		<a
-			href="https://github.com/JakubKoralewski/dziennik_php_frontend"
-			title="GitHub repozytorium frontendu - dziennik_php_backend"
-			target="_blank"
-			class="menu-item gh"
-			id="frontend"
-		>
-			<i class="fab fa-github"></i>
-			<p>frontend</p>
-			<i class="fas fa-external-link-alt"></i>
-		</a>
-		<a
-			href="https://github.com/JakubKoralewski/dziennik_php_backend"
-			title="GitHub repozytorium backendu - dziennik_php_backend"
-			target="_blank"
-			class="menu-item gh"
-			id="backend"
-		>
-			<i class="fab fa-github"></i>
-			<p>backend</p>
-			<i class="fas fa-external-link-alt"></i>
-		</a>
-		<a
-			href="https://github.com/JakubKoralewski"
-			title="Profil GitHub - Jakub Koralewski"
-			target="_blank"
-			class="menu-item gh"
-			id="gh-profile"
-		>
-			<i class="fab fa-github"></i>
-			<p>profil</p>
-			<i class="fas fa-external-link-alt"></i>
-		</a>
+		<div class="scrollable">
+			<a id="o-mnie" class="menu-item">
+				<p>Lorem</p>
+			</a>
+			<a id="szkola" class="menu-item">
+				<p>Ipsum</p>
+			</a>
+			<a
+				href="https://github.com/JakubKoralewski/dziennik_php_frontend"
+				:title="$t('github.frontend.info')"
+				target="_blank"
+				class="menu-item gh"
+				id="frontend"
+			>
+				<i class="fab fa-github"></i>
+				<p>frontend</p>
+				<i class="fas fa-external-link-alt"></i>
+			</a>
+			<a
+				href="https://github.com/JakubKoralewski/dziennik_php_backend"
+				title="$t('github.backend.info')"
+				target="_blank"
+				class="menu-item gh"
+				id="backend"
+			>
+				<i class="fab fa-github"></i>
+				<p>backend</p>
+				<i class="fas fa-external-link-alt"></i>
+			</a>
+			<a
+				href="https://github.com/JakubKoralewski"
+				:title="$t('github.profile.info')"
+				target="_blank"
+				class="menu-item gh"
+				id="gh-profile"
+			>
+				<i class="fab fa-github"></i>
+				<p>{{ $t('sidebar.profile')}}</p>
+				<i class="fas fa-external-link-alt"></i>
+			</a>
+			<div class="languages">
+				<div
+					class="language"
+					v-for="(lang, i) in langs"
+					:key="i"
+					@click="$i18n.locale = lang"
+					:class="{'current-active': $i18n.locale == lang}"
+				>{{lang}}</div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -63,6 +78,7 @@
 		data() {
 			return {
 				elements: {},
+				langs: this.$i18n.availableLocales,
 			} as IData;
 		},
 		computed: {
@@ -81,8 +97,9 @@
 		},
 		methods: {
 			...mapMutations(['sideBarVisibilityChange']),
-			SideBarToggle(el: HTMLElement, event: Event) {
+			sideBarToggle(el: HTMLElement, event: Event) {
 				this.sideBarVisibilityChange(!this.sideBarVisible);
+				this.$emit('sideBarToggle', this.sideBarVisible);
 			},
 			showArrow(el: HTMLElement) {
 				console.log(el);
@@ -101,25 +118,37 @@
 		font-weight: 800;
 		text-transform: uppercase;
 		transition: all 0.2s ease-out;
-		transition-property: width, padding;
+		transition-property: transform, padding;
+		will-change: transform, padding;
+		position: fixed;
+		height: 100vh;
+		z-index: 200;
+
+		.scrollable {
+			overflow-y: auto;
+			padding-bottom: 4rem;
+
+			& > * {
+				margin-top: 1rem;
+			}
+		}
 
 		&.SideBar-hidden {
-			width: 0px !important;
+			overflow-y: visible;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
 			transition: all 0.5s ease-in;
-			/* overflow: hidden; */
+			border-right-width: 0 !important;
+			transform: translateX(-100%);
 
-			.menu-item {
+			.menu-item,
+			.languages {
 				transition: opacity 0.1s ease-out;
 				opacity: 0;
 			}
 		}
 
-		a:not(:nth-child(1)) {
-			margin-top: 1rem;
-		}
-
+		/* Hide arrow */
 		#hide {
 			// Div containing checkmark icon
 			margin-left: auto;
@@ -161,14 +190,70 @@
 			}
 		}
 
-		.menu-item {
+		.languages {
 			display: flex;
 			text-align: center;
-			justify-content: center;
+			justify-content: space-evenly;
 			flex-direction: row;
 			align-items: center;
 			box-sizing: border-box;
-			padding: 1rem;
+			padding: 2vmin;
+
+			width: 100%;
+			border-radius: 0.2rem;
+			height: calc(2rem + 5vmin);
+
+			cursor: pointer;
+			transition: color 100ms ease-out;
+			font-size: 1.1rem;
+			background-color: darken($main-color, 3%);
+			text-decoration: none;
+			color: inherit;
+
+			.language {
+				display: flex;
+				flex-direction: column;
+
+				&:after {
+					content: '';
+					width: 100%;
+					height: 2px;
+					background-color: gray;
+					transform: scaleX(0);
+					will-change: transform;
+					transition: transform 250ms ease-in-out;
+				}
+				&.current-active {
+					&:after {
+						background-color: red;
+						transform: scaleX(1);
+					}
+				}
+
+				&:hover {
+					color: red;
+					&.current-active {
+						color: rgb(139, 134, 134);
+						&:after {
+							background-color: red !important;
+						}
+					}
+
+					&:after {
+						transform: scaleX(1);
+					}
+				}
+			}
+		}
+
+		.menu-item {
+			display: flex;
+			text-align: center;
+			justify-content: space-evenly;
+			flex-direction: row;
+			align-items: center;
+			box-sizing: border-box;
+			padding: 2vmin;
 
 			width: 100%;
 			border-radius: 0.2rem;

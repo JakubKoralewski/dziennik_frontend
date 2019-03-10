@@ -2,7 +2,7 @@
 	<div class="search">
 		<input
 			type="text"
-			placeholder="Wyszukaj ucznia, np. 'xd'"
+			:placeholder="$t('search.placeholder')"
 			v-model="searchText"
 			spellcheck="false"
 			@input="inputChanged()"

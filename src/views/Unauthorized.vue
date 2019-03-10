@@ -5,7 +5,7 @@
 	<div class="unauthorized">
 		<div id="cover"/>
 		<img class="bg noselect" src="hogwarts.jpg" unselectable="on" draggable="false">
-		<login class="login" prop-logo="logo.png" name="Harwart"/>
+		<Login class="login" prop-logo="logo.png" name="Harwart"/>
 	</div>
 </template>
 
@@ -16,6 +16,15 @@
 	export default Vue.extend({
 		components: {
 			Login,
+		},
+		metaInfo() {
+			return {
+				title: (this as any).$t('title'),
+				titleTemplate: `%s - ${(this as any).$t('login.loginCTA')}!`,
+				htmlAttrs: {
+					lang: this.$i18n.locale,
+				},
+			};
 		},
 	});
 </script>
