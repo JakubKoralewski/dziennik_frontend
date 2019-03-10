@@ -3,21 +3,21 @@
 		<div id="header">
 			<div id="name">
 				<!-- FIXME: autofocus works first time, but then doesn't -->
-				<input type="text" id="imie" :placeholder="$t('student.firstName')" v-model="newStudent.imie" autofocus>
-				<input type="text" id="nazwisko" :placeholder="$t('student.lastName')" v-model="newStudent.nazwisko">
+				<input type="text" id="imie" :placeholder="$t('student.firstName')" v-model="newStudent.imie" autofocus spellcheck="false">
+				<input type="text" id="nazwisko" :placeholder="$t('student.lastName')" v-model="newStudent.nazwisko" spellcheck="false">
 			</div>
 		</div>
 		<div id="content">
 			<div id="klasa">
 				{{$t('student.class')}}:
 				<span class="info">
-					<input type="text" id="klasa" placeholder="3d" v-model="newStudent.klasa">
+					<input type="text" id="klasa" placeholder="3d" v-model="newStudent.klasa" spellcheck="false">
 				</span>
 			</div>
 			<div id="telefon">
 				{{$t('student.phoneNumber')}}:
 				<span class="info">
-					<input type="text" id="telefon" placeholder="666666666" v-model="newStudent.telefon">
+					<input type="text" id="telefon" placeholder="666666666" v-model="newStudent.telefon" spellcheck="false">
 				</span>
 			</div>
 			<div id="checkmark" @click="addUser">

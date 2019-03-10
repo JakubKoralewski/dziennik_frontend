@@ -12,18 +12,19 @@
 				<i class="fas fa-check" id="edit-save" :title="$t('student.save')" @click="saveEdit"></i>
 			</div>
 			<i class="fas fa-edit" @click="toggleEditMode" :class="{'edit-mode-active': editMode}" :title="$t('edit.edit')"></i>
-
 			<i class="fas fa-trash-alt" @click="deleteStudent" title="$t('delete.delete')"></i>
 		</div>
 	</div>
 	<div id="content">
 		<div>
 			{{$t('student.class')}}:
-			<div class="info" id="klasa" :contenteditable="editMode" @blur="editAnyText" v-html="student.klasa"></div>
+			<div class="info" id="klasa" :contenteditable="editMode" @blur="editAnyText" v-html="student.klasa" spellcheck="false"
+			 autocomplete="off" autocorrect="off"></div>
 		</div>
 		<div>
 			{{$t('student.phoneNumber')}}:
-			<div class="info" id="telefon" :contenteditable="editMode" @blur="editAnyText" v-html="student.telefon"></div>
+			<div class="info" id="telefon" :contenteditable="editMode" @blur="editAnyText" v-html="student.telefon" spellcheck="false"
+			 autocapitalize="off" autocorrect="off"></div>
 		</div>
 	</div>
 </div>
