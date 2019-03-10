@@ -9,7 +9,7 @@
 		"profile": "Profile"
 	},
 	"hashes": {
-		"addStudent": "add-student"
+		"addStudent": "#add-student"
 	},
 	"edit": {
 		"edit": "Edit",

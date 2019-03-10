@@ -49,7 +49,6 @@
 	interface IAuthorizedData {
 		showNewStudentDialog: boolean;
 		coverActuallyHidden?: boolean;
-		ADD_STUDENT_HASH_PATH: string;
 	}
 
 	interface IAuthorizedMethods {
@@ -83,7 +82,7 @@
 				const currentRoute = this.$router.currentRoute;
 				const newHash = currentRoute.hash;
 				console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
-				if (newHash === this.ADD_STUDENT_HASH_PATH) {
+				if (newHash === this.$t('hashes.addStudent')) {
 					this.showNewStudentDialog = true;
 				} else {
 					this.showNewStudentDialog = false;
@@ -111,8 +110,7 @@
 			},
 		},
 		created() {
-			(this as any).ADD_STUDENT_HASH_PATH = this.$t('hashes.addStudent');
-			if (this.$route.hash === this.ADD_STUDENT_HASH_PATH) {
+			if (this.$route.hash === '#' + this.$t('hashes.addStudent')) {
 				console.log('route hash is add-student-hash-path');
 				this.toggleNewStudentDialog();
 			}
@@ -126,13 +124,16 @@
 				if (this.showNewStudentDialog === false) {
 					// this.$router.push({ name: 'Add Student' });
 					/* Making the dialog appear */
-					history.pushState('', 'Dodaj ucznia', this.ADD_STUDENT_HASH_PATH);
+					console.log(this.$t('hashes.addStudent'));
+					history.pushState('', 'Dodaj ucznia', this.$t(
+						'hashes.addStudent'
+					) as string);
 					this.coverActuallyHidden = false;
 					/* If making NewStudentDialog appear show cover. */
 				} else {
 					/* Making the dialog disappear */
 					console.log('Making the dialog disappear');
-					this.$router.push({ name: 'Authorized' });
+					this.$router.push(`/${this.$t('loggedIn')}`);
 				}
 				this.showNewStudentDialog = !this.showNewStudentDialog;
 			},
