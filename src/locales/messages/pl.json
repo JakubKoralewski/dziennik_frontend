@@ -3,7 +3,7 @@
 	"students": "Uczniowie",
 	"studentsCTA": "Zarządzaj uczniami",
 	"hashes": {
-		"addStudent": "dodaj-ucznia"
+		"addStudent": "#dodaj-ucznia"
 	},
 	"loggedIn": "zalogowany",
 	"sidebar": {
