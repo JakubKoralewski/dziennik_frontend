@@ -52,7 +52,7 @@
 					class="language"
 					v-for="(lang, i) in langs"
 					:key="i"
-					@click="$i18n.locale = lang"
+					@click="localeChange(lang)"
 					:class="{'current-active': $i18n.locale == lang}"
 				>{{lang}}</div>
 			</div>
@@ -103,6 +103,10 @@
 			},
 			showArrow(el: HTMLElement) {
 				console.log(el);
+			},
+			localeChange(lang: string) {
+				this.$i18n.locale = lang;
+				this.$router.push(this.$t('loggedIn'));
 			},
 		},
 	});
