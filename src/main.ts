@@ -17,10 +17,8 @@ const i18n = new VueI18n({
 
 router.beforeEach((to, from, next) => {
 	let language = to.meta.locale;
-	if (!language) {
-		language = 'en';
-	}
-	i18n.locale = language;
+  if (language !== undefined)
+	  i18n.locale = language;
 	next();
 });
 
