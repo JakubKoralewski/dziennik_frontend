@@ -42,6 +42,7 @@
 	import Student from '@/components/Student.vue';
 	import NewStudent from '@/components/NewStudent.vue';
 	import AddButton from '@/components/AddButton.vue';
+	import touchDetection from '@/mixins/touchDetection';
 
 	import { mapGetters, mapActions, mapState, Computed } from 'vuex';
 	import { IStudent, IStudents } from '@/interfaces';
@@ -61,6 +62,7 @@
 
 	export default Vue.extend({
 		name: 'Authorized',
+		mixins: [touchDetection],
 		components: {
 			SideBar,
 			NavTitle,
@@ -77,8 +79,16 @@
 				},
 			};
 		},
+		data() {
+			return {
+				showNewStudentDialog: false,
+				coverActuallyHidden: true,
+				ADD_STUDENT_HASH_PATH: '',
+			} as IAuthorizedData;
+		},
 		watch: {
 			$route(to, from) {
+				
 				const currentRoute = this.$router.currentRoute;
 				const newHash = currentRoute.hash;
 				console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
@@ -89,13 +99,7 @@
 				}
 			},
 		},
-		data() {
-			return {
-				showNewStudentDialog: false,
-				coverActuallyHidden: true,
-				ADD_STUDENT_HASH_PATH: '',
-			} as IAuthorizedData;
-		},
+
 		computed: {
 			...mapState(['students']),
 			visibleStudents: function(): IStudent[] {
