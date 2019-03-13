@@ -16,7 +16,7 @@
 			@click="coverClick()"
 		/>
 		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog}">
-			<SideBar id="nav-bar" @sideBarToggle="sideBarToggle"/>
+			<SideBar id="nav-bar" ref="sideBar"/>
 
 			<div id="content">
 				<NavTitle id="nav-title"/>
@@ -42,7 +42,7 @@
 	import Student from '@/components/Student.vue';
 	import NewStudent from '@/components/NewStudent.vue';
 	import AddButton from '@/components/AddButton.vue';
-	import touchDetection from '@/mixins/touchDetection';
+	import touchDetection from '@/mixins/touchDetection.js';
 
 	import { mapGetters, mapActions, mapState, Computed } from 'vuex';
 	import { IStudent, IStudents } from '@/interfaces';
@@ -88,7 +88,6 @@
 		},
 		watch: {
 			$route(to, from) {
-				
 				const currentRoute = this.$router.currentRoute;
 				const newHash = currentRoute.hash;
 				console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
@@ -99,7 +98,6 @@
 				}
 			},
 		},
-
 		computed: {
 			...mapState(['students']),
 			visibleStudents: function(): IStudent[] {
@@ -118,12 +116,28 @@
 				console.log('route hash is add-student-hash-path');
 				this.toggleNewStudentDialog();
 			}
+			document.addEventListener(
+				'touchstart',
+				(this as any).handleTouchStart,
+				false
+			);
+			document.addEventListener(
+				'touchmove',
+				(this as any).handleTouchMove,
+				false
+			);
 		},
 		beforeMount() {
 			console.log(screen.width);
 		},
 		methods: {
 			...mapActions(['loadStudents']),
+			leftSwipe(amount: number) {
+				this.sideBarToggle(false);
+			},
+			rightSwipe(amount: number) {
+				this.sideBarToggle(true);
+			},
 			toggleNewStudentDialog() {
 				if (this.showNewStudentDialog === false) {
 					// this.$router.push({ name: 'Add Student' });
@@ -164,6 +178,7 @@
 			},
 			sideBarToggle(newState: boolean) {
 				console.log('sideBarToggle(), newState: ', newState);
+				this.$refs.sideBar.sideBarVisibilityChange(newState);
 			},
 		},
 		async mounted() {
