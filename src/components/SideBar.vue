@@ -70,9 +70,6 @@
 		};
 	}
 
-	/** Below this value, by default, the sidebar will be hidden.  */
-	const MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR = 800;
-
 	export default Vue.extend({
 		name: 'SideBar',
 		data() {
@@ -83,11 +80,6 @@
 		},
 		computed: {
 			...mapState(['sideBarVisible']),
-		},
-		beforeMount() {
-			if (screen.width < MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR) {
-				this.sideBarVisibilityChange(false);
-			}
 		},
 		mounted() {
 			const elements = {
