@@ -12,6 +12,7 @@
 		"allowSyntheticDefaultImports": true,
 		"sourceMap": true,
 		"baseUrl": ".",
+		"experimentalDecorators": true,
 		"types": [
 			"webpack-env"
 		],
@@ -33,7 +34,8 @@
 		"src/**/*.vue",
 		"tests/**/*.ts",
 		"tests/**/*.tsx",
-		"src/config.ts", "src/mixins/touchDetection.js"
+		"src/config.ts",
+		"src/mixins/TouchDetection.ts"
 	],
 	"exclude": [
 		"node_modules"
