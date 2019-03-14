@@ -61,47 +61,36 @@
 </template>
 
 <script lang="ts">
-	import Vue from 'vue';
+	import { Vue, Component, Watch, Mixins } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
 
-	interface IData {
-		elements: {
-			[name: string]: HTMLElement;
-		};
-	}
-
-	export default Vue.extend({
+	@Component({
 		name: 'SideBar',
-		data() {
-			return {
-				elements: {},
-				langs: this.$i18n.availableLocales,
-			} as IData;
-		},
-		computed: {
-			...mapState(['sideBarVisible']),
-		},
+		computed: mapState(['sideBarVisible']),
+		methods: mapMutations(['sideBarVisibilityChange']),
+	})
+	export default class App extends Vue {
+		elements: object = {};
+		langs: string[] = [];
+
+		/* State */
+		sideBarVisible: boolean;
+		/* Mutations */
+		sideBarVisibilityChange: (state: boolean) => void;
+
 		mounted() {
-			const elements = {
-				SideBar: document.querySelector('div.nav'),
-			};
-			this.elements = Object.assign(this.elements, elements);
-		},
-		methods: {
-			...mapMutations(['sideBarVisibilityChange']),
-			sideBarToggle(el: HTMLElement, event: Event) {
-				this.sideBarVisibilityChange(!this.sideBarVisible);
-				this.$emit('sideBarToggle', this.sideBarVisible);
-			},
-			showArrow(el: HTMLElement) {
-				console.log(el);
-			},
-			localeChange(lang: string) {
-				this.$i18n.locale = lang;
-				this.$router.push(this.$t('loggedIn'));
-			},
-		},
-	});
+			this.langs = this.$i18n.availableLocales;
+		}
+		sideBarToggle(el: HTMLElement, event: Event) {
+			this.sideBarVisible = !this.sideBarVisible;
+			this.sideBarVisibilityChange(this.sideBarVisible);
+			this.$emit('sideBarToggle', this.sideBarVisible);
+		}
+		localeChange(lang: string) {
+			this.$i18n.locale = lang;
+			this.$router.push(this.$t('loggedIn'));
+		}
+	}
 </script>
 
 <style scoped lang="scss">
