@@ -47,7 +47,7 @@ export default Vue.extend({
 		}),
 		deleteStudent() {
 			const wantsToDelete: boolean = confirm(this.$t(
-				'alert.delete.areYouSure',
+				'alert.delete.are-you-sure',
 				{
 					firstName: this.student.imie,
 					lastName: this.student.nazwisko,
@@ -57,7 +57,7 @@ export default Vue.extend({
 				return;
 			}
 			console.log(
-				this.$t('alert.deletingStudent', { id: this.student.id })
+				this.$t('alert.deleting-student', { id: this.student.id })
 			);
 			(this as any).storeDeleteStudent(this.student.id);
 		},
@@ -97,7 +97,7 @@ export default Vue.extend({
 				}
 			}
 			if (!foundAnyNewProperties) {
-				alert(this.$t('alert.noValueChanged'));
+				alert(this.$t('alert.no-value-changed'));
 				return;
 			}
 			const allPropertiesValid = this.propertiesValid(new_properties);
@@ -105,7 +105,7 @@ export default Vue.extend({
 				return;
 			}
 			console.log(
-				`${this.$t('alert.foundNewProperties') as string}!`,
+				`${this.$t('alert.found-new-properties') as string}!`,
 				new_properties
 			);
 			this.$el.classList.add('editing-in-progress');

@@ -1,15 +1,15 @@
 {
 	"title": "Online school register",
 	"students": "Students",
-	"studentsCTA": "Manage students",
-	"loggedIn": "logged-in",
+	"students-CTA": "Manage students",
+	"logged-in": "logged-in",
 	"sidebar": {
 		"about": "About",
 		"school": "School",
 		"profile": "Profile"
 	},
 	"hashes": {
-		"addStudent": "#add-student"
+		"add-student": "#add-student"
 	},
 	"edit": {
 		"edit": "Edit",
@@ -34,21 +34,21 @@
 		}
 	},
 	"alert": {
-		"deletingStudent": "Deleting student no. {id}",
-		"noValueChanged": "No value changed.",
-		"foundNewProperties": "Found new properties",
+		"deleting-student": "Deleting student no. {id}",
+		"no-value-changed": "No value changed.",
+		"found-new-properties": "Found new properties",
 		"delete": {
-			"areYouSure": "Are you sure you want to delete student {firstName} {lastName}?"
+			"are-you-sure": "Are you sure you want to delete student {firstName} {lastName}?"
 		},
-		"propertyInvalid": "{property}'s value is invalid.",
-		"shouldBeANumber": "The value of {property} should be a number!"
+		"property-invalid": "{property}'s value is invalid.",
+		"should-be-a-number": "The value of {property} should be a number!"
 	},
-	"notAMuggle": "I'm not a muggle",
+	"not-a-muggle": "I'm not a muggle",
 
 	"student": {
-		"firstName": "First name",
-		"lastName": "Last name",
-		"phoneNumber": "Phone",
+		"first-name": "First name",
+		"last-name": "Last name",
+		"phone-number": "Phone",
 		"class": "Class"
 	},
 
@@ -58,6 +58,7 @@
 			"password": "Your password"
 		},
 		"password": "Password",
-		"loginCTA": "Log in"
+		"CTA": "Log in",
+		"logging-in": "Logging in..."
 	}
 }

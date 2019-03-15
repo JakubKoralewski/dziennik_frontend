@@ -28,7 +28,7 @@
 				</div>
 
 				<!-- <muggle-captcha /> -->
-				<input id="loginButton" type="button" :value="$t('login.loginCTA')" @click="loginRequest()">
+				<input id="login-button" type="button" :value="$t('login.CTA')" @click="loginRequest()">
 			</div>
 		</div>
 	</div>
@@ -42,8 +42,8 @@
 	export default Vue.extend({
 		name: 'Login',
 		/* components: {
-																	MuggleCaptcha,
-																}, */
+																													MuggleCaptcha,
+																												}, */
 		props: {
 			propName: {
 				type: String,
@@ -75,7 +75,7 @@
 			};
 		},
 		mounted() {
-			this.loginButton = document.querySelector('#loginButton');
+			this.loginButton = document.querySelector('#login-button');
 			this.loginInput = document.querySelector('input#login');
 			this.hasloInput = document.querySelector('input#haslo');
 
@@ -110,6 +110,9 @@
 					return;
 				}
 				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
+				this.loginButton.classList.add('logging-in');
+				(this.loginButton as any).oldValue = this.loginButton.value;
+				this.loginButton.value = this.$t('login.logging-in') as string;
 				fetch(`${API_URL}api/login.php`, {
 					method: 'POST',
 					body: JSON.stringify({ login: this.login, haslo: this.haslo }),
@@ -134,9 +137,14 @@
 							console.log('zalogowano.');
 							this.loginSuccessful();
 						}
+						this.loginButton.value = (this.loginButton as any).oldValue;
 					})
 					.catch(error => {
 						console.error(error);
+						this.loginButton.value = this.$t('login.error') as string;
+					})
+					.finally(() => {
+						this.loginButton.classList.remove('logging-in');
 					});
 			},
 			loginSuccessful() {
@@ -145,7 +153,7 @@
 					this.loginInput as HTMLInputElement,
 					this.hasloInput as HTMLInputElement,
 				].forEach(input => input.classList.remove('login-failed'));
-				this.$router.push(this.$t('loggedIn'));
+				this.$router.push(this.$t('logged-in'));
 			},
 			loginError(inputs: Array<HTMLInputElement | null>) {
 				this.wasLoginSuccessful = false;
@@ -235,11 +243,6 @@
 			}
 
 			div.login {
-				width: 50%;
-				input#login {
-					margin-bottom: 0.5rem;
-				}
-
 				input#login,
 				input#haslo {
 					height: 1.2rem;
@@ -256,6 +259,7 @@
 					align-items: center;
 					justify-content: flex-end;
 					font-size: 0.9rem;
+					margin-bottom: 0.5rem;
 					input {
 						margin-left: auto;
 					}
@@ -275,19 +279,22 @@
 				font-size: 0.7rem;
 			}
 
-			input#loginButton {
+			input#login-button {
 				$color: rgb(175, 0, 0);
-				margin-top: 1rem;
+				margin-top: calc(1rem + 5vmin);
 				width: 60%;
 				border-width: 0px;
 				background-color: $color;
 				color: white;
 				padding: 0.5rem 0;
 				border-radius: 8px;
-
 				&:hover {
 					cursor: pointer;
 					background-color: lighten($color, 2);
+				}
+
+				&.logging-in {
+					background-color: darken($color, 10%) !important;
 				}
 			}
 		}

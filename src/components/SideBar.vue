@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-	import { Vue, Component, Watch, Mixins } from 'vue-property-decorator';
+	import { Vue, Component } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
 
 	@Component({
@@ -69,7 +69,7 @@
 		computed: mapState(['sideBarVisible']),
 		methods: mapMutations(['sideBarVisibilityChange']),
 	})
-	export default class App extends Vue {
+	export default class SideBar extends Vue {
 		elements: object = {};
 		langs: string[] = [];
 
@@ -81,14 +81,16 @@
 		mounted() {
 			this.langs = this.$i18n.availableLocales;
 		}
+
 		sideBarToggle(el: HTMLElement, event: Event) {
 			this.sideBarVisible = !this.sideBarVisible;
 			this.sideBarVisibilityChange(this.sideBarVisible);
 			this.$emit('sideBarToggle', this.sideBarVisible);
 		}
+
 		localeChange(lang: string) {
 			this.$i18n.locale = lang;
-			this.$router.push(this.$t('loggedIn'));
+			this.$router.push(this.$t('logged-in'));
 		}
 	}
 </script>

@@ -3,25 +3,56 @@
 		<div id="header">
 			<div id="name">
 				<!-- FIXME: autofocus works first time, but then doesn't -->
-				<input type="text" id="imie" :placeholder="$t('student.firstName')" v-model="newStudent.imie" autofocus spellcheck="false">
-				<input type="text" id="nazwisko" :placeholder="$t('student.lastName')" v-model="newStudent.nazwisko" spellcheck="false">
+				<input
+					type="text"
+					id="imie"
+					:placeholder="$t('student.first-name')"
+					v-model="newStudent.imie"
+					autofocus
+					spellcheck="false"
+					tabindex="1"
+				>
+				<input
+					type="text"
+					id="nazwisko"
+					:placeholder="$t('student.last-name')"
+					v-model="newStudent.nazwisko"
+					spellcheck="false"
+					tabindex="2"
+				>
 			</div>
 		</div>
 		<div id="content">
 			<div id="klasa">
 				{{$t('student.class')}}:
 				<span class="info">
-					<input type="text" id="klasa" placeholder="3d" v-model="newStudent.klasa" spellcheck="false">
+					<input
+						type="text"
+						id="klasa"
+						placeholder="3d"
+						v-model="newStudent.klasa"
+						spellcheck="false"
+						tabindex="3"
+					>
 				</span>
 			</div>
 			<div id="telefon">
-				{{$t('student.phoneNumber')}}:
+				{{$t('student.phone-number')}}:
 				<span class="info">
-					<input type="text" id="telefon" placeholder="666666666" v-model="newStudent.telefon" spellcheck="false">
+					<input
+						type="text"
+						id="telefon"
+						placeholder="666666666"
+						v-model="newStudent.telefon"
+						spellcheck="false"
+						tabindex="4"
+					>
 				</span>
 			</div>
 			<div id="checkmark" @click="addUser">
-				<i class="fas fa-check"></i>
+				<button>
+					<i class="fas fa-check"></i>
+				</button>
 			</div>
 		</div>
 	</div>

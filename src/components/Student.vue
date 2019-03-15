@@ -54,7 +54,7 @@
 				></div>
 			</div>
 			<div>
-				{{$t('student.phoneNumber')}}:
+				{{$t('student.phone-number')}}:
 				<div
 					class="info"
 					id="telefon"
