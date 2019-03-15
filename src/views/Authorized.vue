@@ -7,16 +7,16 @@
 		/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
-			:class="{'blur-visible': showNewStudentDialog}"
+			:class="{'blur-visible': showNewStudentDialog, 'sidebar-visible': sideBarVisible}"
 			id="add-button"
 		/>
 		<div
-			:class="{'visible': coverVisible, 'actually-hidden': coverActuallyHidden}"
+			:class="{'visible': showNewStudentDialog || sideBarVisible, 'actually-hidden': !(showNewStudentDialog || sideBarVisible)}"
 			id="cover"
 			@click="coverClick()"
 		/>
 		<SideBar id="nav-bar" @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
-		<div class="blur-container" :class="{'blur-visible': coverVisible}">
+		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog || sideBarVisible}">
 			<div id="content">
 				<NavTitle id="nav-title"/>
 
@@ -33,6 +33,6 @@
 	</div>
 </template>
 
-<script lang="ts" src="./Authorized/script.ts"></script>
-<style lang="scss" src="./Authorized/styles.scss" scoped></style>
+<script lang="ts" src="./Authorized/script.ts" />
+<style lang="scss" src="./Authorized/styles.scss" scoped />
 

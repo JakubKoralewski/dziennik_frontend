@@ -1,6 +1,6 @@
 /* Packages */
 import { Watch, Component, Mixins } from 'vue-property-decorator';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapMutations } from 'vuex';
 
 /* Components */
 import SideBar from '@/components/SideBar.vue';
@@ -33,22 +33,25 @@ import TouchDetection from '@/mixins/TouchDetection';
 			},
 		};
 	},
-	computed: mapState(['students']),
-	methods: mapActions(['loadStudents']),
+	computed: mapState(['students', 'sideBarVisible']),
+	methods: {
+		...mapActions(['loadStudents']),
+		...mapMutations(['sideBarVisibilityChange']),
+	},
 })
 export default class Authorized extends Mixins(TouchDetection) {
 	showNewStudentDialog: boolean = false;
+	/** Used to hide cover with delay using CSS transitions.  */
 	coverActuallyHidden: boolean = true;
 	ADD_STUDENT_HASH_PATH: string = '';
 
 	/* State */
 	students: IStudents;
+	sideBarVisible: boolean;
 	/* Actions */
 	loadStudents: () => void;
-
-	$refs!: {
-		sideBarComponent: SideBar;
-	};
+	/* Mutations */
+	sideBarVisibilityChange: (state: boolean) => void;
 
 	@Watch('$route')
 	onRouteChange(): void {
@@ -95,18 +98,18 @@ export default class Authorized extends Mixins(TouchDetection) {
 
 	toggleNewStudentDialog() {
 		if (this.showNewStudentDialog === false) {
-			// this.$router.push({ name: 'Add Student' });
 			/* Making the dialog appear */
 			console.log(this.$t('hashes.add-student'));
 			history.pushState('', 'Dodaj ucznia', this.$t(
 				'hashes.add-student'
 			) as string);
-			this.coverActuallyHidden = false;
+			this.setCoverState(false, 100);
 			/* If making NewStudentDialog appear show cover. */
 		} else {
 			/* Making the dialog disappear */
 			console.log('Making the dialog disappear');
 			this.$router.push(`/${this.$t('logged-in')}`);
+			this.setCoverState(true);
 		}
 		this.showNewStudentDialog = !this.showNewStudentDialog;
 	}
@@ -124,19 +127,31 @@ export default class Authorized extends Mixins(TouchDetection) {
 
 	coverClick() {
 		console.log('coverClick');
-		this.toggleNewStudentDialog();
-		/* If making NewStudentDialog disappear set cover to disappear after timeout. */
-		if (this.showNewStudentDialog === false) {
+		if (this.showNewStudentDialog) {
+			this.toggleNewStudentDialog();
+		} else if (this.showNewStudentDialog === false) {
+			/* If making NewStudentDialog disappear set cover to disappear after timeout. */
+			this.setCoverState(true, 100);
+		}
+		if (this.sideBarVisible) {
+			this.sideBarVisibilityChange(false);
+		}
+	}
+	async setCoverState(state?: boolean, timeout: number = 0) {
+		if (state == undefined) {
+			state = !this.sideBarVisible;
+		}
+		if (timeout) {
 			setTimeout(() => {
-				console.log('running setTimeout');
-				this.coverActuallyHidden = true;
-			}, 100);
+				this.coverActuallyHidden = state;
+			}, timeout);
+		} else {
+			this.coverActuallyHidden = state;
 		}
 	}
 
 	sideBarToggle(newState: boolean) {
-		console.log('sideBarToggle(), newState: ', newState);
-		// FIXME: it's actually fine but fix it so it's not an error https://github.com/vuejs/vetur/issues/213
-		this.$refs.sideBarComponent.sideBarVisibilityChange(newState);
+		this.setCoverState(newState);
+		this.sideBarVisibilityChange(newState);
 	}
 }
