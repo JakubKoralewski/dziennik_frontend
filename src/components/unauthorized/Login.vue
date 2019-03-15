@@ -13,6 +13,7 @@
 							id="login"
 							v-model="login"
 							type="login"
+							spellcheck="false"
 							:placeholder="$t('login.placeholders.login')"
 						>
 					</div>
@@ -28,7 +29,7 @@
 				</div>
 
 				<!-- <muggle-captcha /> -->
-				<input id="login-button" type="button" :value="$t('login.CTA')" @click="loginRequest()">
+				<input id="login-button" type="button" :value="loginText" @click="loginRequest()">
 			</div>
 		</div>
 	</div>
@@ -41,9 +42,9 @@
 
 	export default Vue.extend({
 		name: 'Login',
-		/* components: {
-																													MuggleCaptcha,
-																												}, */
+		// components: {
+		// 	MuggleCaptcha,
+		// },
 		props: {
 			propName: {
 				type: String,
@@ -60,6 +61,8 @@
 		data() {
 			return {
 				login: '',
+				loginText: this.$t('login.CTA'),
+				oldLoginText: '',
 				haslo: '',
 				loginButton: null,
 				loginInput: null,
@@ -67,6 +70,8 @@
 				wasLoginSuccessful: false,
 			} as {
 				login: string;
+				loginText: string;
+				oldLoginText: string;
 				haslo: string;
 				loginButton: HTMLButtonElement | null;
 				loginInput: HTMLInputElement | null;
@@ -93,6 +98,13 @@
 			);
 		},
 		methods: {
+			setLoginText(new_text: string) {
+				this.oldLoginText = this.loginText;
+				this.loginText = new_text;
+			},
+			restoreOldLoginText() {
+				this.loginText = this.oldLoginText;
+			},
 			loginRequest() {
 				const invalidInputs = this.credentialsValid([
 					this.loginInput as HTMLInputElement,
@@ -111,8 +123,7 @@
 				}
 				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
 				this.loginButton.classList.add('logging-in');
-				(this.loginButton as any).oldValue = this.loginButton.value;
-				this.loginButton.value = this.$t('login.logging-in') as string;
+				this.setLoginText(this.$t('login.logging-in') as string);
 				fetch(`${API_URL}api/login.php`, {
 					method: 'POST',
 					body: JSON.stringify({ login: this.login, haslo: this.haslo }),
@@ -123,25 +134,46 @@
 					},
 				})
 					.then(response => {
-						if (response.ok !== true) {
+						if ((response as any).status !== true) {
 							this.loginError([
 								this.loginInput as HTMLInputElement,
 								this.hasloInput as HTMLInputElement,
 							]);
+						} else {
+							this.setLoginText(this.$t(
+								'login.invalid-credentials'
+							) as string);
 						}
 						return response.json();
 					})
-					.then(data => {
+					.then(async data => {
 						console.log(data);
 						if (data.status === true) {
+							this.setLoginText(this.$t(
+								'login.successful'
+							) as string);
 							console.log('zalogowano.');
 							this.loginSuccessful();
+						} else {
+							this.setLoginText(this.$t(
+								'login.invalid-credentials'
+							) as string);
+							this.loginButton.classList.add('change-text');
+							new Promise(x => {
+								setTimeout(() => {
+									this.setLoginText(this.$t(
+										'login.CTA'
+									) as string);
+									this.loginButton.classList.remove(
+										'change-text'
+									);
+								}, 1500);
+							});
 						}
-						this.loginButton.value = (this.loginButton as any).oldValue;
 					})
 					.catch(error => {
 						console.error(error);
-						this.loginButton.value = this.$t('login.error') as string;
+						this.setLoginText(this.$t('login.error') as string);
 					})
 					.finally(() => {
 						this.loginButton.classList.remove('logging-in');
@@ -168,6 +200,9 @@
 				const invalidInputs = inputs
 					.map(input => {
 						if (!!input!.value == false) {
+							this.setLoginText(this.$t(
+								`login.empty-input.${input.type}`
+							) as string);
 							return input;
 						}
 						return null;
@@ -179,6 +214,11 @@
 					console.log('credentials valid');
 					return true;
 				} else {
+					if (invalidInputs.length == 2) {
+						this.setLoginText(this.$t(
+							`login.empty-input.both`
+						) as string);
+					}
 					return invalidInputs as HTMLInputElement[];
 				}
 			},
@@ -186,117 +226,4 @@
 	});
 </script>
 
-<style lang="scss" scoped>
-	input.login-failed {
-		background-color: lighten(red, 40%) !important;
-		color: darken(red, 20%) !important;
-	}
-
-	#login-component {
-		border-radius: 10px;
-		box-shadow: 0px 0px 21px 3px rgba(255, 255, 255, 0.4);
-		animation-name: shadowAnimation;
-		animation-duration: 24s;
-		animation-iteration-count: infinite;
-	}
-
-	@keyframes shadowAnimation {
-		0% {
-			box-shadow: 0px 0px 21px 3px rgba(0, 217, 255, 0.699);
-		}
-		25% {
-			box-shadow: 0px 0px 21px 3px rgba(255, 0, 234, 0.4);
-		}
-		50% {
-			box-shadow: 0px 0px 21px 3px rgba(30, 255, 0, 0.6);
-		}
-		75% {
-			box-shadow: 0px 0px 21px 3px rgba(255, 0, 0, 0.6);
-		}
-		100% {
-			box-shadow: 0px 0px 21px 3px rgba(0, 217, 255, 0.699);
-		}
-	}
-
-	div#wrapper {
-		width: 100%;
-		height: 100%;
-
-		display: inline-block;
-		div#login {
-			box-sizing: border-box;
-			display: flex;
-			height: 100%;
-			width: 100%;
-			padding: 1vw;
-
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-
-			hr {
-				width: 100%;
-				margin-top: 2rem;
-				margin-bottom: 1rem;
-				opacity: 0.2;
-			}
-
-			div.login {
-				input#login,
-				input#haslo {
-					height: 1.2rem;
-					border-width: 0px;
-					border-radius: 4px;
-					background-color: transparentize(gray, 0.8);
-					padding: 0.3rem;
-					margin-left: 1rem;
-				}
-
-				.login-inputs {
-					display: flex;
-					flex-direction: row;
-					align-items: center;
-					justify-content: flex-end;
-					font-size: 0.9rem;
-					margin-bottom: 0.5rem;
-					input {
-						margin-left: auto;
-					}
-				}
-			}
-
-			#logo {
-				font-weight: 600;
-				font-size: 4rem;
-				justify-self: center;
-				margin-bottom: 0.2rem;
-			}
-
-			#copyright {
-				margin-top: 0.1rem;
-				font-weight: 200;
-				font-size: 0.7rem;
-			}
-
-			input#login-button {
-				$color: rgb(175, 0, 0);
-				margin-top: calc(1rem + 5vmin);
-				width: 60%;
-				border-width: 0px;
-				background-color: $color;
-				color: white;
-				padding: 0.5rem 0;
-				border-radius: 8px;
-				&:hover {
-					cursor: pointer;
-					background-color: lighten($color, 2);
-				}
-
-				&.logging-in {
-					background-color: darken($color, 10%) !important;
-				}
-			}
-		}
-	}
-</style>
+<style lang="scss" scoped src="./Login/styles.scss"/>
