@@ -6,7 +6,6 @@ import Component from 'vue-class-component';
 /** Mixin  */
 export default class TouchDetection extends Vue {
 	public xDown: number = 0;
-	public yDown: number = 0;
 	public xSensitivity: number = 5;
 	public getTouches(evt: TouchEvent) {
 		return (
@@ -16,10 +15,9 @@ export default class TouchDetection extends Vue {
 	public handleTouchStart(evt: TouchEvent) {
 		const firstTouch = this.getTouches(evt)[0];
 		this.xDown = firstTouch.clientX;
-		this.yDown = firstTouch.clientY;
 	}
 	public handleTouchMove(evt: TouchEvent) {
-		if (!this.xDown || !this.yDown) {
+		if (!this.xDown) {
 			return;
 		}
 		const xUp = evt.touches[0].clientX;
@@ -31,6 +29,5 @@ export default class TouchDetection extends Vue {
 			(this as any).rightSwipe(xDiff);
 		}
 		this.xDown = 0;
-		this.yDown = 0;
 	}
 }
