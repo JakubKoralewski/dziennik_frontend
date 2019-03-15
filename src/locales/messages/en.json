@@ -57,9 +57,16 @@
 			"login": "Your login",
 			"password": "Your password"
 		},
+		"successful": "Logged in!",
 		"password": "Password",
 		"CTA": "Log in",
 		"logging-in": "Logging in...",
-		"error": "Login error"
+		"error": "Login error!",
+		"invalid-credentials": "User and/or password incorrect!",
+		"empty-input": {
+			"login": "Login can't be empty!",
+			"password": "@:login.password can't be empty!",
+			"both": "Login and password can't be empty!"
+		}
 	}
 }

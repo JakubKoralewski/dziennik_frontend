@@ -44,10 +44,17 @@
 			"login": "Twój login",
 			"password": "Twoje hasło"
 		},
+		"successful": "Zalogowano się!",
 		"password": "Hasło",
 		"CTA": "Zaloguj się",
 		"logging-in": "Logujemy się...",
-		"error": "Błąd logowania"
+		"error": "Błąd logowania!",
+		"invalid-credentials": "Użytkownik i/lub hasło niepoprawne!",
+		"empty-input": {
+			"login": "Login nie może być pusty!",
+			"password": "@:login.password nie może być puste!",
+			"both": "Login i hasło nie mogą być puste!"
+		}
 	},
 	"alert": {
 		"deleting-student": "Usuwam ucznia nr. {id}",
