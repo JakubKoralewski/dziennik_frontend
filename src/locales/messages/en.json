@@ -59,6 +59,7 @@
 		},
 		"password": "Password",
 		"CTA": "Log in",
-		"logging-in": "Logging in..."
+		"logging-in": "Logging in...",
+		"error": "Login error"
 	}
 }

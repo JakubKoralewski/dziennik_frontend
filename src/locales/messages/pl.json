@@ -46,7 +46,8 @@
 		},
 		"password": "Hasło",
 		"CTA": "Zaloguj się",
-		"logging-in": "Logujemy się..."
+		"logging-in": "Logujemy się...",
+		"error": "Błąd logowania"
 	},
 	"alert": {
 		"deleting-student": "Usuwam ucznia nr. {id}",
