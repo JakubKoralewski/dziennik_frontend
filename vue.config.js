@@ -6,6 +6,7 @@ module.exports = {
 			sass: {
 				data: `
 			@import "@/scss/_variables.scss";
+			@import "@/scss/global.scss";
 		  `
 			}
 		}

@@ -21,11 +21,17 @@
 		metaInfo() {
 			return {
 				title: (this as any).$t('title'),
-				titleTemplate: `%s - ${(this as any).$t('login.loginCTA')}!`,
+				titleTemplate: `%s - ${(this as any).$t('login.CTA')}!`,
 				htmlAttrs: {
 					lang: this.$i18n.locale,
 				},
 			};
+		},
+		beforeCreate() {
+			document.documentElement.classList.add('html-unauthorized');
+		},
+		destroyed() {
+			document.documentElement.classList.remove('html-unauthorized');
 		},
 		mounted() {
 			// https://codepen.io/ruigewaard/pen/JHDdF
@@ -38,13 +44,13 @@
 				const w = canvas.width;
 				const h = canvas.height;
 				ctx.strokeStyle = 'rgba(174,194,224,0.5)';
-				ctx.lineWidth = 0.5;
+				ctx.lineWidth = 500 / window.innerWidth;
 				ctx.lineCap = 'round';
 
-				const particles: object[] = [];
-				let maxParts = 50;
-				let ySpeed = 2;
-				let xSpeed = 1;
+				const particles: any[] = [];
+				const maxParts = 50;
+				const ySpeed = 2;
+				const xSpeed = 1;
 				for (let a = 0; a < maxParts; a++) {
 					particles.push({
 						x: Math.random() * w,
@@ -57,8 +63,7 @@
 
 				function draw() {
 					ctx.clearRect(0, 0, w, h);
-					for (let c = 0; c < particles.length; c++) {
-						const p: any = particles[c];
+					for (const p of particles) {
 						ctx.beginPath();
 						ctx.moveTo(p.x, p.y);
 						ctx.lineTo(p.x + p.l * p.xs, p.y + p.l * p.ys);
@@ -67,9 +72,8 @@
 					move(particles);
 				}
 
-				function move(particles: object[]) {
-					for (let b = 0; b < particles.length; b++) {
-						const p: any = particles[b];
+				function move(prtcls: any[]) {
+					for (const p of prtcls) {
 						p.x += p.xs;
 						p.y += p.ys;
 						if (p.x > w || p.y > h) {
@@ -145,9 +149,6 @@
 		-webkit-user-select: none;
 		-khtml-user-select: none;
 		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-		user-drag: none;
 		user-select: none;
 		-webkit-user-drag: none;
 		-webkit-user-select: none;
@@ -158,6 +159,6 @@
 		background-color: white;
 		width: calc(20vw + 15rem);
 		height: 360px;
-		margin-top: -10vh;
+		margin-top: -10vmin;
 	}
 </style>
