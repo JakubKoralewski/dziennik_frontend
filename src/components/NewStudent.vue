@@ -167,10 +167,14 @@
 				margin-top: auto;
 				margin-left: auto;
 
-				cursor: pointer;
-				transition: color 200ms ease-out;
+				button {
+					transition: color 200ms ease-out;
+					color: var(--new-student-checkmark-color);
+					background-color: transparent;
+					border-style: unset;
+					cursor: pointer;
+				}
 
-				color: var(--new-student-checkmark-color);
 				i {
 					font-size: 2rem;
 				}
