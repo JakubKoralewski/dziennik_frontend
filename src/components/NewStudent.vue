@@ -2,7 +2,6 @@
 	<div class="new-student student">
 		<div id="header">
 			<div id="name">
-				<!-- FIXME: autofocus works first time, but then doesn't -->
 				<input
 					type="text"
 					id="imie"
