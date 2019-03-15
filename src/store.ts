@@ -157,7 +157,8 @@ export default new Vuex.Store({
 						continue;
 					} else if (!isNaN(property)) {
 						property = (property as number).toString();
-					} else if (
+					}
+					if (
 						(property as string).toLowerCase().includes(searchText)
 					) {
 						commit('changeVisibility', {
