@@ -24,6 +24,8 @@
 		"triple-equals": false,
 		"object-literal-shorthand": false,
 		"only-arrow-functions": false,
+		"member-ordering": false,
+		"member-access": false,
 
 		"quotemark": [true, "single"],
 		"indent": [true, "tabs", 4],

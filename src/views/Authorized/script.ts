@@ -27,19 +27,56 @@ import TouchDetection from '@/mixins/TouchDetection';
 	metaInfo() {
 		return {
 			title: (this as any).$t('title'),
-			titleTemplate: `${(this as any).$t('studentsCTA')}!`,
+			titleTemplate: `${(this as any).$t('students-CTA')}!`,
 			htmlAttrs: {
-				lang: this.$i18n.locale,
+				lang: (this as any).$i18n.locale,
 			},
 		};
 	},
 	computed: mapState(['students']),
 	methods: mapActions(['loadStudents']),
 })
-export default class App extends Mixins(TouchDetection) {
+export default class Authorized extends Mixins(TouchDetection) {
+	showNewStudentDialog: boolean = false;
+	coverActuallyHidden: boolean = true;
+	ADD_STUDENT_HASH_PATH: string = '';
+
+	/* State */
+	students: IStudents;
+	/* Actions */
+	loadStudents: () => void;
+
+	$refs!: {
+		sideBarComponent: SideBar;
+	};
+
+	@Watch('$route')
+	onRouteChange(): void {
+		const currentRoute = this.$router.currentRoute;
+		const newHash = currentRoute.hash;
+		console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
+		if (newHash === this.$t('hashes.add-student')) {
+			this.showNewStudentDialog = true;
+		} else {
+			this.showNewStudentDialog = false;
+		}
+	}
+
+	async mounted() {
+		await this.loadStudents();
+	}
+
+	created(): void {
+		if (this.$route.hash === this.$t('hashes.add-student')) {
+			console.log('route hash is add-student-hash-path');
+			this.toggleNewStudentDialog();
+		}
+		document.addEventListener('touchstart', this.handleTouchStart, false);
+		document.addEventListener('touchmove', this.handleTouchMove, false);
+	}
+
 	get visibleStudents(): IStudent[] {
-		// FIXME: (this as any).students is from mapState
-		const students: IStudent[] = Object.values((this as any).students);
+		const students: IStudent[] = Object.values(this.students);
 		console.groupCollapsed('visibleStudents');
 		console.log('students: ', students);
 		console.groupEnd();
@@ -47,54 +84,34 @@ export default class App extends Mixins(TouchDetection) {
 			return student.visible;
 		});
 	}
-	public showNewStudentDialog: boolean = false;
-	public coverActuallyHidden: boolean = true;
-	public ADD_STUDENT_HASH_PATH: string = '';
-	public students: IStudents;
 
-	public $refs!: {
-		sideBar: SideBar;
-	};
-
-	@Watch('$route')
-	public onRouteChange(): void {
-		const currentRoute = this.$router.currentRoute;
-		const newHash = currentRoute.hash;
-		console.log(`currentRoute:`, currentRoute, `newHash: ${newHash}`);
-		if (newHash === this.$t('hashes.addStudent')) {
-			this.showNewStudentDialog = true;
-		} else {
-			this.showNewStudentDialog = false;
-		}
-	}
-	public async mounted() {
-		await (this as any).loadStudents();
-	}
-
-	public leftSwipe(amount: number) {
+	leftSwipe(amount: number) {
 		this.sideBarToggle(false);
 	}
-	public rightSwipe(amount: number) {
+
+	rightSwipe(amount: number) {
 		this.sideBarToggle(true);
 	}
-	public toggleNewStudentDialog() {
+
+	toggleNewStudentDialog() {
 		if (this.showNewStudentDialog === false) {
 			// this.$router.push({ name: 'Add Student' });
 			/* Making the dialog appear */
-			console.log(this.$t('hashes.addStudent'));
+			console.log(this.$t('hashes.add-student'));
 			history.pushState('', 'Dodaj ucznia', this.$t(
-				'hashes.addStudent'
+				'hashes.add-student'
 			) as string);
 			this.coverActuallyHidden = false;
 			/* If making NewStudentDialog appear show cover. */
 		} else {
 			/* Making the dialog disappear */
 			console.log('Making the dialog disappear');
-			this.$router.push(`/${this.$t('loggedIn')}`);
+			this.$router.push(`/${this.$t('logged-in')}`);
 		}
 		this.showNewStudentDialog = !this.showNewStudentDialog;
 	}
-	public addButtonClick() {
+
+	addButtonClick() {
 		this.toggleNewStudentDialog();
 		const firstNameElement: HTMLInputElement = document.querySelector(
 			'.new-student input#imie'
@@ -104,7 +121,8 @@ export default class App extends Mixins(TouchDetection) {
 			firstNameElement.focus();
 		}, 1);
 	}
-	public coverClick() {
+
+	coverClick() {
 		console.log('coverClick');
 		this.toggleNewStudentDialog();
 		/* If making NewStudentDialog disappear set cover to disappear after timeout. */
@@ -115,24 +133,10 @@ export default class App extends Mixins(TouchDetection) {
 			}, 100);
 		}
 	}
-	public sideBarToggle(newState: boolean) {
+
+	sideBarToggle(newState: boolean) {
 		console.log('sideBarToggle(), newState: ', newState);
-		this.$refs.sideBar.sideBarVisibilityChange(newState);
-	}
-	protected created(): void {
-		if (this.$route.hash === this.$t('hashes.addStudent')) {
-			console.log('route hash is add-student-hash-path');
-			this.toggleNewStudentDialog();
-		}
-		document.addEventListener(
-			'touchstart',
-			(this as any).handleTouchStart,
-			false
-		);
-		document.addEventListener(
-			'touchmove',
-			(this as any).handleTouchMove,
-			false
-		);
+		// FIXME: it's actually fine but fix it so it's not an error https://github.com/vuejs/vetur/issues/213
+		this.$refs.sideBarComponent.sideBarVisibilityChange(newState);
 	}
 }
