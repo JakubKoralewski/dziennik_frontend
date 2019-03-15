@@ -20,7 +20,7 @@ module.exports = {
 	},
 	// '' -> https://dziennik-php.herokuapp.com
 	// 'dziennik_php' -> localhost/dziennik_php
-	publicPath: process.env.NODE_ENV === 'production' ? '' : 'dziennik_php'
+	publicPath: process.env.NODE_ENV === 'production' ? '' : 'dziennik_php',
 
 	/* ,
 	build: {
