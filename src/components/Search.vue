@@ -3,9 +3,10 @@
 		<input
 			type="text"
 			:placeholder="$t('search.placeholder')"
-			v-model="searchText"
+			:value="searchText"
+			v-on:input="searchText=$event.target.value"
 			spellcheck="false"
-			@input="inputChanged()"
+			@input="inputChanged"
 		>
 	</div>
 </template>
@@ -33,12 +34,13 @@
 		// },
 		methods: {
 			...mapActions(['searchStudents', 'showAllStudents']),
-			inputChanged: function() {
-				if (!!this.searchText == false) {
+			inputChanged: function(event: KeyboardEvent) {
+				const searchText = (event.target as HTMLInputElement).value;
+				if (!!searchText) {
 					// All should be visible
 					this.showAllStudents();
 				}
-				this.searchStudents(this.searchText);
+				this.searchStudents(searchText);
 			},
 		},
 	});
