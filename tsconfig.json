@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"target": "esnext",
+		"allowJs": true,
 		"module": "esnext",
 		"strict": true,
 		"jsx": "preserve",
@@ -9,13 +9,10 @@
 		"moduleResolution": "node",
 		"strictNullChecks": false,
 		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": false,
 		"sourceMap": true,
 		"baseUrl": ".",
 		"experimentalDecorators": true,
-		"types": [
-			"webpack-env"
-		],
 		"paths": {
 			"@/*": [
 				"src/*"
@@ -26,7 +23,7 @@
 			"dom",
 			"dom.iterable",
 			"scripthost"
-		]
+		],
 	},
 	"include": [
 		"src/**/*.ts",
