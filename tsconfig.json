@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
-		"allowJs": true,
 		"target": "esnext",
+		"allowJs": true,
 		"module": "esnext",
 		"strict": true,
 		"jsx": "preserve",
@@ -9,12 +9,10 @@
 		"moduleResolution": "node",
 		"strictNullChecks": false,
 		"esModuleInterop": true,
-		"allowSyntheticDefaultImports": true,
+		"allowSyntheticDefaultImports": false,
 		"sourceMap": true,
 		"baseUrl": ".",
-		"types": [
-			"webpack-env"
-		],
+		"experimentalDecorators": true,
 		"paths": {
 			"@/*": [
 				"src/*"
@@ -25,7 +23,7 @@
 			"dom",
 			"dom.iterable",
 			"scripthost"
-		]
+		],
 	},
 	"include": [
 		"src/**/*.ts",
@@ -33,7 +31,8 @@
 		"src/**/*.vue",
 		"tests/**/*.ts",
 		"tests/**/*.tsx",
-		"src/config.ts", "src/mixins/touchDetection.js"
+		"src/config.ts",
+		"src/mixins/TouchDetection.ts"
 	],
 	"exclude": [
 		"node_modules"

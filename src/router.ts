@@ -18,6 +18,22 @@ const router = new Router({
 			component: Unauthorized,
 		},
 		{
+			path: '/en',
+			name: 'Unauthorized',
+			component: Unauthorized,
+			meta: {
+				locale: 'en',
+			},
+		},
+		{
+			path: '/pl',
+			name: 'Unauthorized',
+			component: Unauthorized,
+			meta: {
+				locale: 'pl',
+			},
+		},
+		{
 			path: '/zalogowany',
 			name: 'Authorized',
 			component: Authorized,

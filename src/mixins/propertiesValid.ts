@@ -1,10 +1,10 @@
 import { IStudentsPropertiesRequiringValidation } from '@/interfaces';
 
 const studentProperties = {
-	imie: 'firstName',
-	nazwisko: 'lastName',
+	imie: 'first-name',
+	nazwisko: 'last-name',
 	klasa: 'class',
-	telefon: 'phoneNumber',
+	telefon: 'phone-number',
 } as IStudentProperties;
 
 interface IStudentProperties {
@@ -37,7 +37,7 @@ export default {
 						);
 
 						alert(
-							(this as any).$t('alert.propertyInvalid', {
+							(this as any).$t('alert.property-invalid', {
 								property,
 							})
 						);
@@ -51,7 +51,7 @@ export default {
 							`student.${studentProperties[key]}`
 						);
 						alert(
-							(this as any).$t('alert.shouldBeANumber', {
+							(this as any).$t('alert.should-be-a-number', {
 								property,
 							})
 						);

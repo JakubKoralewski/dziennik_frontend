@@ -12,7 +12,7 @@
 		name: 'MuggleCaptcha',
 		data() {
 			return {
-				message: this.$t('notAMuggle'),
+				message: this.$t('not-a-muggle'),
 				googleSiteKey: '6LegZZQUAAAAAC3jJvQncCC5U2t64ioYtyR-FmOT',
 			};
 		},
@@ -21,8 +21,8 @@
 				'script'
 			);
 			/* googleScriptAPI.src = `https://www.google.com/recaptcha/api.js?render=${
-							this.googleSiteKey
-						}`; */
+								this.googleSiteKey
+							}`; */
 			googleScriptAPI.src = 'https://www.google.com/recaptcha/api.js';
 			document.documentElement.appendChild(googleScriptAPI);
 		},

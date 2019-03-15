@@ -1,3 +1,74 @@
-<template src="./Student/template.html"></template>
+<template>
+	<div class="student" :class="{'edit-mode-active': editMode}">
+		<div id="header">
+			<div id="name">
+				<div
+					id="imie"
+					:contenteditable="editMode"
+					@blur="editAnyText"
+					autocomplete="off"
+					autocorrect="off"
+					autocapitalize="off"
+					spellcheck="false"
+					:title="$t('student.imie')"
+					v-html="student.imie"
+				></div>
+				<div
+					id="nazwisko"
+					:contenteditable="editMode"
+					@blur="editAnyText"
+					autocomplete="off"
+					autocorrect="off"
+					autocapitalize="off"
+					spellcheck="false"
+					:title="$t('student.imie')"
+					v-html="student.nazwisko"
+				></div>
+			</div>
+			<div id="tools">
+				<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
+					<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
+					<i class="fas fa-check" id="edit-save" :title="$t('student.save')" @click="saveEdit"></i>
+				</div>
+				<i
+					class="fas fa-edit"
+					@click="toggleEditMode"
+					:class="{'edit-mode-active': editMode}"
+					:title="$t('edit.edit')"
+				></i>
+				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('delete.delete')"></i>
+			</div>
+		</div>
+		<div id="content">
+			<div>
+				{{$t('student.class')}}:
+				<div
+					class="info"
+					id="klasa"
+					:contenteditable="editMode"
+					@blur="editAnyText"
+					v-html="student.klasa"
+					spellcheck="false"
+					autocomplete="off"
+					autocorrect="off"
+				></div>
+			</div>
+			<div>
+				{{$t('student.phone-number')}}:
+				<div
+					class="info"
+					id="telefon"
+					:contenteditable="editMode"
+					@blur="editAnyText"
+					v-html="student.telefon"
+					spellcheck="false"
+					autocapitalize="off"
+					autocorrect="off"
+				></div>
+			</div>
+		</div>
+	</div>
+</template>
+
 <script lang="ts" src="./Student/script.ts"></script>
 <style lang="scss" src="./Student/styles.scss"></style>

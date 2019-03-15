@@ -36,6 +36,10 @@
 			background-color: white !important;
 		}
 
+		&.sidebar-visible {
+			z-index: 1;
+		}
+
 		&.blur-visible,
 		&:hover {
 			box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0.4);

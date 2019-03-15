@@ -61,55 +61,37 @@
 </template>
 
 <script lang="ts">
-	import Vue from 'vue';
+	import { Vue, Component, Watch } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
 
-	interface IData {
-		elements: {
-			[name: string]: HTMLElement;
-		};
-	}
-
-	/** Below this value, by default, the sidebar will be hidden.  */
-	const MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR = 800;
-
-	export default Vue.extend({
+	@Component({
 		name: 'SideBar',
-		data() {
-			return {
-				elements: {},
-				langs: this.$i18n.availableLocales,
-			} as IData;
-		},
-		computed: {
-			...mapState(['sideBarVisible']),
-		},
-		beforeMount() {
-			if (screen.width < MAX_SCREEN_WIDTH_FOR_DEFAULT_SIDEBAR) {
-				this.sideBarVisibilityChange(false);
-			}
-		},
+		computed: mapState(['sideBarVisible']),
+		methods: mapMutations(['sideBarVisibilityChange']),
+	})
+	export default class SideBar extends Vue {
+		elements: object = {};
+		langs: string[] = [];
+
+		/* State */
+		sideBarVisible: boolean;
+		/* Mutations */
+		sideBarVisibilityChange: (state: boolean) => void;
+
 		mounted() {
-			const elements = {
-				SideBar: document.querySelector('div.nav'),
-			};
-			this.elements = Object.assign(this.elements, elements);
-		},
-		methods: {
-			...mapMutations(['sideBarVisibilityChange']),
-			sideBarToggle(el: HTMLElement, event: Event) {
-				this.sideBarVisibilityChange(!this.sideBarVisible);
-				this.$emit('sideBarToggle', this.sideBarVisible);
-			},
-			showArrow(el: HTMLElement) {
-				console.log(el);
-			},
-			localeChange(lang: string) {
-				this.$i18n.locale = lang;
-				this.$router.push(this.$t('loggedIn'));
-			},
-		},
-	});
+			this.langs = this.$i18n.availableLocales;
+		}
+
+		sideBarToggle(el: HTMLElement, event: Event) {
+			this.sideBarVisibilityChange(!this.sideBarVisible);
+			this.$emit('sideBarToggle', this.sideBarVisible);
+		}
+
+		localeChange(lang: string) {
+			this.$i18n.locale = lang;
+			this.$router.push(this.$t('logged-in'));
+		}
+	}
 </script>
 
 <style scoped lang="scss">

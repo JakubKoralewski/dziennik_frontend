@@ -1,11 +1,11 @@
 {
 	"title": "Dziennik elektroniczny",
 	"students": "Uczniowie",
-	"studentsCTA": "Zarządzaj uczniami",
+	"students-CTA": "Zarządzaj uczniami",
 	"hashes": {
-		"addStudent": "#dodaj-ucznia"
+		"add-student": "#dodaj-ucznia"
 	},
-	"loggedIn": "zalogowany",
+	"logged-in": "zalogowany",
 	"sidebar": {
 		"about": "O mnie",
 		"school": "Szkoła",
@@ -34,9 +34,9 @@
 		}
 	},
 	"student": {
-		"firstName": "Imię",
-		"lastName": "Nazwisko",
-		"phoneNumber": "Telefon",
+		"first-name": "Imię",
+		"last-name": "Nazwisko",
+		"phone-number": "Telefon",
 		"class": "Klasa"
 	},
 	"login": {
@@ -44,19 +44,28 @@
 			"login": "Twój login",
 			"password": "Twoje hasło"
 		},
+		"successful": "Zalogowano się!",
 		"password": "Hasło",
-		"loginCTA": "Zaloguj się"
+		"CTA": "Zaloguj się",
+		"logging-in": "Logujemy się...",
+		"error": "Błąd logowania!",
+		"invalid-credentials": "Użytkownik i/lub hasło niepoprawne!",
+		"empty-input": {
+			"login": "Login nie może być pusty!",
+			"password": "@:login.password nie może być puste!",
+			"both": "Login i hasło nie mogą być puste!"
+		}
 	},
 	"alert": {
-		"deletingStudent": "Usuwam ucznia nr. {id}",
-		"noValueChanged": "Żadna wartość nie została zmieniona",
-		"foundNewProperties": "Znaleziono nowe własności ucznia",
+		"deleting-student": "Usuwam ucznia nr. {id}",
+		"no-value-changed": "Żadna wartość nie została zmieniona",
+		"found-new-properties": "Znaleziono nowe własności ucznia",
 		"delete": {
-			"areYouSure": "Na pewno chcesz usunąć ucznia {firstName} {lastName}?"
+			"are-you-sure": "Na pewno chcesz usunąć ucznia {firstName} {lastName}?"
 		},
-		"propertyInvalid": "Niepoprawna wartość: {property}!",
-		"shouldBeANumber": "Wartość {property}u powinna być numerem."
+		"property-invalid": "Niepoprawna wartość: {property}!",
+		"should-be-a-number": "Wartość {property}u powinna być numerem."
 	},
-	"notAMuggle": "Nie jestem mugolem"
+	"not-a-muggle": "Nie jestem mugolem"
 
 }
