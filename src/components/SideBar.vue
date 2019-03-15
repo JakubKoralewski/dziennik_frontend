@@ -61,7 +61,7 @@
 </template>
 
 <script lang="ts">
-	import { Vue, Component } from 'vue-property-decorator';
+	import { Vue, Component, Watch } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
 
 	@Component({
@@ -83,8 +83,7 @@
 		}
 
 		sideBarToggle(el: HTMLElement, event: Event) {
-			this.sideBarVisible = !this.sideBarVisible;
-			this.sideBarVisibilityChange(this.sideBarVisible);
+			this.sideBarVisibilityChange(!this.sideBarVisible);
 			this.$emit('sideBarToggle', this.sideBarVisible);
 		}
 
