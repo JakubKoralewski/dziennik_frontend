@@ -15,7 +15,7 @@
 			id="cover"
 			@click="coverClick()"
 		/>
-		<SideBar id="nav-bar" @sideBarToggle="sideBarToggle" ref="sideBar" />
+		<SideBar id="nav-bar" @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
 		<div class="blur-container" :class="{'blur-visible': coverVisible}">
 			<div id="content">
 				<NavTitle id="nav-title"/>
