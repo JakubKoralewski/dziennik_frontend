@@ -39,3 +39,19 @@ export interface IEditData {
 	id: string;
 	new_properties: IStudentsEditableProperties;
 }
+
+export interface IDeleteResponse {
+	/** The id   */
+	uczen: number;
+}
+
+export interface IEditResponse {
+	/** New student  */
+	uczen: IStudent;
+}
+
+export interface IState {
+	students: IStudents;
+	sideBarVisible: boolean;
+	searchText: string;
+}

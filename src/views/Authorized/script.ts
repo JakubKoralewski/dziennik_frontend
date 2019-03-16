@@ -1,6 +1,6 @@
 /* Packages */
 import { Watch, Component, Mixins } from 'vue-property-decorator';
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
 
 /* Components */
 import SideBar from '@/components/SideBar.vue';
@@ -36,7 +36,10 @@ const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
 			},
 		};
 	},
-	computed: mapState(['students', 'sideBarVisible']),
+	computed: {
+		...mapState(['students', 'sideBarVisible']),
+		...mapGetters(['visibleStudents']),
+	},
 	methods: {
 		...mapActions(['loadStudents']),
 		...mapMutations(['sideBarVisibilityChange']),
@@ -87,16 +90,6 @@ export default class Authorized extends Mixins(TouchDetection) {
 		}
 		document.addEventListener('touchstart', this.handleTouchStart, false);
 		document.addEventListener('touchmove', this.handleTouchMove, false);
-	}
-
-	get visibleStudents(): IStudent[] {
-		const students: IStudent[] = Object.values(this.students);
-		console.groupCollapsed('visibleStudents');
-		console.log('students: ', students);
-		console.groupEnd();
-		return students.filter((student: IStudent) => {
-			return student.visible;
-		});
 	}
 
 	/** Swiping left when SideBar is open should close it, otherwise do nothing.  */
