@@ -43,4 +43,7 @@ export default {
 		Vue.set(state.students[payload.id], 'visible', payload.newVisibility);
 		console.log(state.students[payload.id]);
 	},
+	setSearchText(state: IState, searchText: string) {
+		state.searchText = searchText;
+	}
 };

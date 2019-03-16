@@ -4,7 +4,7 @@
 			type="text"
 			:placeholder="$t('search.placeholder')"
 			:value="searchText"
-			@input="searchText=$event.target.value"
+			@input="setSearchText($event.target.value)"
 			spellcheck="false"
 		>
 	</div>
@@ -12,12 +12,15 @@
 
 <script lang="ts">
 	import { Vue, Component, Watch } from 'vue-property-decorator';
-	import { mapActions, mapState } from 'vuex';
+	import { mapActions, mapState, mapMutations } from 'vuex';
 
 	@Component({
 		name: 'Search',
 		computed: mapState(['searchText']),
-		methods: mapActions(['searchStudents', 'showAllStudents']),
+		methods: {
+			...mapActions(['searchStudents', 'showAllStudents']),
+			...mapMutations(['setSearchText']),
+		},
 	})
 	export default class Search extends Vue {
 		/* State */
