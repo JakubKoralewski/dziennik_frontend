@@ -10,7 +10,7 @@
 					autocorrect="off"
 					autocapitalize="off"
 					spellcheck="false"
-					:title="$t('student.first-name')"
+					:title="editMode ? null : $t('student.first-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-html="student.imie"
 				></div>
@@ -22,7 +22,7 @@
 					autocorrect="off"
 					autocapitalize="off"
 					spellcheck="false"
-					:title="$t('student.last-name')"
+					:title="editMode ? null : $t('student.last-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-html="student.nazwisko"
 				></div>
