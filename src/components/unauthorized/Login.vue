@@ -159,6 +159,7 @@
 								'login.invalid-credentials'
 							) as string);
 							this.loginButton.classList.add('change-text');
+							// tslint:disable-next-line:no-unused-expression
 							new Promise(x => {
 								setTimeout(() => {
 									this.setLoginText(this.$t(
