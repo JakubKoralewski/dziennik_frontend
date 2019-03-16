@@ -5,6 +5,10 @@
 	"hashes": {
 		"add-student": "#dodaj-ucznia"
 	},
+	"language": {
+		"change-to": "Zmień na język polski",
+		"already-chosen": "Już używasz polskiej wersji językowej"
+	},
 	"logged-in": "zalogowany",
 	"sidebar": {
 		"about": "O mnie",

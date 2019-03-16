@@ -54,6 +54,7 @@
 					:key="i"
 					@click="localeChange(lang)"
 					:class="{'current-active': $i18n.locale == lang}"
+					:title="$i18n.locale == lang ? $i18n.messages[lang]['language']['already-chosen'] : $i18n.messages[lang]['language']['change-to']"
 				>{{lang}}</div>
 			</div>
 		</div>

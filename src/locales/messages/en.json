@@ -8,6 +8,11 @@
 		"school": "School",
 		"profile": "Profile"
 	},
+	"language": {
+		"change-to": "Change to the English language",
+		"already-chosen": "You are already using the English language version",
+		"info": "English language"
+	},
 	"hashes": {
 		"add-student": "#add-student"
 	},
