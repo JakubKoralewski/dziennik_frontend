@@ -1,3 +1,4 @@
+import { Vue, Component } from 'vue-property-decorator';
 import { IStudentsPropertiesRequiringValidation } from '@/interfaces';
 
 const studentProperties = {
@@ -15,51 +16,49 @@ interface IStudentProperties {
 	[key: string]: string;
 }
 
-export default {
-	methods: {
-		/** Gets a student object.
-		 *  Creates alerts saying which property is bad.
-		 *  Returns true if all properties valid else false.
-		 */
-		propertiesValid(
-			student: IStudentsPropertiesRequiringValidation,
-			shouldCreateAlerts: boolean = true
-		): boolean {
-			let foundInvalidInput = false;
-			for (const key of Object.keys(student)) {
-				const value = student[key];
-				if (!!value == false) {
-					// TODO: alert component
-					foundInvalidInput = true;
-					if (shouldCreateAlerts) {
-						const property: string = (this as any).$t(
-							`student.${studentProperties[key]}`
-						);
+/** Provides a propertiesValid method.  */
+@Component
+export default class PropertiesValid extends Vue {
+	/** Gets a student object.
+	 *  Creates alerts saying which property is bad.
+	 *  Returns true if all properties valid else false.
+	 */
+	propertiesValid(
+		student: IStudentsPropertiesRequiringValidation,
+		shouldCreateAlerts: boolean = true
+	): boolean {
+		let foundInvalidInput = false;
+		for (const key of Object.keys(student)) {
+			const value = student[key];
 
-						alert(
-							(this as any).$t('alert.property-invalid', {
-								property,
-							})
-						);
-					}
-					break;
+			if (key === 'telefon') {
+				foundInvalidInput = true;
+				if (shouldCreateAlerts) {
+					const property = this.$t('student.telefon');
+					alert(
+						this.$t('alert.should-be-a-number', {
+							property,
+						})
+					);
 				}
-				if (key === 'telefon' && isNaN(value as any)) {
-					foundInvalidInput = true;
-					if (shouldCreateAlerts) {
-						const property: string = (this as any).$t(
-							`student.${studentProperties[key]}`
-						);
-						alert(
-							(this as any).$t('alert.should-be-a-number', {
-								property,
-							})
-						);
-					}
-					break;
+				break;
+			} else if (!!value == false) {
+				// TODO: alert component
+				foundInvalidInput = true;
+				if (shouldCreateAlerts) {
+					const property: string = this.$t(
+						`student.${studentProperties[key]}`
+					) as string;
+
+					alert(
+						this.$t('alert.property-invalid', {
+							property,
+						})
+					);
 				}
+				break;
 			}
-			return !foundInvalidInput;
-		},
-	},
-};
+		}
+		return !foundInvalidInput;
+	}
+}
