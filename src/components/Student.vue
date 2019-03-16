@@ -11,6 +11,7 @@
 					autocapitalize="off"
 					spellcheck="false"
 					:title="$t('student.first-name')"
+					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-html="student.imie"
 				></div>
 				<div
@@ -22,18 +23,19 @@
 					autocapitalize="off"
 					spellcheck="false"
 					:title="$t('student.last-name')"
+					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-html="student.nazwisko"
 				></div>
 			</div>
 			<div id="tools">
 				<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
 					<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
-					<i class="fas fa-check" id="edit-save" :title="$t('student.save')" @click="saveEdit"></i>
+					<i class="fas fa-check" id="edit-save" :title="$t('edit.save')" @click="saveEdit"></i>
 				</div>
 				<i
 					class="fas fa-edit"
 					@click="toggleEditMode"
-					:class="{'edit-mode-active': editMode}"
+					:class="{'edit-mode-active': editMode, 'remind-to-click': remindToClickActive }"
 					:title="$t('edit.edit')"
 				></i>
 				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('delete.delete')"></i>
@@ -51,6 +53,7 @@
 					spellcheck="false"
 					autocomplete="off"
 					autocorrect="off"
+					v-on="!editMode ? { click: uneditableInputClick } : {}"
 				></div>
 			</div>
 			<div>
@@ -64,6 +67,7 @@
 					spellcheck="false"
 					autocapitalize="off"
 					autocorrect="off"
+					v-on="!editMode ? { click: uneditableInputClick } : {}"
 				></div>
 			</div>
 		</div>

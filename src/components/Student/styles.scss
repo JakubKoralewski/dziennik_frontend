@@ -199,13 +199,15 @@
 				&.fa-edit,
 				&.fa-trash-alt {
 					margin-left: 1vw;
+					transition: transform 200ms ease-out;
 
 					&:active {
 						transition: font-size 100ms ease-in;
 						font-size: 1.1rem;
 					}
 
-					&:hover {
+					&:hover,
+					&.remind-to-click {
 						animation-name: wiggle;
 						animation-duration: 800ms;
 						animation-iteration-count: infinite;
@@ -233,7 +235,8 @@
 				transform-origin: center center;
 
 				&.fa-edit:hover,
-				&.fa-edit.edit-mode-active {
+				&.fa-edit.edit-mode-active,
+				&.remind-to-click {
 					color: lighten(blue, 20%);
 				}
 			}

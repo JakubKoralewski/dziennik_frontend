@@ -1,4 +1,4 @@
-import { Vue, Component, Mixins } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 // import { IStudent } from '@/interfaces';
 import { mapActions } from 'vuex';
 import {
@@ -7,22 +7,10 @@ import {
 	IStudents,
 } from '@/interfaces';
 import PropertiesValid from '@/mixins/PropertiesValid';
-import Authorized from '@/views/Authorized/script';
-
-// class Student implements IStudent {
-// 	constructor(public id: number, public imie: string,
-// public nazwisko: string, public klasa: string, public telefon: number) {}
-// }
+import Sleep from '@/mixins/Sleep';
 
 interface IEditEvent extends Event {
 	target: HTMLSpanElement;
-}
-
-interface IStudentData {
-	editMode: boolean;
-	backup: IStudent | {};
-	student: IStudent;
-	propertiesValid(student: IStudentsPropertiesRequiringValidation): boolean;
 }
 
 const StudentComponentProps = Vue.extend({
@@ -36,18 +24,18 @@ const StudentComponentProps = Vue.extend({
 
 @Component({
 	name: 'Student',
-
 	methods: mapActions({
 		storeDeleteStudent: 'deleteStudent',
 		storeEditStudent: 'editStudent',
 	}),
-	mixins: [PropertiesValid],
+	mixins: [PropertiesValid, Sleep],
 })
 export default class Student extends StudentComponentProps {
 	editMode: boolean = false;
 	/** When user chooses to enter editMode this variable preserves the initial data in case of canceling the edit.  */
 	backup: IStudent | {} = {};
 	student: IStudent = this.initialStudent;
+	remindToClickActive: boolean = false;
 
 	/* Actions */
 	storeDeleteStudent: (id: string) => Promise<IStudents>;
@@ -57,6 +45,8 @@ export default class Student extends StudentComponentProps {
 		student: IStudentsPropertiesRequiringValidation,
 		shouldCreateAlerts?: boolean
 	) => boolean;
+	/* From mixin Sleep */
+	sleep: (amountToSleep: number) => void;
 
 	created() {
 		this.student = this.initialStudent;
@@ -145,5 +135,11 @@ export default class Student extends StudentComponentProps {
 		/* event.target.id is the name of property, e.g.: 'imie', 'nazwisko' etc. */
 		this.student[event.target.id] = event.target.innerText;
 		console.log(this.student);
+	}
+	/** Gets called when firstName, lastName, class or phoneNumber is clicked when editMode is off.  */
+	async uneditableInputClick(evt: MouseEvent) {
+		this.remindToClickActive = true;
+		await this.sleep(800);
+		this.remindToClickActive = false;
 	}
 }
