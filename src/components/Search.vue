@@ -4,46 +4,38 @@
 			type="text"
 			:placeholder="$t('search.placeholder')"
 			:value="searchText"
-			v-on:input="searchText=$event.target.value"
+			@input="searchText=$event.target.value"
 			spellcheck="false"
-			@input="inputChanged"
 		>
 	</div>
 </template>
 
 <script lang="ts">
-	import Vue from 'vue';
-	import { mapActions } from 'vuex';
+	import { Vue, Component, Watch } from 'vue-property-decorator';
+	import { mapActions, mapState } from 'vuex';
 
-	interface ISearchData {
-		searchText: string;
-		// searchElement?: HTMLElement;
-		searchStudents(searchText: string): string;
-		showAllStudents(): void;
-	}
-
-	export default Vue.extend({
+	@Component({
 		name: 'Search',
-		data() {
-			return {
-				searchText: '',
-			} as ISearchData;
-		},
-		// mounted() {
-		// 	this.searchElement = document.querySelector('.search');
-		// },
-		methods: {
-			...mapActions(['searchStudents', 'showAllStudents']),
-			inputChanged: function(event: KeyboardEvent) {
-				const searchText = (event.target as HTMLInputElement).value;
-				if (!!searchText) {
-					// All should be visible
-					this.showAllStudents();
-				}
-				this.searchStudents(searchText);
-			},
-		},
-	});
+		computed: mapState(['searchText']),
+		methods: mapActions(['searchStudents', 'showAllStudents']),
+	})
+	export default class Search extends Vue {
+		/* State */
+		searchText: string;
+
+		/* Actions */
+		searchStudents: (searchText: string) => void;
+		showAllStudents: () => void;
+
+		@Watch('searchText')
+		onSearchTextChange(searchText: string) {
+			if (!!searchText) {
+				// All should be visible
+				this.showAllStudents();
+			}
+			this.searchStudents(searchText);
+		}
+	}
 </script>
 
 <style scoped lang="scss">
