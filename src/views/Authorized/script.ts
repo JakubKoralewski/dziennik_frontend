@@ -15,6 +15,9 @@ import { IStudent, IStudents } from '@/interfaces';
 /* Mixins */
 import TouchDetection from '@/mixins/TouchDetection';
 
+/** Controls Authorized.openSwipeSensitivity but in percentage.  */
+const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
+
 @Component({
 	name: 'Authorized',
 	components: {
@@ -44,6 +47,10 @@ export default class Authorized extends Mixins(TouchDetection) {
 	/** Used to hide cover with delay using CSS transitions.  */
 	coverActuallyHidden: boolean = true;
 	ADD_STUDENT_HASH_PATH: string = '';
+	/** Value in pixels.
+	 *  Defaults to 50px.
+	 */
+	openSwipeSensitivity: number = 50;
 
 	/* State */
 	students: IStudents;
@@ -64,8 +71,12 @@ export default class Authorized extends Mixins(TouchDetection) {
 			this.showNewStudentDialog = false;
 		}
 	}
-
+	@Watch('')
 	async mounted() {
+		window.onresize = () => {
+			this.openSwipeSensitivity =
+				window.innerWidth * OPEN_SWIPE_SENSITIVITY_PERCENTAGE;
+		};
 		await this.loadStudents();
 	}
 
@@ -88,12 +99,18 @@ export default class Authorized extends Mixins(TouchDetection) {
 		});
 	}
 
-	leftSwipe(amount: number) {
+	/** Swiping left when SideBar is open should close it, otherwise do nothing.  */
+	leftSwipe(evt: TouchEvent) {
 		this.sideBarToggle(false);
 	}
 
-	rightSwipe(amount: number) {
-		this.sideBarToggle(true);
+	/** Swiping right near the edge should show sidebar.  */
+	rightSwipe(evt: TouchEvent) {
+		const xTouch = evt.touches[0].clientX;
+		/* Only near the edge */
+		if (xTouch < this.openSwipeSensitivity) {
+			this.sideBarToggle(true);
+		}
 	}
 
 	toggleNewStudentDialog() {

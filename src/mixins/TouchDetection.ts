@@ -1,9 +1,18 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-// You can declare a mixin as the same style as components.
+// tslint:disable jsdoc-format
+/** Mixin
+ *  
+ *  Requires these functions to be present on the component to work properly.
+```
+methods: {
+	leftSwipe(evt: Event),
+	rightSwipe(evt: Event)
+}
+```
+ */
 @Component
-/** Mixin  */
 export default class TouchDetection extends Vue {
 	public xDown: number = 0;
 	public xSensitivity: number = 5;
@@ -24,9 +33,9 @@ export default class TouchDetection extends Vue {
 		const xDiff = this.xDown - xUp;
 
 		if (xDiff > this.xSensitivity) {
-			(this as any).leftSwipe(xDiff);
+			(this as any).leftSwipe(evt);
 		} else if (xDiff < -this.xSensitivity) {
-			(this as any).rightSwipe(xDiff);
+			(this as any).rightSwipe(evt);
 		}
 		this.xDown = 0;
 	}
