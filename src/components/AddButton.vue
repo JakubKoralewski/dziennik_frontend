@@ -22,7 +22,7 @@
 		right: calc(0.1rem + 5vw);
 		bottom: calc(1rem + 5vmin);
 		cursor: pointer;
-		z-index: 100;
+		z-index: 5;
 		transition: all 100ms ease-in;
 		box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0);
 
@@ -34,10 +34,6 @@
 			animation-timing-function: ease-in;
 			color: black !important;
 			background-color: white !important;
-		}
-
-		&.sidebar-visible {
-			z-index: 1;
 		}
 
 		&.blur-visible,
