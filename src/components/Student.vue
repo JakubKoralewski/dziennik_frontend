@@ -10,7 +10,7 @@
 					autocorrect="off"
 					autocapitalize="off"
 					spellcheck="false"
-					:title="$t('student.imie')"
+					:title="$t('student.first-name')"
 					v-html="student.imie"
 				></div>
 				<div
@@ -21,7 +21,7 @@
 					autocorrect="off"
 					autocapitalize="off"
 					spellcheck="false"
-					:title="$t('student.imie')"
+					:title="$t('student.last-name')"
 					v-html="student.nazwisko"
 				></div>
 			</div>
