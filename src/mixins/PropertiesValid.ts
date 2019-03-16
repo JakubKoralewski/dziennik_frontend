@@ -31,15 +31,14 @@ export default class PropertiesValid extends Vue {
 		for (const key of Object.keys(student)) {
 			const value = student[key];
 
-			if (key === 'telefon') {
+			if (key === 'telefon' && isNaN(value as any)) {
 				foundInvalidInput = true;
 				if (shouldCreateAlerts) {
-					const property = this.$t('student.telefon');
-					alert(
-						this.$t('alert.should-be-a-number', {
-							property,
-						})
-					);
+					let property: string = this.$t(
+						'student.phone-number-genitive'
+					) as string;
+					property = property.toLowerCase();
+					alert(this.$t('alert.should-be-a-number', { property }));
 				}
 				break;
 			} else if (!!value == false) {

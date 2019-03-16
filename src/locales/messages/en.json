@@ -53,7 +53,8 @@
 	"student": {
 		"first-name": "First name",
 		"last-name": "Last name",
-		"phone-number": "Phone",
+		"phone-number": "Phone Number",
+		"phone-number-genitive": "The Phone Number",
 		"class": "Class"
 	},
 

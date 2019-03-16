@@ -41,6 +41,7 @@
 		"first-name": "Imię",
 		"last-name": "Nazwisko",
 		"phone-number": "Telefon",
+		"phone-number-genitive": "Numeru telefonu",
 		"class": "Klasa"
 	},
 	"login": {
@@ -68,7 +69,8 @@
 			"are-you-sure": "Na pewno chcesz usunąć ucznia {firstName} {lastName}?"
 		},
 		"property-invalid": "Niepoprawna wartość: {property}!",
-		"should-be-a-number": "Wartość {property}u powinna być numerem."
+		"should-be-a-number": "Wartość {property} powinna być numerem."
+
 	},
 	"not-a-muggle": "Nie jestem mugolem"
 
