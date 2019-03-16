@@ -23,7 +23,7 @@
 		</div>
 		<div id="content">
 			<div id="klasa">
-				{{$t('student.class')}}:
+				<p>{{$t('student.class')}}:</p>
 				<span class="info">
 					<input
 						type="text"
@@ -36,7 +36,7 @@
 				</span>
 			</div>
 			<div id="telefon">
-				{{$t('student.phone-number')}}:
+				<p>{{$t('student.phone-number')}}:</p>
 				<span class="info">
 					<input
 						type="text"
@@ -58,14 +58,15 @@
 </template>
 
 <script lang="ts">
-	import Vue from 'vue';
+	import { Vue, Component, Mixins, Watch } from 'vue-property-decorator';
 	import {
 		IStudent,
 		INewStudent,
+		IStudents,
 		IStudentsPropertiesRequiringValidation,
 	} from '@/interfaces';
 	import { mapActions } from 'vuex';
-	import propertiesValid from '@/mixins/propertiesValid';
+	import PropertiesValid from '@/mixins/PropertiesValid';
 
 	interface INewStudentThis {
 		propertiesValid(
@@ -73,54 +74,45 @@
 			shouldCreateAlerts?: boolean
 		): boolean;
 	}
-
-	export default Vue.extend({
+	@Component({
 		name: 'NewStudent',
-		mixins: [propertiesValid],
-		data() {
-			return {
-				newStudent: {
-					imie: '',
-					nazwisko: '',
-					klasa: '',
-					telefon: '',
-				} as INewStudent,
-				allPropertiesValid: false,
-			};
-		},
-		watch: {
-			newStudent: {
-				handler(oldValue, newValue) {
-					this.allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
-						this.newStudent,
-						false
-					);
-					const checkmarkColor = this.allPropertiesValid
-						? 'rgb(12, 237, 0)'
-						: 'red';
-					this.$el.setAttribute(
-						'style',
-						`--new-student-checkmark-color: ${checkmarkColor}`
-					);
-					console.log(this.$el);
-				},
-				deep: true,
-			},
-		},
-		methods: {
-			...mapActions(['addStudent']),
-			async addUser() {
-				const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
-					this.newStudent
-				);
-				if (!allPropertiesValid) {
-					return;
-				}
-				this.$emit('newStudentAdded');
-				const response = await (this as any).addStudent(this.newStudent);
-			},
-		},
-	});
+		methods: mapActions(['addStudent']),
+	})
+	export default class NewStudent extends Mixins(PropertiesValid) {
+		newStudent: INewStudent = {
+			imie: '',
+			nazwisko: '',
+			klasa: '',
+			telefon: '',
+		};
+		allPropertiesValid: boolean = false;
+
+		/* Actions */
+		addStudent: (student: INewStudent) => IStudents;
+
+		@Watch('newStudent', { deep: true })
+		onNewStudentChange(): void {
+			this.allPropertiesValid = this.propertiesValid(this.newStudent, false);
+			const checkmarkColor = this.allPropertiesValid
+				? 'rgb(12, 237, 0)'
+				: 'red';
+			this.$el.setAttribute(
+				'style',
+				`--new-student-checkmark-color: ${checkmarkColor}`
+			);
+		}
+
+		async addUser() {
+			const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
+				this.newStudent
+			);
+			if (!allPropertiesValid) {
+				return;
+			}
+			this.$emit('newStudentAdded');
+			const response = await this.addStudent(this.newStudent);
+		}
+	}
 </script>
 
 <style lang="scss">
@@ -140,6 +132,12 @@
 		input {
 			width: calc(30% + 10vmin);
 			cursor: text !important;
+			font-size: 1.2rem;
+			padding: 0.3rem;
+			border-radius: 0.1rem;
+			border-width: 2px;
+			border-style: solid;
+			border-color: black;
 		}
 
 		#header {
@@ -161,6 +159,17 @@
 			@include new-student-padding();
 			padding-top: 2rem;
 
+			#klasa,
+			div#telefon {
+				align-items: center;
+				justify-content: space-around;
+				width: calc(50% + 2rem);
+			}
+
+			div#telefon {
+				margin-top: calc(1rem + 1vh);
+			}
+
 			#checkmark {
 				margin: 2rem;
 				margin-top: auto;
@@ -174,8 +183,9 @@
 					cursor: pointer;
 				}
 
+				/* Checkmark font-awesome icon */
 				i {
-					font-size: 2rem;
+					font-size: 3rem;
 				}
 			}
 		}
