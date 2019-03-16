@@ -7,7 +7,7 @@
 
 	.blur-container {
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
 		background-color: $main-color;
 
 		&.blur-visible:not(#add-button):not(#new-student) {
@@ -16,8 +16,9 @@
 	}
 
 	#content {
-		height: 100%;
+		min-height: 100%;
 		width: 100%;
+
 		#students {
 			padding: $students-top-padding 0rem 0rem $students-left-padding;
 			// height: 100%; // makes white footer
@@ -67,6 +68,7 @@
 		// height: 100vh; // with this too short
 		order: 0;
 	}
+
 	#nav-title {
 		@include nav-shadow(2px);
 		@include nav-border(1px);
