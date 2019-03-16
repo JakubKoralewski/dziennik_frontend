@@ -27,7 +27,7 @@
 			</a>
 			<a
 				href="https://github.com/JakubKoralewski/dziennik_php_backend"
-				title="$t('github.backend.info')"
+				:title="$t('github.backend.info')"
 				target="_blank"
 				class="menu-item gh"
 				id="backend"
