@@ -7,16 +7,19 @@
 		<div id="cover"/>
 		<canvas id="canvas" class="animate"></canvas>
 		<img class="bg noselect animate" src="hogwarts.jpg" unselectable="on" draggable="false">
+		<Languages/>
 	</div>
 </template>
 
 <script lang="ts">
-	import Vue from 'vue';
+	import { Vue, Component } from 'vue-property-decorator';
 	import Login from '@/components/unauthorized/Login.vue';
+	import Languages from '@/components/Languages.vue';
 
-	export default Vue.extend({
+	@Component({
 		components: {
 			Login,
+			Languages,
 		},
 		metaInfo() {
 			return {
@@ -27,12 +30,14 @@
 				},
 			};
 		},
+	})
+	export default class Unauthorized extends Vue {
 		beforeCreate() {
 			document.documentElement.classList.add('html-unauthorized');
-		},
+		}
 		destroyed() {
 			document.documentElement.classList.remove('html-unauthorized');
-		},
+		}
 		mounted() {
 			// https://codepen.io/ruigewaard/pen/JHDdF
 			const canvas: HTMLCanvasElement = document.querySelector('#canvas');
@@ -84,8 +89,8 @@
 				}
 				setInterval(draw, 30);
 			}
-		},
-	});
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -95,6 +100,30 @@
 		justify-content: center;
 		overflow: hidden;
 		position: relative; // Fixes img not getting clipped
+	}
+
+	.languages {
+		text-transform: uppercase;
+		color: white;
+		position: absolute;
+		left: calc(1rem + 1vw);
+		bottom: calc(1rem + 1vh);
+
+		&::v-deep .language {
+			cursor: pointer;
+			opacity: 0.9;
+			font-weight: 200;
+
+			transition: font-weight 10ms ease-in-out;
+			transform-origin: 50% 50%;
+
+			&.current-active {
+				font-weight: 400;
+				font-size: 1.2rem;
+				color: red;
+				opacity: 0.9;
+			}
+		}
 	}
 
 	#canvas {

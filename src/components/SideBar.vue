@@ -47,16 +47,7 @@
 				<p>{{ $t('sidebar.profile')}}</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<div class="languages">
-				<div
-					class="language"
-					v-for="(lang, i) in langs"
-					:key="i"
-					@click="localeChange(lang)"
-					:class="{'current-active': $i18n.locale == lang}"
-					:title="$i18n.locale == lang ? $i18n.messages[lang]['language']['already-chosen'] : $i18n.messages[lang]['language']['change-to']"
-				>{{lang}}</div>
-			</div>
+			<Languages/>
 		</div>
 	</div>
 </template>
@@ -64,36 +55,33 @@
 <script lang="ts">
 	import { Vue, Component, Watch } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
+	import Languages from '@/components/Languages.vue';
 
 	@Component({
 		name: 'SideBar',
+		components: {
+			Languages,
+		},
 		computed: mapState(['sideBarVisible']),
 		methods: mapMutations(['sideBarVisibilityChange']),
 	})
 	export default class SideBar extends Vue {
 		elements: object = {};
-		langs: string[] = [];
 
 		/* State */
 		sideBarVisible: boolean;
 		/* Mutations */
 		sideBarVisibilityChange: (state: boolean) => void;
 
-		mounted() {
-			this.langs = this.$i18n.availableLocales;
-		}
-
 		sideBarToggle(el: HTMLElement, event: Event) {
 			this.sideBarVisibilityChange(!this.sideBarVisible);
 			this.$emit('sideBarToggle', this.sideBarVisible);
 		}
-
-		localeChange(lang: string) {
-			this.$i18n.locale = lang;
-			this.$router.push(this.$t('logged-in'));
-		}
 	}
 </script>
+
+<style lang="scss">
+</style>
 
 <style scoped lang="scss">
 	.nav {
@@ -197,7 +185,7 @@
 			text-decoration: none;
 			color: inherit;
 
-			.language {
+			&::v-deep .language {
 				display: flex;
 				flex-direction: column;
 
