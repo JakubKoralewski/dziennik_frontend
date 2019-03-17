@@ -74,7 +74,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 			this.showNewStudentDialog = false;
 		}
 	}
-	@Watch('')
+
 	async mounted() {
 		window.onresize = () => {
 			this.openSwipeSensitivity =
