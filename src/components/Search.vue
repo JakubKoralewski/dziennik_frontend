@@ -32,11 +32,16 @@
 
 		@Watch('searchText')
 		onSearchTextChange(searchText: string) {
-			if (!!searchText) {
+			if (!searchText) {
 				// All should be visible
 				this.showAllStudents();
+			} else {
+				this.searchStudents(searchText);
 			}
-			this.searchStudents(searchText);
+		}
+
+		mounted() {
+			this.onSearchTextChange(this.searchText);
 		}
 	}
 </script>
