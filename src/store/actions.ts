@@ -11,6 +11,7 @@ import {
 } from '@/interfaces';
 
 interface IActionContext extends ActionContext<IState, any> {}
+// tslint:disable:jsdoc-format
 
 export default {
 	/** Creates GET API request for all students.
