@@ -7,7 +7,7 @@ import {
 	IStudents,
 } from '@/interfaces';
 import PropertiesValid from '@/mixins/PropertiesValid';
-import Sleep from '@/mixins/Sleep';
+import { Sleep, ISleep } from '@/mixins/Sleep';
 
 interface IEditEvent extends Event {
 	target: HTMLSpanElement;
@@ -46,7 +46,7 @@ export default class Student extends StudentComponentProps {
 		shouldCreateAlerts?: boolean
 	) => boolean;
 	/* From mixin Sleep */
-	sleep: (amountToSleep: number) => void;
+	sleep: ISleep;
 
 	created() {
 		this.student = this.initialStudent;
