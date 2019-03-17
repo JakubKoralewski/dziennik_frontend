@@ -111,16 +111,12 @@
 
 		&::v-deep .language {
 			cursor: pointer;
-			opacity: 0.9;
+			opacity: 0.5;
 			font-weight: 200;
-
-			transition: font-weight 10ms ease-in-out;
-			transform-origin: 50% 50%;
+			transition: all 200ms ease-in-out;
 
 			&.current-active {
-				font-weight: 400;
-				font-size: 1.2rem;
-				color: red;
+				color: lighten(red, 15%);
 				opacity: 0.9;
 			}
 		}
