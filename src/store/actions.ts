@@ -13,6 +13,9 @@ import {
 interface IActionContext extends ActionContext<IState, any> {}
 
 export default {
+	/** Creates GET API request for all students.
+	 *  Adds them to Vuex state.
+	 */
 	async loadStudents({ state, commit }: IActionContext) {
 		return fetch(`${API_URL}api/uczniowie.php`, {
 			method: 'GET',
@@ -24,12 +27,13 @@ export default {
 		})
 			.then(response => {
 				if (response.ok !== true) {
-					console.error('Nie udało się zdobyć uczniów.');
+					console.error(`Couldn't get students.`);
 				}
 				return response.json();
 			})
-			.then(data => {
+			.then((data: IStudent[]) => {
 				console.log(`commit('add',`, data, `);`);
+				/* Add students to state */
 				commit('add', data);
 				console.log('state.students', state.students);
 				return state.students;
@@ -39,6 +43,10 @@ export default {
 			});
 	},
 	/** Searches every property of student for searchText.
+	 *  If property is a number, converts to string.
+	 *  Converted to lowercase for case insensitivity.
+	 *  Changes visibility of student depending on whether the text was found.
+	 *  @param { string } searchText
 	 */
 	searchStudents: ({ state, commit }: IActionContext, searchText: string) => {
 		console.log(`searching students for ${searchText}`);
@@ -67,6 +75,7 @@ export default {
 		});
 		console.log('state after search: ', state.students);
 	},
+	/** Sets every student's visibility to true.  */
 	showAllStudents({ state, commit }: IActionContext) {
 		Object.values(state.students).forEach(student => {
 			commit('changeVisibility', {
@@ -75,6 +84,10 @@ export default {
 			});
 		});
 	},
+	/** Creates POST API request to add a new student to the database.
+	 *  @param { INewStudent } newStudent - student to add
+	 *  @returns { IStudents } - state.students
+	 */
 	async addStudent(
 		{ state, commit }: IActionContext,
 		newStudent: INewStudent
@@ -99,7 +112,7 @@ export default {
 		})
 			.then(response => {
 				if (response.ok !== true) {
-					console.error('Nie udało się dodać ucznia.');
+					console.error(`Couldn't add student`);
 				} else {
 					return response.json();
 				}
@@ -114,6 +127,9 @@ export default {
 				console.error(error);
 			});
 	},
+	/** Creates POST API request to delete student from databse.
+	 *  @param { number } id - student to delete
+	 */
 	async deleteStudent({ state, commit }: IActionContext, id: number) {
 		return fetch(`${API_URL}api/uczniowie.php`, {
 			method: 'DELETE',
@@ -140,6 +156,16 @@ export default {
 				console.error(error);
 			});
 	},
+	/** Creates PUT API request to change existing data of particular student on server.
+	 *  @param { IEditData } edit_data example:
+	 * 	```{
+	 *		"id": 2,
+	 *		"new_data": {
+	 *			"imie": 'xd2',
+	 *			"telefon": 123123123
+	 *		}
+	 *	}```
+	 */
 	async editStudent({}, edit_data: IEditData) {
 		return fetch(`${API_URL}api/uczniowie.php`, {
 			method: 'PUT',
@@ -149,13 +175,7 @@ export default {
 				'Access-Control-Allow-Credentials': 'true',
 			},
 			/* Should look like this:
-			{
-				"id": 2,
-				"new_data": {
-					"imie": 'xd2',
-					"telefon": 123123123
-				}
-			}
+			
 			
 			*/
 			body: JSON.stringify({

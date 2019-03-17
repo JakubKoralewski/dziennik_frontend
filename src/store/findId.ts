@@ -1,5 +1,9 @@
+/** Finds the id that will be inserted into the database.
+ *  Here are some visualised examples of how it works:
+ *  newId: https://i.imgur.com/JWBbOsb.png, but https://i.imgur.com/4Fvg0dv.png
+ *  This logic should be on the server, but I do not have the skills to write this in PHP.
+ */
 export default function findId(students: number[]) {
-	// newId: https://i.imgur.com/JWBbOsb.png, but https://i.imgur.com/4Fvg0dv.png
 	if (students.length === 0) {
 		return 0;
 	} else if (students.length === 1) {
