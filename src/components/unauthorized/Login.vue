@@ -37,14 +37,16 @@
 
 <script lang="ts">
 	/* import MuggleCaptcha from '@/components/MuggleCaptcha.vue'; */
-	import Vue from 'vue';
+	import { Vue, Component, Mixins } from 'vue-property-decorator';
 	import { API_URL } from '@/config';
+	import { Sleep, ISleep } from '@/mixins/Sleep';
 
-	export default Vue.extend({
-		name: 'Login',
-		// components: {
-		// 	MuggleCaptcha,
-		// },
+	enum TASKS {
+		LoginTask,
+		CheckIfTakingTooLongTask,
+	}
+
+	const LoginProps = Vue.extend({
 		props: {
 			propName: {
 				type: String,
@@ -58,27 +60,29 @@
 				default: 'logo.png',
 			},
 		},
-		data() {
-			return {
-				login: '',
-				loginText: this.$t('login.CTA'),
-				oldLoginText: '',
-				haslo: '',
-				loginButton: null,
-				loginInput: null,
-				hasloInput: null,
-				wasLoginSuccessful: false,
-			} as {
-				login: string;
-				loginText: string;
-				oldLoginText: string;
-				haslo: string;
-				loginButton: HTMLButtonElement | null;
-				loginInput: HTMLInputElement | null;
-				hasloInput: HTMLInputElement | null;
-				wasLoginSuccessful: boolean;
-			};
-		},
+	});
+	@Component({
+		name: 'Login',
+		mixins: [Sleep],
+	})
+	export default class Login extends LoginProps {
+		/* Data */
+		login: string = '';
+		loginText: string = '';
+		oldLoginText: string = '';
+		haslo: string = '';
+		loginButton: HTMLButtonElement | null = null;
+		loginInput: HTMLInputElement | null = null;
+		hasloInput: HTMLInputElement | null = null;
+		wasLoginSuccessful: boolean = false;
+
+		/* Mixin: Sleep */
+		sleep: ISleep;
+
+		created() {
+			this.loginText = this.$t('login.CTA') as string;
+		}
+
 		mounted() {
 			this.loginButton = document.querySelector('#login-button');
 			this.loginInput = document.querySelector('input#login');
@@ -96,135 +100,152 @@
 					});
 				}
 			);
-		},
-		methods: {
-			setLoginText(new_text: string) {
-				this.oldLoginText = this.loginText;
-				this.loginText = new_text;
-			},
-			restoreOldLoginText() {
-				this.loginText = this.oldLoginText;
-			},
-			loginRequest() {
-				const invalidInputs = this.credentialsValid([
-					this.loginInput as HTMLInputElement,
-					this.hasloInput as HTMLInputElement,
-				]);
-				if (invalidInputs != false) {
-					console.log('Found invalid inputs', invalidInputs);
-					if (!this.wasLoginSuccessful) {
-						[
-							this.loginInput as HTMLInputElement,
-							this.hasloInput as HTMLInputElement,
-						].forEach(input => input.classList.remove('login-failed'));
-					}
-					this.loginError(invalidInputs as HTMLInputElement[]);
-					return;
+		}
+		setLoginText(new_text: string) {
+			this.oldLoginText = this.loginText;
+			this.loginText = new_text;
+		}
+		restoreOldLoginText() {
+			this.loginText = this.oldLoginText;
+		}
+		loginRequest() {
+			const invalidInputs = this.credentialsValid([
+				this.loginInput as HTMLInputElement,
+				this.hasloInput as HTMLInputElement,
+			]);
+			if (invalidInputs != false) {
+				console.log('Found invalid inputs', invalidInputs);
+				if (!this.wasLoginSuccessful) {
+					[
+						this.loginInput as HTMLInputElement,
+						this.hasloInput as HTMLInputElement,
+					].forEach(input => input.classList.remove('login-failed'));
 				}
-				console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
-				this.loginButton.classList.add('logging-in');
-				this.setLoginText(this.$t('login.logging-in') as string);
-				fetch(`${API_URL}api/login.php`, {
-					method: 'POST',
-					body: JSON.stringify({ login: this.login, haslo: this.haslo }),
-					headers: {
-						'Content-Type': 'application/json; charset=UTF-8',
-						'Access-Control-Allow-Origin': '*',
-						'Access-Control-Allow-Credentials': 'true',
-					},
-				})
-					.then(response => {
-						if ((response as any).status !== true) {
-							this.loginError([
-								this.loginInput as HTMLInputElement,
-								this.hasloInput as HTMLInputElement,
-							]);
-						} else {
-							this.setLoginText(this.$t(
-								'login.invalid-credentials'
-							) as string);
-						}
-						return response.json();
+				this.loginError(invalidInputs as HTMLInputElement[]);
+				return;
+			}
+			console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
+			this.loginButton.classList.add('logging-in');
+			this.setLoginText(this.$t('login.logging-in') as string);
+			const loginTask = new Promise(resolve => {
+				this.loginButton.classList.remove('change-text');
+				resolve(
+					fetch(`${API_URL}api/login.php`, {
+						method: 'POST',
+						body: JSON.stringify({
+							login: this.login,
+							haslo: this.haslo,
+						}),
+						headers: {
+							'Content-Type': 'application/json; charset=UTF-8',
+							'Access-Control-Allow-Origin': '*',
+							'Access-Control-Allow-Credentials': 'true',
+						},
 					})
-					.then(async data => {
-						console.log(data);
-						if (data.status === true) {
-							this.setLoginText(this.$t(
-								'login.successful'
-							) as string);
-							console.log('zalogowano.');
-							this.loginSuccessful();
-						} else {
-							this.setLoginText(this.$t(
-								'login.invalid-credentials'
-							) as string);
-							this.loginButton.classList.add('change-text');
-							// tslint:disable-next-line:no-unused-expression
-							new Promise(x => {
-								setTimeout(() => {
-									this.setLoginText(this.$t(
-										'login.CTA'
-									) as string);
-									this.loginButton.classList.remove(
-										'change-text'
-									);
-								}, 1500);
-							});
-						}
-					})
-					.catch(error => {
-						console.error(error);
-						this.setLoginText(this.$t('login.error') as string);
-					})
-					.finally(() => {
-						this.loginButton.classList.remove('logging-in');
-					});
-			},
-			loginSuccessful() {
-				this.wasLoginSuccessful = true;
-				[
-					this.loginInput as HTMLInputElement,
-					this.hasloInput as HTMLInputElement,
-				].forEach(input => input.classList.remove('login-failed'));
-				this.$router.push(this.$t('logged-in'));
-			},
-			loginError(inputs: Array<HTMLInputElement | null>) {
-				this.wasLoginSuccessful = false;
-				inputs.forEach(input => {
-					input!.classList.add('login-failed');
+						.then(response => {
+							if ((response as any).status !== true) {
+								this.loginError([
+									this.loginInput as HTMLInputElement,
+									this.hasloInput as HTMLInputElement,
+								]);
+							} else {
+								this.setLoginText(this.$t(
+									'login.invalid-credentials'
+								) as string);
+							}
+							return response.json();
+						})
+						.then(async data => {
+							console.log(data);
+							if (data.status === true) {
+								this.setLoginText(this.$t(
+									'login.successful'
+								) as string);
+								console.log('zalogowano.');
+								this.loginSuccessful();
+							} else {
+								this.setLoginText(this.$t(
+									'login.invalid-credentials'
+								) as string);
+								this.loginButton.classList.add('change-text');
+								// tslint:disable-next-line:no-unused-expression
+								new Promise(x => {
+									setTimeout(() => {
+										this.setLoginText(this.$t(
+											'login.CTA'
+										) as string);
+										this.loginButton.classList.remove(
+											'change-text'
+										);
+									}, 1500);
+								});
+							}
+							return TASKS.LoginTask;
+						})
+						.catch(error => {
+							console.error(error);
+							this.setLoginText(this.$t('login.error') as string);
+						})
+						.finally(() => {
+							this.loginButton.classList.remove('logging-in');
+						})
+				);
+			});
+			const checkIfTakingTooLongTask = (amountToWait: number) =>
+				new Promise(async resolve => {
+					await this.sleep(amountToWait);
+					resolve(TASKS.CheckIfTakingTooLongTask);
 				});
-			},
-			/** If invalid, returns HTMLInputElement that was invalid  */
-			credentialsValid(
-				inputs: Array<HTMLInputElement | null>
-			): HTMLInputElement[] | true {
-				const invalidInputs = inputs
-					.map(input => {
-						if (!!input!.value == false) {
-							this.setLoginText(this.$t(
-								`login.empty-input.${input.type}`
-							) as string);
-							return input;
-						}
-						return null;
-					})
-					.filter((input: HTMLInputElement | null) => {
-						return !!input;
-					});
-				if (invalidInputs == null) {
-					console.log('credentials valid');
-					return true;
-				} else {
-					if (invalidInputs.length == 2) {
-						this.setLoginText(this.$t(
-							`login.empty-input.both`
-						) as string);
+			Promise.race([checkIfTakingTooLongTask(500), loginTask]).then(
+				async (taskType: any) => {
+					if (taskType === TASKS.CheckIfTakingTooLongTask) {
+						this.setLoginText(this.$t('login.taking-long') as string);
 					}
-					return invalidInputs as HTMLInputElement[];
 				}
-			},
-		},
-	});
+			);
+		}
+		loginSuccessful() {
+			this.wasLoginSuccessful = true;
+			[
+				this.loginInput as HTMLInputElement,
+				this.hasloInput as HTMLInputElement,
+			].forEach(input => input.classList.remove('login-failed'));
+			this.$router.push(this.$t('logged-in'));
+		}
+		loginError(inputs: Array<HTMLInputElement | null>) {
+			this.wasLoginSuccessful = false;
+			inputs.forEach(input => {
+				input!.classList.add('login-failed');
+			});
+		}
+		/** If invalid, returns HTMLInputElement that was invalid  */
+		credentialsValid(
+			inputs: Array<HTMLInputElement | null>
+		): HTMLInputElement[] | true {
+			const invalidInputs = inputs
+				.map(input => {
+					if (!!input!.value == false) {
+						this.setLoginText(this.$t(
+							`login.empty-input.${input.type}`
+						) as string);
+						return input;
+					}
+					return null;
+				})
+				.filter((input: HTMLInputElement | null) => {
+					return !!input;
+				});
+			if (invalidInputs == null) {
+				console.log('credentials valid');
+				return true;
+			} else {
+				if (invalidInputs.length == 2) {
+					this.setLoginText(this.$t(`login.empty-input.both`) as string);
+				}
+				return invalidInputs as HTMLInputElement[];
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped src="./Login/styles.scss"/>

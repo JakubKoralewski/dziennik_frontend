@@ -107,6 +107,8 @@
 				padding: 0.5rem 0;
 				border-radius: 8px;
 				transition: color 500ms ease-in;
+				/* Wraps too long text */
+				white-space: normal;
 
 				&:hover {
 					cursor: pointer;

@@ -59,7 +59,8 @@
 			"login": "Login nie może być pusty!",
 			"password": "@:login.password nie może być puste!",
 			"both": "Login i hasło nie mogą być puste!"
-		}
+		},
+		"taking-long": "Bądź cierpliwy! Możliwe, że 🦕 Heroku śpi!"
 	},
 	"alert": {
 		"deleting-student": "Usuwam ucznia nr. {id}",
