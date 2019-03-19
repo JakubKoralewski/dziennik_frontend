@@ -6,6 +6,7 @@
 					type="text"
 					id="imie"
 					:placeholder="$t('student.first-name')"
+					@keyup.enter="addUser"
 					v-model="newStudent.imie"
 					autofocus
 					spellcheck="false"
@@ -14,6 +15,7 @@
 				<input
 					type="text"
 					id="nazwisko"
+					@keyup.enter="addUser"
 					:placeholder="$t('student.last-name')"
 					v-model="newStudent.nazwisko"
 					spellcheck="false"
@@ -29,6 +31,7 @@
 						type="text"
 						id="klasa"
 						placeholder="3d"
+						@keyup.enter="addUser"
 						v-model="newStudent.klasa"
 						spellcheck="false"
 						tabindex="3"
@@ -41,6 +44,7 @@
 					<input
 						type="text"
 						id="telefon"
+						@keyup.enter="addUser"
 						placeholder="666666666"
 						v-model="newStudent.telefon"
 						spellcheck="false"
