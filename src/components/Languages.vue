@@ -24,7 +24,7 @@
 		}
 		localeChange(lang: string) {
 			this.$i18n.locale = lang;
-			//this.$router.push(this.$t('logged-in'));
+			// this.$router.push(this.$t('logged-in'));
 		}
 	}
 </script>

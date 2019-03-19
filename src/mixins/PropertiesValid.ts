@@ -16,48 +16,41 @@ interface IStudentProperties {
 	[key: string]: string;
 }
 
+export type IPropertiesValid = (
+	student: IStudentsPropertiesRequiringValidation
+) => string | boolean;
+
 /** Provides a propertiesValid method.  */
 @Component
-export default class PropertiesValid extends Vue {
+export class PropertiesValid extends Vue {
 	/** Gets a student object.
 	 *  Creates alerts saying which property is bad.
 	 *  Returns true if all properties valid else false.
 	 */
 	propertiesValid(
-		student: IStudentsPropertiesRequiringValidation,
-		shouldCreateAlerts: boolean = true
-	): boolean {
-		let foundInvalidInput = false;
+		student: IStudentsPropertiesRequiringValidation
+	): string | boolean {
 		for (const key of Object.keys(student)) {
 			const value = student[key];
 
 			if (key === 'telefon' && isNaN(value as any)) {
-				foundInvalidInput = true;
-				if (shouldCreateAlerts) {
-					let property: string = this.$t(
-						'student.phone-number-genitive'
-					) as string;
-					property = property.toLowerCase();
-					alert(this.$t('alert.should-be-a-number', { property }));
-				}
-				break;
+				let property: string = this.$t(
+					'student.phone-number-genitive'
+				) as string;
+				property = property.toLowerCase();
+				return this.$t('alert.should-be-a-number', {
+					property,
+				}) as string;
 			} else if (!!value == false) {
-				// TODO: alert component
-				foundInvalidInput = true;
-				if (shouldCreateAlerts) {
-					const property: string = this.$t(
-						`student.${studentProperties[key]}`
-					) as string;
+				const property: string = this.$t(
+					`student.${studentProperties[key]}`
+				) as string;
 
-					alert(
-						this.$t('alert.property-invalid', {
-							property,
-						})
-					);
-				}
-				break;
+				return this.$t('alert.property-invalid', {
+					property,
+				}) as string;
 			}
 		}
-		return !foundInvalidInput;
+		return true;
 	}
 }

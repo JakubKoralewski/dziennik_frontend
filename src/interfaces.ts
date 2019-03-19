@@ -4,7 +4,7 @@ export interface IStudent {
 	imie: string;
 	nazwisko: string;
 	klasa: string;
-	telefon: number;
+	telefon: string;
 	visible?: boolean;
 }
 interface IStudentsEditableProperties {

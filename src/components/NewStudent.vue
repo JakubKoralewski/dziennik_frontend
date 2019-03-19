@@ -10,6 +10,7 @@
 					v-model="newStudent.imie"
 					autofocus
 					spellcheck="false"
+					onfocus="this.select()"
 					tabindex="1"
 				>
 				<input
@@ -19,6 +20,7 @@
 					:placeholder="$t('student.last-name')"
 					v-model="newStudent.nazwisko"
 					spellcheck="false"
+					onfocus="this.select()"
 					tabindex="2"
 				>
 			</div>
@@ -34,6 +36,7 @@
 						@keyup.enter="addUser"
 						v-model="newStudent.klasa"
 						spellcheck="false"
+						onfocus="this.select()"
 						tabindex="3"
 					>
 				</span>
@@ -48,11 +51,12 @@
 						placeholder="666666666"
 						v-model="newStudent.telefon"
 						spellcheck="false"
+						onfocus="this.select()"
 						tabindex="4"
 					>
 				</span>
 			</div>
-			<div id="checkmark" @click="addUser">
+			<div id="checkmark" @click="addUser" :title="checkmarkStatus">
 				<button>
 					<i class="fas fa-check"></i>
 				</button>
@@ -70,13 +74,10 @@
 		IStudentsPropertiesRequiringValidation,
 	} from '@/interfaces';
 	import { mapActions } from 'vuex';
-	import PropertiesValid from '@/mixins/PropertiesValid';
+	import { PropertiesValid } from '@/mixins/PropertiesValid';
 
 	interface INewStudentThis {
-		propertiesValid(
-			student: IStudentsPropertiesRequiringValidation,
-			shouldCreateAlerts?: boolean
-		): boolean;
+		propertiesValid(student: IStudentsPropertiesRequiringValidation): string;
 	}
 	@Component({
 		name: 'NewStudent',
@@ -90,27 +91,38 @@
 			telefon: '',
 		};
 		allPropertiesValid: boolean = false;
+		checkmarkStatus: string = '';
 
 		/* Actions */
 		addStudent: (student: INewStudent) => IStudents;
 
 		@Watch('newStudent', { deep: true })
 		onNewStudentChange(): void {
-			this.allPropertiesValid = this.propertiesValid(this.newStudent, false);
-			const checkmarkColor = this.allPropertiesValid
-				? 'rgb(12, 237, 0)'
-				: 'red';
+			const propertiesValidMessage: any = this.propertiesValid(
+				this.newStudent
+			) as string;
+			this.checkmarkStatus =
+				propertiesValidMessage === true
+					? this.$t('student.add')
+					: propertiesValidMessage;
+			const checkmarkColor =
+				propertiesValidMessage === true ? 'rgb(12, 237, 0)' : 'red';
 			this.$el.setAttribute(
 				'style',
 				`--new-student-checkmark-color: ${checkmarkColor}`
 			);
 		}
 
+		mounted() {
+			this.onNewStudentChange();
+		}
+
 		async addUser() {
-			const allPropertiesValid = ((this as any) as INewStudentThis).propertiesValid(
+			const propertiesValidMessage: any = ((this as any) as INewStudentThis).propertiesValid(
 				this.newStudent
 			);
-			if (!allPropertiesValid) {
+			if (propertiesValidMessage !== true) {
+				alert(propertiesValidMessage);
 				return;
 			}
 			this.$emit('newStudentAdded');

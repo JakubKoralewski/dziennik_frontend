@@ -6,6 +6,7 @@
 					id="imie"
 					:contenteditable="editMode"
 					@blur="editAnyText"
+					@input="refreshCheckmarkStatus"
 					autocomplete="off"
 					autocorrect="off"
 					autocapitalize="off"
@@ -18,6 +19,7 @@
 					id="nazwisko"
 					:contenteditable="editMode"
 					@blur="editAnyText"
+					@input="refreshCheckmarkStatus"
 					autocomplete="off"
 					autocorrect="off"
 					autocapitalize="off"
@@ -30,7 +32,7 @@
 			<div id="tools">
 				<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
 					<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
-					<i class="fas fa-check" id="edit-save" :title="$t('edit.save')" @click="saveEdit"></i>
+					<i class="fas fa-check" id="edit-save" :title="checkmarkStatus" @click="saveEdit"></i>
 				</div>
 				<i
 					class="fas fa-edit"
@@ -49,6 +51,7 @@
 					id="klasa"
 					:contenteditable="editMode"
 					@blur="editAnyText"
+					@input="refreshCheckmarkStatus"
 					v-html="student.klasa"
 					spellcheck="false"
 					autocomplete="off"
@@ -62,8 +65,9 @@
 					class="info"
 					id="telefon"
 					:contenteditable="editMode"
-					@blur="editAnyText"
 					v-html="student.telefon"
+					@blur="editAnyText"
+					@input="refreshCheckmarkStatus"
 					spellcheck="false"
 					autocapitalize="off"
 					autocorrect="off"
