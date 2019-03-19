@@ -38,6 +38,7 @@
 		}
 	},
 	"student": {
+		"add": "Dodaj studenta",
 		"first-name": "Imię",
 		"last-name": "Nazwisko",
 		"phone-number": "Telefon",

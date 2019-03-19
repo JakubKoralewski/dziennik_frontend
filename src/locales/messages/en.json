@@ -51,6 +51,7 @@
 	"not-a-muggle": "I'm not a muggle",
 
 	"student": {
+		"add": "Add student",
 		"first-name": "First name",
 		"last-name": "Last name",
 		"phone-number": "Phone Number",
