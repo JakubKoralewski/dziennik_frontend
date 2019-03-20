@@ -196,7 +196,7 @@
 					await this.sleep(amountToWait);
 					resolve(TASKS.CheckIfTakingTooLongTask);
 				});
-			Promise.race([checkIfTakingTooLongTask(500), loginTask]).then(
+			Promise.race([checkIfTakingTooLongTask(1000), loginTask]).then(
 				async (taskType: any) => {
 					if (taskType === TASKS.CheckIfTakingTooLongTask) {
 						this.setLoginText(this.$t('login.taking-long') as string);
