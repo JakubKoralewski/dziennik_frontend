@@ -25,7 +25,6 @@ const StudentComponentProps = Vue.extend({
 			storeDeleteStudent: 'deleteStudent',
 			storeEditStudent: 'editStudent',
 		}),
-		...mapActions(['editIndex']),
 		...mapMutations(['addCurrentEdit', 'deleteCurrentEdit']),
 	},
 	computed: {
@@ -44,20 +43,25 @@ export default class Student extends StudentComponentProps {
 	/** When user chooses to enter editMode this variable preserves the initial data in case of canceling the edit.  */
 	backup: IStudent | {} = {};
 	student: IStudent = this.initialStudent;
+	studentReactive: IStudent = this.student;
 	remindToClickActive: boolean = false;
 	checkmarkStatus: string = '';
 	elements: any = {};
+	canBeSaved: boolean = false;
 
 	/* State */
 	viewportBelow500: boolean;
 
 	/* Actions */
-	editIndex: (id: string) => string;
 	storeDeleteStudent: (id: string) => Promise<IStudents>;
 
 	/* Mutations */
 	addCurrentEdit: (id: string) => void;
 	deleteCurrentEdit: (id: string) => void;
+
+	/* Getters */
+	editIndex: (id: string) => string;
+	numberOfEdits: number;
 
 	/* From mixin PropertiesValid */
 	propertiesValid: IPropertiesValid;
@@ -108,10 +112,7 @@ export default class Student extends StudentComponentProps {
 			this.deleteCurrentEdit(this.student.id);
 			this.editMode = false;
 		}
-		console.log(
-			'this.$store.state.numberOfEdits',
-			this.$store.state.numberOfEdits
-		);
+		console.log('this.$store.state.numberOfEdits', this.numberOfEdits);
 	}
 	restoreBackup() {
 		this.student = this.backup as IStudent;
@@ -175,13 +176,17 @@ export default class Student extends StudentComponentProps {
 		const newText = evtTarget.innerText;
 		const mockStudent: any = {};
 		mockStudent[evtTarget.id] = evtTarget.innerText;
+		this.studentReactive[evtTarget.id] = evtTarget.innerText;
 		console.log(newText);
 		const propertiesValidMessage: any = this.propertiesValid(mockStudent);
 		console.log('propertiesValidMessage', propertiesValidMessage);
-		this.checkmarkStatus =
-			propertiesValidMessage === true
-				? (this.$t('edit.save') as string)
-				: propertiesValidMessage;
+		if (propertiesValidMessage === true) {
+			this.checkmarkStatus = this.$t('edit.save') as string;
+			this.canBeSaved = true;
+		} else {
+			this.canBeSaved = false;
+			this.checkmarkStatus = propertiesValidMessage;
+		}
 	}
 	/** Gets called when firstName, lastName, class or phoneNumber is clicked when editMode is off.  */
 	async uneditableInputClick(evt: MouseEvent) {
