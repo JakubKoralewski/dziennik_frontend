@@ -42,7 +42,7 @@ const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
 	},
 	methods: {
 		...mapActions(['loadStudents']),
-		...mapMutations(['sideBarVisibilityChange']),
+		...mapMutations(['sideBarVisibilityChange', 'setViewportBelow500']),
 	},
 })
 export default class Authorized extends Mixins(TouchDetection) {
@@ -54,6 +54,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 	 *  Defaults to 50px.
 	 */
 	openSwipeSensitivity: number = 50;
+	viewportBelow500: boolean = false;
 
 	/* State */
 	students: IStudents;
@@ -62,6 +63,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 	loadStudents: () => void;
 	/* Mutations */
 	sideBarVisibilityChange: (state: boolean) => void;
+	setViewportBelow500: (newValue: boolean) => void;
 
 	@Watch('$route')
 	onRouteChange(): void {
@@ -76,11 +78,28 @@ export default class Authorized extends Mixins(TouchDetection) {
 	}
 
 	async mounted() {
+		// media query event handler
+		if (matchMedia) {
+			const mq = window.matchMedia('(min-width: 500px)');
+			mq.addListener(this.widthChange);
+			this.widthChange(mq as any);
+		}
 		window.onresize = () => {
 			this.openSwipeSensitivity =
 				window.innerWidth * OPEN_SWIPE_SENSITIVITY_PERCENTAGE;
 		};
 		await this.loadStudents();
+	}
+
+	// media query change
+	widthChange(mq: MediaQueryListEvent): void {
+		if (mq.matches) {
+			// window width is more than 500px
+			this.setViewportBelow500(false);
+		} else {
+			// window width is less than 500px
+			this.setViewportBelow500(true);
+		}
 	}
 
 	created(): void {

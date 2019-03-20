@@ -23,6 +23,17 @@ export default {
 			);
 		}
 	},
+	setViewportBelow500(state: IState, newValue: boolean) {
+		state.viewportBelow500 = newValue;
+	},
+	addCurrentEdit(state: IState, newEditId: string) {
+		state.currentEdits.push(newEditId);
+	},
+	deleteCurrentEdit(state: IState, deletedEditId: string) {
+		state.currentEdits = state.currentEdits.filter(
+			id => id !== deletedEditId
+		);
+	},
 	/** Change whether sideBar is open or closed
 	 *  @param { boolean } new_value - whether it's closed or open
 	 */

@@ -15,6 +15,8 @@ export default new Vuex.Store({
 		students: {},
 		sideBarVisible: false,
 		searchText: '',
+		currentEdits: [],
+		viewportBelow500: false,
 	} as IState,
 	plugins: [
 		createPersistedState({
@@ -33,11 +35,17 @@ export default new Vuex.Store({
 	mutations,
 	actions,
 	getters: {
+		numberOfEdits: state => {
+			return state.currentEdits.length;
+		},
 		visibleStudents: state => {
 			const students: IStudent[] = Object.values(state.students);
 			return students.filter((student: IStudent) => {
 				return student.visible;
 			});
+		},
+		editIndex: state => (id: string) => {
+			return state.currentEdits.indexOf(id);
 		},
 	},
 });

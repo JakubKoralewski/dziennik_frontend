@@ -1,6 +1,6 @@
 export interface IStudent {
 	[index: string]: any;
-	id: number;
+	id: string;
 	imie: string;
 	nazwisko: string;
 	klasa: string;
@@ -54,4 +54,6 @@ export interface IState {
 	students: IStudents;
 	sideBarVisible: boolean;
 	searchText: string;
+	currentEdits: string[];
+	viewportBelow500: boolean;
 }

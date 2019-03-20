@@ -1,6 +1,6 @@
 import { Vue, Component, Watch } from 'vue-property-decorator';
 // import { IStudent } from '@/interfaces';
-import { mapActions } from 'vuex';
+import { mapActions, mapState, mapMutations, mapGetters } from 'vuex';
 import { IStudent, IStudents } from '@/interfaces';
 import { PropertiesValid, IPropertiesValid } from '@/mixins/PropertiesValid';
 import { Sleep, ISleep } from '@/mixins/Sleep';
@@ -20,10 +20,23 @@ const StudentComponentProps = Vue.extend({
 
 @Component({
 	name: 'Student',
-	methods: mapActions({
-		storeDeleteStudent: 'deleteStudent',
-		storeEditStudent: 'editStudent',
-	}),
+	methods: {
+		...mapActions({
+			storeDeleteStudent: 'deleteStudent',
+			storeEditStudent: 'editStudent',
+		}),
+		...mapActions(['editIndex']),
+		...mapMutations(['addCurrentEdit', 'deleteCurrentEdit']),
+	},
+	computed: {
+		editNumber: {
+			get() {
+				return this.$store.state.numberOfEdits;
+			},
+		},
+		...mapState(['viewportBelow500', 'currentEdits']),
+		...mapGetters(['numberOfEdits', 'editIndex']),
+	},
 	mixins: [PropertiesValid, Sleep],
 })
 export default class Student extends StudentComponentProps {
@@ -33,23 +46,36 @@ export default class Student extends StudentComponentProps {
 	student: IStudent = this.initialStudent;
 	remindToClickActive: boolean = false;
 	checkmarkStatus: string = '';
+	elements: any = {};
+
+	/* State */
+	viewportBelow500: boolean;
 
 	/* Actions */
+	editIndex: (id: string) => string;
 	storeDeleteStudent: (id: string) => Promise<IStudents>;
+
+	/* Mutations */
+	addCurrentEdit: (id: string) => void;
+	deleteCurrentEdit: (id: string) => void;
 
 	/* From mixin PropertiesValid */
 	propertiesValid: IPropertiesValid;
 	/* From mixin Sleep */
 	sleep: ISleep;
 
+	@Watch('currentEdits')
+	onEditsChange() {
+		(this.$el as HTMLDivElement).style.setProperty(
+			'--edit-index',
+			this.editIndex(this.student.id)
+		);
+		console.log(this.$el);
+	}
+
 	created() {
 		this.student = this.initialStudent;
 		this.checkmarkStatus = this.$t('alert.no-value-changed') as string;
-	}
-
-	@Watch('student', { deep: true, immediate: true })
-	onStudentChange() {
-		console.log('xd');
 	}
 
 	deleteStudent() {
@@ -69,6 +95,8 @@ export default class Student extends StudentComponentProps {
 	toggleEditMode() {
 		if (this.editMode === false) {
 			/* Turning edit mode on. */
+			this.addCurrentEdit(this.student.id);
+			// (this.$el as HTMLDivElement).style.setProperty('--');
 
 			/* Save old data in case user cancels.  */
 			this.backup = Object.assign({}, this.student);
@@ -77,8 +105,13 @@ export default class Student extends StudentComponentProps {
 			this.editMode = true;
 		} else {
 			/* Turning edit mode off. */
+			this.deleteCurrentEdit(this.student.id);
 			this.editMode = false;
 		}
+		console.log(
+			'this.$store.state.numberOfEdits',
+			this.$store.state.numberOfEdits
+		);
 	}
 	restoreBackup() {
 		this.student = this.backup as IStudent;
@@ -86,7 +119,7 @@ export default class Student extends StudentComponentProps {
 	}
 	cancelEdit() {
 		console.log('cancelEdit()');
-		this.editMode = false;
+		this.toggleEditMode();
 		this.restoreBackup();
 	}
 	async saveEdit() {

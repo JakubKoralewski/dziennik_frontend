@@ -160,20 +160,43 @@
 				opacity: 0;
 				pointer-events: none;
 				align-items: center;
-
 				display: flex;
-				width: calc(2.5rem + 2vw);
-				justify-content: space-between;
+				flex-direction: column;
+				justify-content: space-around;
 
 				transition: transform 200ms ease-out, opacity 150ms ease-out;
 
-				@media screen and (max-width: 500px) {
+				#controls {
+					display: flex;
+					width: calc(2.5rem + 2vw);
+					justify-content: space-between;
+				}
+
+				&.edit-mode-narrow {
 					position: fixed;
-					top: 2rem;
-					height: 2rem;
+					top: 0;
+					transform: translateY(10vh) translateY(calc(4rem * var(--edit-index))) !important;
 					right: 2rem;
-					box-shadow: 10px 10px 72px -14px rgba(0, 0, 0, 0.3);
-					z-index: 10;
+
+					z-index: auto;
+
+					//height: 2.5rem;
+
+					#student-name {
+						font-size: 0.7rem;
+					}
+
+					&:before {
+						content: "";
+						position: absolute;
+						top: 0;
+						bottom: 0;
+						left: 0;
+						right: 0;
+						z-index: -1;
+						border-radius: inherit;
+						box-shadow: 10px 10px 72px -14px rgba(0, 0, 0, 0.5);
+					}
 				}
 
 				#edit-save {

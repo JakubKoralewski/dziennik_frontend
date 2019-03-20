@@ -30,9 +30,15 @@
 				></div>
 			</div>
 			<div id="tools">
-				<div id="edit-mode-tools" :class="{'edit-mode-active': editMode}">
-					<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
-					<i class="fas fa-check" id="edit-save" :title="checkmarkStatus" @click="saveEdit"></i>
+				<div
+					id="edit-mode-tools"
+					:class="{'edit-mode-active': editMode, 'edit-mode-narrow': viewportBelow500}"
+				>
+					<p id="student-name" v-if="viewportBelow500">{{student.imie}} {{student.nazwisko}}</p>
+					<div id="controls">
+						<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
+						<i class="fas fa-check" id="edit-save" :title="checkmarkStatus" @click="saveEdit"></i>
+					</div>
 				</div>
 				<i
 					class="fas fa-edit"
