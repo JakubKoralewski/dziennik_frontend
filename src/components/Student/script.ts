@@ -142,6 +142,8 @@ export default class Student extends StudentComponentProps {
 			alert(propertiesValidMessage);
 			return;
 		}
+		// Resets, so next time there is no checkmark by default
+		this.canBeSaved = false;
 		console.log(
 			`${this.$t('alert.found-new-properties') as string}!`,
 			new_properties

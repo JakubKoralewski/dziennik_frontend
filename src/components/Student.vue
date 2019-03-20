@@ -32,12 +32,21 @@
 			<div id="tools">
 				<div
 					id="edit-mode-tools"
-					:class="{'edit-mode-active': editMode, 'edit-mode-narrow': viewportBelow500}"
+					:class="{'edit-mode-active': editMode, 'edit-mode-narrow': viewportBelow500, 'can-not-be-saved': !canBeSaved}"
 				>
-					<p id="student-name" v-if="viewportBelow500">{{student.imie}} {{student.nazwisko}}</p>
+					<div id="student-name" v-if="viewportBelow500">
+						<p v-html="studentReactive.imie"></p>&nbsp;
+						<p v-html="studentReactive.nazwisko"></p>
+					</div>
 					<div id="controls">
 						<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
-						<i class="fas fa-check" id="edit-save" :title="checkmarkStatus" @click="saveEdit"></i>
+						<i
+							class="fas fa-check"
+							id="edit-save"
+							:title="checkmarkStatus"
+							@click="saveEdit"
+							v-if="canBeSaved"
+						></i>
 					</div>
 				</div>
 				<i

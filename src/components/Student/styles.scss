@@ -169,8 +169,12 @@
 				#controls {
 					display: flex;
 					align-self: flex-end;
-					width: calc(2.5rem + 2vw);
+					//width: calc(2.5rem + 2vw);
 					justify-content: space-between;
+
+					#edit-save {
+						margin-left: 0.2vw;
+					}
 				}
 
 
@@ -187,6 +191,7 @@
 
 					#student-name {
 						font-size: 0.7rem;
+						display: flex;
 					}
 
 					&:before {
