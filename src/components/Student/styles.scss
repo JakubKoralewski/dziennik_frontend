@@ -168,9 +168,12 @@
 
 				#controls {
 					display: flex;
+					align-self: flex-end;
 					width: calc(2.5rem + 2vw);
 					justify-content: space-between;
 				}
+
+
 
 				&.edit-mode-narrow {
 					position: fixed;
@@ -187,6 +190,7 @@
 					}
 
 					&:before {
+						/* This is so that the shadows don't overlap other editing students. */
 						content: "";
 						position: absolute;
 						top: 0;
