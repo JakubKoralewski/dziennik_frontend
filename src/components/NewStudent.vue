@@ -106,11 +106,9 @@
 					? this.$t('student.add')
 					: propertiesValidMessage;
 			const checkmarkColor =
-				propertiesValidMessage === true ? 'rgb(12, 237, 0)' : 'red';
-			this.$el.setAttribute(
-				'style',
-				`--new-student-checkmark-color: ${checkmarkColor}`
-			);
+					propertiesValidMessage === true ? 'rgb(12, 237, 0)' : 'red';
+			(this.$el as HTMLDivElement).style.setProperty(
+					`--new-student-checkmark-color`, checkmarkColor);
 		}
 
 		mounted() {
