@@ -43,7 +43,6 @@ export default class Student extends StudentComponentProps {
 	/** When user chooses to enter editMode this variable preserves the initial data in case of canceling the edit.  */
 	backup: IStudent | {} = {};
 	student: IStudent = this.initialStudent;
-	studentReactive: IStudent = this.student;
 	remindToClickActive: boolean = false;
 	checkmarkStatus: string = '';
 	elements: any = {};
@@ -165,22 +164,8 @@ export default class Student extends StudentComponentProps {
 
 		console.log('editResponse', editResponse);
 	}
-	editAnyText(event: IEditEvent) {
-		/* Content editable structure taken straight from here:
-		 * https://gist.github.com/ctf0/2789d97b8301bcc6219b30734d224033
-		 */
-		/* event.target.id is the name of property, e.g.: 'imie', 'nazwisko' etc. */
-		Vue.set(this.student, event.target.id, event.target.innerText);
-		console.log(this.student);
-	}
-	async refreshCheckmarkStatus(evt: Event) {
-		const evtTarget: HTMLDivElement = evt.target as HTMLDivElement;
-		const newText = evtTarget.innerText;
-		const mockStudent: any = {};
-		mockStudent[evtTarget.id] = evtTarget.innerText;
-		this.studentReactive[evtTarget.id] = evtTarget.innerText;
-		console.log(newText);
-		const propertiesValidMessage: any = this.propertiesValid(mockStudent);
+	async refreshCheckmarkStatus() {
+		const propertiesValidMessage: any = this.propertiesValid(this.student);
 		console.log('propertiesValidMessage', propertiesValidMessage);
 		if (propertiesValidMessage === true) {
 			this.checkmarkStatus = this.$t('edit.save') as string;

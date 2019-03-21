@@ -2,10 +2,11 @@
 	<div class="student" :class="{'edit-mode-active': editMode}">
 		<div id="header">
 			<div id="name">
-				<div
+				<contenteditable
+					:noNL="true"
+					@returned="saveEdit"
 					id="imie"
 					:contenteditable="editMode"
-					@blur="editAnyText"
 					@input="refreshCheckmarkStatus"
 					autocomplete="off"
 					autocorrect="off"
@@ -13,12 +14,14 @@
 					spellcheck="false"
 					:title="editMode ? null : $t('student.first-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-					v-html="student.imie"
-				></div>
-				<div
+					v-model="student.imie"
+					tag="div"
+				/>
+				<contenteditable
+					:noNL="true"
+					@returned="saveEdit"
 					id="nazwisko"
 					:contenteditable="editMode"
-					@blur="editAnyText"
 					@input="refreshCheckmarkStatus"
 					autocomplete="off"
 					autocorrect="off"
@@ -26,8 +29,9 @@
 					spellcheck="false"
 					:title="editMode ? null : $t('student.last-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-					v-html="student.nazwisko"
-				></div>
+					v-model="student.nazwisko"
+					tag="div"
+				/>
 			</div>
 			<div id="tools">
 				<div
@@ -35,8 +39,8 @@
 					:class="{'edit-mode-active': editMode, 'edit-mode-narrow': viewportBelow500, 'can-not-be-saved': !canBeSaved}"
 				>
 					<div id="student-name" v-if="viewportBelow500">
-						<p v-html="studentReactive.imie"></p>&nbsp;
-						<p v-html="studentReactive.nazwisko"></p>
+						<p v-html="student.imie"></p>&nbsp;
+						<p v-html="student.nazwisko"></p>
 					</div>
 					<div id="controls">
 						<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
@@ -61,33 +65,37 @@
 		<div id="content">
 			<div>
 				{{$t('student.class')}}:
-				<div
+				<contenteditable
+					:noNL="true"
+					@returned="saveEdit"
 					class="info"
 					id="klasa"
 					:contenteditable="editMode"
-					@blur="editAnyText"
 					@input="refreshCheckmarkStatus"
-					v-html="student.klasa"
+					v-model="student.klasa"
 					spellcheck="false"
 					autocomplete="off"
 					autocorrect="off"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-				></div>
+					tag="div"
+				/>
 			</div>
 			<div>
 				{{$t('student.phone-number')}}:
-				<div
+				<contenteditable
+					:noNL="true"
+					@returned="saveEdit"
 					class="info"
 					id="telefon"
 					:contenteditable="editMode"
-					v-html="student.telefon"
-					@blur="editAnyText"
+					v-model="student.telefon"
 					@input="refreshCheckmarkStatus"
 					spellcheck="false"
 					autocapitalize="off"
 					autocorrect="off"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-				></div>
+					tag="div"
+				/>
 			</div>
 		</div>
 	</div>

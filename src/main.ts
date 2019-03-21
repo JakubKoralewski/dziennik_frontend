@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 import VueI18n from 'vue-i18n';
+import contenteditable from 'vue-contenteditable';
+Vue.use(contenteditable);
 
 Vue.use(VueI18n);
 
