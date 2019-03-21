@@ -3,7 +3,6 @@ import { IStudent, IState } from '@/interfaces';
 import { decode } from 'he';
 
 export default {
-
 	/** Add new student/students. Works for both.
 	 *  Sets visible property before setting it, which doesn't screw the reactivity.
 	 *  @param { IStudent[] | IStudent } data - added student/s
@@ -14,6 +13,10 @@ export default {
 			for (const student of data as IStudent[]) {
 				for (const key of Object.keys(student)) {
 					/* he.decode html entities */
+					/* Only strings */
+					if (typeof key !== 'string') {
+						continue;
+					}
 					const property = student[key];
 					student[key] = decode(property);
 				}
