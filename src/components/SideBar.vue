@@ -1,10 +1,10 @@
 <template>
-	<div class="nav" :class="{'SideBar-hidden': !sideBarVisible}">
+	<div class="nav" :class="{'sidebar-hidden': !sideBarVisible}">
 		<a id="hide">
 			<i
 				class="fas fa-arrow-left"
 				@click="sideBarToggle()"
-				:class="{'SideBar-hidden': !sideBarVisible}"
+				:class="{'sidebar-hidden': !sideBarVisible, 'prompt-swipe': shouldPromptSwipe}"
 			></i>
 		</a>
 		<div class="scrollable">
@@ -64,9 +64,10 @@
 </template>
 
 <script lang="ts">
-	import { Vue, Component, Watch } from 'vue-property-decorator';
+	import { Vue, Component, Watch, Mixins } from 'vue-property-decorator';
 	import { mapState, mapMutations } from 'vuex';
 	import Languages from '@/components/Languages.vue';
+	import { Sleep, ISleep } from '@/mixins/Sleep';
 
 	@Component({
 		name: 'SideBar',
@@ -76,13 +77,20 @@
 		computed: mapState(['sideBarVisible']),
 		methods: mapMutations(['sideBarVisibilityChange']),
 	})
-	export default class SideBar extends Vue {
+	export default class SideBar extends Mixins(Sleep) {
 		elements: object = {};
+		shouldPromptSwipe: boolean = false;
 
 		/* State */
 		sideBarVisible: boolean;
 		/* Mutations */
 		sideBarVisibilityChange: (state: boolean) => void;
+
+		async promptSwipe() {
+			this.shouldPromptSwipe = true;
+			await this.sleep(500);
+			this.shouldPromptSwipe = false;
+		}
 
 		sideBarToggle(el: HTMLElement, event: Event) {
 			this.sideBarVisibilityChange(!this.sideBarVisible);
@@ -119,7 +127,7 @@
 			}
 		}
 
-		&.SideBar-hidden {
+		&.sidebar-hidden {
 			overflow-y: visible;
 			padding-left: 0 !important;
 			padding-right: 0 !important;
@@ -147,9 +155,9 @@
 				position: absolute;
 				left: 0;
 				padding: 5px;
+				transform: translateX(0px);
 
 				&:hover {
-					transition: transform 0.2s ease-in-out;
 					transform: translateX(-5px);
 				}
 
@@ -163,13 +171,14 @@
 				transition: all 0.2s ease-out;
 				transition-property: left, transform, opacity;
 
-				&.SideBar-hidden {
+				&.sidebar-hidden {
 					position: absolute;
 					left: calc(0.5rem + 1vmin);
-					transform: rotate(180deg);
+					transform: rotate(180deg) translateX(0px);
 					opacity: 0.4;
 
-					&:hover {
+					&:hover,
+					&.prompt-swipe {
 						transform: rotate(180deg) translateX(-5px);
 					}
 				}

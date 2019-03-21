@@ -37,7 +37,7 @@ const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
 		};
 	},
 	computed: {
-		...mapState(['students', 'sideBarVisible']),
+		...mapState(['students', 'sideBarVisible', 'viewportBelow500']),
 		...mapGetters(['visibleStudents']),
 	},
 	methods: {
@@ -54,7 +54,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 	 *  Defaults to 50px.
 	 */
 	openSwipeSensitivity: number = 50;
-	viewportBelow500: boolean = false;
+	viewportBelow500: boolean;
 
 	/* State */
 	students: IStudents;
@@ -107,21 +107,26 @@ export default class Authorized extends Mixins(TouchDetection) {
 			console.log('route hash is add-student-hash-path');
 			this.toggleNewStudentDialog();
 		}
-		document.addEventListener('touchstart', this.handleTouchStart, false);
-		document.addEventListener('touchmove', this.handleTouchMove, false);
+		this.touchRegister({
+			sensitivity: 0.1,
+			leftSwipe: this.leftSwipeFunction,
+			rightSwipe: this.rightSwipeFunction,
+		});
 	}
 
 	/** Swiping left when SideBar is open should close it, otherwise do nothing.  */
-	leftSwipe(evt: TouchEvent) {
+	leftSwipeFunction() {
 		this.sideBarToggle(false);
 	}
 
 	/** Swiping right near the edge should show sidebar.  */
-	rightSwipe(evt: TouchEvent) {
-		const xTouch = evt.touches[0].clientX;
+	rightSwipeFunction(startX: number) {
 		/* Only near the edge */
-		if (xTouch < this.openSwipeSensitivity) {
+		if (startX < this.openSwipeSensitivity) {
 			this.sideBarToggle(true);
+		} else {
+			/* TODO: UX: Show edge */
+			(this.$refs.sideBarComponent as any).promptSwipe();
 		}
 	}
 
