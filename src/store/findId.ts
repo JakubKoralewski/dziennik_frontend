@@ -7,11 +7,8 @@ export default function findId(students: number[]) {
 	if (students.length === 0) {
 		return 0;
 	} else if (students.length === 1) {
-		if (students[0] === 0) {
-			return 1;
-		} else {
-			return 0;
-		}
+		/* If 0 return 1, if 1 return 0. */
+		return students[0] ^ 1;
 	} else if (students.length === 2) {
 		if (students[0] > 0) {
 			// [>=1, >=2]
