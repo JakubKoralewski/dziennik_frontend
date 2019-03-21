@@ -48,6 +48,17 @@
 				<i class="fas fa-external-link-alt"></i>
 			</a>
 			<Languages/>
+			<a
+				href="https://github.com/JakubKoralewski/dziennik_php_frontend/issues/new"
+				:title="$t('sidebar.report-issue-gh')"
+				target="_blank"
+				class="menu-item gh"
+				id="gh-report-issue"
+			>
+				<i class="fab fa-github"></i>
+				<p>{{ $t('sidebar.report-issue-gh')}}</p>
+				<i class="fas fa-external-link-alt"></i>
+			</a>
 		</div>
 	</div>
 </template>
@@ -260,6 +271,10 @@
 			&:hover {
 				color: darken($main-color, 50%);
 			}
+		}
+
+		#gh-report-issue {
+			text-transform: none;
 		}
 	}
 </style>

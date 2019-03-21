@@ -6,7 +6,8 @@
 	"sidebar": {
 		"about": "About",
 		"school": "School",
-		"profile": "Profile"
+		"profile": "Profile",
+		"report-issue-gh": "Report issue on GitHub"
 	},
 	"language": {
 		"change-to": "Change to the English language",

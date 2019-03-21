@@ -13,7 +13,8 @@
 	"sidebar": {
 		"about": "O mnie",
 		"school": "Szkoła",
-		"profile": "Profil"
+		"profile": "Profil",
+		"report-issue-gh": "Zgłoś błąd na GitHubie"
 	},
 	"edit": {
 		"edit": "Edytuj",
