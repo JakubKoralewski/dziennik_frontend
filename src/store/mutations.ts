@@ -13,6 +13,10 @@ export default {
 			for (const student of data as IStudent[]) {
 				for (const key of Object.keys(student)) {
 					/* he.decode html entities */
+					/* Only strings */
+					if (typeof key !== 'string') {
+						continue;
+					}
 					const property = student[key];
 					/* Only strings */
 					if (typeof property !== 'string') {
