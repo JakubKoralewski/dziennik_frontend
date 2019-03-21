@@ -3,22 +3,20 @@
 		<NewStudent
 			v-show="showNewStudentDialog"
 			@newStudentAdded="showNewStudentDialog=false"
-			id="new-student"
 		/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
 			:class="{'blur-visible': showNewStudentDialog, 'sidebar-visible': sideBarVisible}"
-			id="add-button"
 		/>
 		<div
 			:class="{'visible': showNewStudentDialog || sideBarVisible, 'actually-hidden': !(showNewStudentDialog || sideBarVisible)}"
 			id="cover"
 			@click="coverClick()"
 		/>
-		<SideBar id="nav-bar" @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
+		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
 		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog || sideBarVisible}">
 			<div id="content">
-				<NavTitle id="nav-title"/>
+				<NavTitle />
 
 				<div id="students" v-if="students">
 					<Student

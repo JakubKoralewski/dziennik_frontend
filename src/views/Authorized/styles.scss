@@ -10,7 +10,7 @@
 		min-height: 100%;
 		background-color: $main-color;
 
-		&.blur-visible:not(#add-button):not(#new-student) {
+		&.blur-visible:not(.add-button):not(.new-student) {
 			filter: blur(1px);
 		}
 	}
@@ -56,7 +56,7 @@
 		}
 	}
 
-	#nav-bar {
+	.sidebar {
 		@include nav-shadow(1px);
 		@include nav-border(1px);
 		border-width: 0px;
@@ -69,7 +69,7 @@
 		order: 0;
 	}
 
-	#nav-title {
+	.nav-title {
 		@include nav-shadow(2px);
 		@include nav-border(1px);
 

@@ -1,5 +1,5 @@
 <template>
-	<div class="nav" :class="{'sidebar-hidden': !sideBarVisible}">
+	<div class="sidebar" :class="{'sidebar-hidden': !sideBarVisible}">
 		<a id="hide">
 			<i
 				class="fas fa-arrow-left"
@@ -103,7 +103,7 @@
 </style>
 
 <style scoped lang="scss">
-	.nav {
+	.sidebar {
 		// The whole navigation div
 		display: flex;
 		flex-direction: column;

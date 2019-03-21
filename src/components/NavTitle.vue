@@ -1,7 +1,7 @@
 <template>
 	<div class="nav-title">
 		{{ $t('students') }}
-		<Search class="search"/>
+		<Search/>
 	</div>
 </template>
 
