@@ -26,6 +26,10 @@
 		opacity: 0.5;
 	}
 
+	&.narrow-viewport {
+		width: 100%;
+	}
+
 	/* On Edit Mode active somehow make it visible that these elements are editable. */
 	#imie,
 	#nazwisko,

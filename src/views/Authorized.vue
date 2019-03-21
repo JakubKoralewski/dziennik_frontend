@@ -24,7 +24,7 @@
 					<Student
 						v-for="student of students"
 						:key="student.id"
-						:class="{'invisible': !student.visible}"
+						:class="{'invisible': !student.visible, 'narrow-viewport': viewportBelow500}"
 						:initial-student="student"
 					/>
 				</div>
