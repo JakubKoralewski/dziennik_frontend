@@ -10,7 +10,7 @@ import NewStudent from '@/components/NewStudent.vue';
 import AddButton from '@/components/AddButton.vue';
 
 /* Interfaces */
-import { IStudent, IStudents } from '@/interfaces';
+import { IStudents } from '@/interfaces';
 
 /* Mixins */
 import TouchDetection from '@/mixins/TouchDetection';
@@ -42,28 +42,45 @@ const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
 	},
 	methods: {
 		...mapActions(['loadStudents']),
-		...mapMutations(['sideBarVisibilityChange', 'setViewportBelow500']),
+		...mapMutations([
+			'sideBarVisibilityChange',
+			'setViewportBelow500',
+			'setIfSearchWrapped',
+		]),
 	},
 })
 export default class Authorized extends Mixins(TouchDetection) {
 	showNewStudentDialog: boolean = false;
+
 	/** Used to hide cover with delay using CSS transitions.  */
 	coverActuallyHidden: boolean = true;
+
 	ADD_STUDENT_HASH_PATH: string = '';
+
 	/** Value in pixels.
 	 *  Defaults to 50px.
 	 */
 	openSwipeSensitivity: number = 50;
+
+	/** Used to change edit-mode-tools style.
+	 *  If true will make the edit-mode-tools position: absolute for ease of clicking,
+	 *  because otherwise there is no space on mobile.
+	 */
 	viewportBelow500: boolean;
+
+	elements: any = {};
 
 	/* State */
 	students: IStudents;
 	sideBarVisible: boolean;
+
 	/* Actions */
 	loadStudents: () => void;
+
 	/* Mutations */
 	sideBarVisibilityChange: (state: boolean) => void;
 	setViewportBelow500: (newValue: boolean) => void;
+	setIfSearchWrapped: (isSearchWrapped: boolean) => void;
 
 	@Watch('$route')
 	onRouteChange(): void {
@@ -84,9 +101,16 @@ export default class Authorized extends Mixins(TouchDetection) {
 			mq.addListener(this.widthChange);
 			this.widthChange(mq as any);
 		}
+		this.elements.search = document.querySelector('.search');
+
 		window.onresize = () => {
 			this.openSwipeSensitivity =
 				window.innerWidth * OPEN_SWIPE_SENSITIVITY_PERCENTAGE;
+			if (this.elements.search.offsetTop > 50) {
+				this.setIfSearchWrapped(true);
+			} else {
+				this.setIfSearchWrapped(false);
+			}
 		};
 		await this.loadStudents();
 	}
