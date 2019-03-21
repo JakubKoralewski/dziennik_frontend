@@ -56,4 +56,5 @@ export interface IState {
 	searchText: string;
 	currentEdits: string[];
 	viewportBelow500: boolean;
+	isSearchWrapped: boolean;
 }

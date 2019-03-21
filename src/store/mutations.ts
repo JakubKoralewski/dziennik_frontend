@@ -3,6 +3,7 @@ import { IStudent, IState } from '@/interfaces';
 import { decode } from 'he';
 
 export default {
+
 	/** Add new student/students. Works for both.
 	 *  Sets visible property before setting it, which doesn't screw the reactivity.
 	 *  @param { IStudent[] | IStudent } data - added student/s
@@ -29,29 +30,39 @@ export default {
 			);
 		}
 	},
+
 	setViewportBelow500(state: IState, newValue: boolean) {
 		state.viewportBelow500 = newValue;
 	},
+
 	addCurrentEdit(state: IState, newEditId: string) {
 		state.currentEdits.push(newEditId);
 	},
+
 	deleteCurrentEdit(state: IState, deletedEditId: string) {
 		state.currentEdits = state.currentEdits.filter(
 			id => id !== deletedEditId
 		);
 	},
+
+	setIfSearchWrapped(state: IState, isSearchWrapped: boolean) {
+		state.isSearchWrapped = isSearchWrapped;
+	},
+
 	/** Change whether sideBar is open or closed
 	 *  @param { boolean } new_value - whether it's closed or open
 	 */
 	sideBarVisibilityChange(state: IState, new_value: boolean) {
 		state.sideBarVisible = new_value;
 	},
+
 	/** Delete particular student.
 	 *  @param {number} id - student's id to delete
 	 */
 	delete(state: IState, id: number) {
 		Vue.delete(state.students, id);
 	},
+
 	/** Supply
 	 * @param { number } id - the id of the student visibility to change
 	 * @param { boolean } newVisibility - that new visibility

@@ -17,6 +17,7 @@ export default new Vuex.Store({
 		searchText: '',
 		currentEdits: [],
 		viewportBelow500: false,
+		isSearchWrapped: false,
 	} as IState,
 	plugins: [
 		createPersistedState({

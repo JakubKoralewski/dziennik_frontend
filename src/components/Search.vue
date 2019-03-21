@@ -3,6 +3,7 @@
 		<input
 			type="text"
 			:placeholder="$t('search.placeholder')"
+			:class="{'wrapped': isSearchWrapped}"
 			:value="searchText"
 			@input="setSearchText($event.target.value)"
 			spellcheck="false"
@@ -16,7 +17,7 @@
 
 	@Component({
 		name: 'Search',
-		computed: mapState(['searchText']),
+		computed: mapState(['searchText', 'isSearchWrapped']),
 		methods: {
 			...mapActions(['searchStudents', 'showAllStudents']),
 			...mapMutations(['setSearchText']),
@@ -25,6 +26,11 @@
 	export default class Search extends Vue {
 		/* State */
 		searchText: string;
+		/** Checks whether flex-item Search.vue component is wrapped.
+		 *  Is used for centering the placeholder text.
+		 *  If its row it should be center, if column should be flex-start.
+		 */
+		isSearchWrapped: boolean;
 
 		/* Actions */
 		searchStudents: (searchText: string) => void;
@@ -54,11 +60,16 @@
 			border-width: 0px;
 			border-radius: 2rem;
 			border-style: solid;
-			font-size: 1.2rem;
+			font-size: calc(0.5rem + 1vw);
+
 			color: darken(darkgray, 50%);
 			background-color: transparentize(gray, 0.8);
 			padding: 1rem 2rem;
 			width: calc(10rem + 20vw);
+			text-align: start;
+			&.wrapped {
+				text-align: center;
+			}
 
 			&:focus {
 				outline: none;
