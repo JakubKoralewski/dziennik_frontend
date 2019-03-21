@@ -5,7 +5,8 @@
 	"scripts": {
 		"serve": "vue-cli-service serve",
 		"build": "vue-cli-service build",
-		"lint": "vue-cli-service lint"
+		"lint": "vue-cli-service lint",
+		"test": "jest"
 	},
 	"dependencies": {
 		"he": "^1.2.0",
@@ -20,10 +21,17 @@
 		"vuex-persistedstate": "^2.5.4"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.4.0",
+		"@babel/preset-env": "^7.4.2",
+		"@babel/preset-typescript": "^7.3.3",
 		"@types/he": "^1.1.0",
+		"@types/jest": "^24.0.11",
 		"@vue/cli-plugin-babel": "^3.5.0",
 		"@vue/cli-plugin-typescript": "^3.5.0",
-		"@vue/cli-service": "^3.5.0",
+		"@vue/cli-service": "^3.5.1",
+		"@vue/test-utils": "^1.0.0-beta.29",
+		"babel-jest": "^24.5.0",
+		"jest": "^24.5.0",
 		"node-sass": "^4.9.0",
 		"prettier": "^1.16.4",
 		"prettier-tslint": "^0.4.2",
