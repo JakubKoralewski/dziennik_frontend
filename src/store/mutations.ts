@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { IStudent, IState } from '@/interfaces';
+import { decode } from 'he';
 
 export default {
 	/** Add new student/students. Works for both.
@@ -10,6 +11,11 @@ export default {
 		if (data.constructor === Array) {
 			console.log('Adding array of students.');
 			for (const student of data as IStudent[]) {
+				for (const key of Object.keys(student)) {
+					/* he.decode html entities */
+					const property = student[key];
+					student[key] = decode(property);
+				}
 				student.visible = true;
 				Vue.set(state.students, student.id, student);
 			}
