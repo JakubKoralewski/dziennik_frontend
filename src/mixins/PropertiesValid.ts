@@ -32,8 +32,9 @@ export class PropertiesValid extends Vue {
 	): string | boolean {
 		for (const key of Object.keys(student)) {
 			const value = student[key];
-
-			if (key === 'telefon' && isNaN(value as any)) {
+			if (key === 'id') {
+				continue;
+			} else if (key === 'telefon' && isNaN(value as any)) {
 				let property: string = this.$t(
 					'student.phone-number-genitive'
 				) as string;
