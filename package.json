@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"serve": "vue-cli-service serve",
+		"sitemap": "npm i -g typescript && cd src && tsc generateSitemap.ts && node generateSitemap.js && rm generateSitemap.js && rm router.js",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint"
 	},
@@ -16,6 +17,7 @@
 		"vue-meta": "^1.5.8",
 		"vue-property-decorator": "^8.0.0",
 		"vue-router": "^3.0.1",
+		"vue-router-sitemap": "0.0.4",
 		"vuex": "^3.0.1",
 		"vuex-persistedstate": "^2.5.4"
 	},
@@ -23,7 +25,7 @@
 		"@types/he": "^1.1.0",
 		"@vue/cli-plugin-babel": "^3.5.0",
 		"@vue/cli-plugin-typescript": "^3.5.0",
-		"@vue/cli-service": "^3.5.0",
+		"@vue/cli-service": "^3.5.1",
 		"node-sass": "^4.9.0",
 		"prettier": "^1.16.4",
 		"prettier-tslint": "^0.4.2",

@@ -28,13 +28,11 @@
 	"include": [
 		"src/**/*.ts",
 		"src/**/*.tsx",
-		"src/**/*.vue",
-		"tests/**/*.ts",
-		"tests/**/*.tsx",
-		"src/config.ts",
-		"src/mixins/TouchDetection.ts"
+		"src/**/*.vue"
 	],
 	"exclude": [
-		"node_modules"
+		"node_modules",
+		"tests/*",
+		"__mocks__/*"
 	]
 }
