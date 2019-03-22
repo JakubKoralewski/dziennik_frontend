@@ -200,6 +200,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 			this.sideBarVisibilityChange(false);
 		}
 	}
+
 	async setCoverState(state?: boolean, timeout: number = 0) {
 		if (state == undefined) {
 			state = !this.sideBarVisible;

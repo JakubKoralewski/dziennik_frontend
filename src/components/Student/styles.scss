@@ -20,7 +20,7 @@
 	display: flex;
 	flex-direction: column;
 	height: auto;
-	transition: opacity 0.25s ease-in-out, flex 10ms ease-in;
+	transition: opacity 0.25s ease-in-out;
 
 	&.editing-in-progress {
 		opacity: 0.5;
@@ -30,14 +30,15 @@
 		/* Is applied when viewport is below 500 pixels. 
 		   Makes the students take the full screen's width.
 		*/
-		width: 100%;
+		flex-basis: 100%;
 	}
 
 	&.invisible {
-
+		transition: opacity 250ms 0ms, flex-basis 125ms 125ms, flex-grow 125 250ms, margin-right 0ms 0ms, margin-bottom 125ms 125ms;
 		opacity: 0;
 		margin: 0px;
-		flex: 0;
+		flex-basis: 0%;
+		flex-grow: 0;
 	}
 
 	/* On Edit Mode active somehow make it visible that these elements are editable. */

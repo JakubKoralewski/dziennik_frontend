@@ -1,9 +1,6 @@
 <template>
 	<div id="authorized">
-		<NewStudent
-			v-show="showNewStudentDialog"
-			@newStudentAdded="showNewStudentDialog=false"
-		/>
+		<NewStudent v-show="showNewStudentDialog" @newStudentAdded="showNewStudentDialog=false"/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
 			:class="{'blur-visible': showNewStudentDialog, 'sidebar-visible': sideBarVisible}"
@@ -16,7 +13,7 @@
 		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
 		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog || sideBarVisible}">
 			<div id="content">
-				<NavTitle />
+				<NavTitle/>
 
 				<div id="students" v-if="students">
 					<Student
