@@ -17,7 +17,7 @@
 
 	@Component({
 		name: 'Search',
-		computed: mapState(['searchText', 'isSearchWrapped']),
+		computed: mapState(['searchText', 'isSearchWrapped', 'areStudentsLoaded']),
 		methods: {
 			...mapActions(['searchStudents', 'showAllStudents']),
 			...mapMutations(['setSearchText']),
@@ -26,6 +26,10 @@
 	export default class Search extends Vue {
 		/* State */
 		searchText: string;
+
+		/** You need to know when students got loaded to search on load of page.  */
+		areStudentsLoaded: boolean;
+
 		/** Checks whether flex-item Search.vue component is wrapped.
 		 *  Is used for centering the placeholder text.
 		 *  If its row it should be center, if column should be flex-start.
@@ -36,6 +40,14 @@
 		searchStudents: (searchText: string) => void;
 		showAllStudents: () => void;
 
+		@Watch('areStudentsLoaded')
+		onStudentsLoaded(areStudentsLoaded: boolean) {
+			console.log('Students loaded.');
+			if (areStudentsLoaded) {
+				this.onSearchTextChange(this.searchText);
+			}
+		}
+
 		@Watch('searchText')
 		onSearchTextChange(searchText: string) {
 			if (!searchText) {
@@ -44,10 +56,6 @@
 			} else {
 				this.searchStudents(searchText);
 			}
-		}
-
-		mounted() {
-			this.onSearchTextChange(this.searchText);
 		}
 	}
 </script>

@@ -18,6 +18,7 @@ export default new Vuex.Store({
 		currentEdits: [],
 		viewportBelow500: false,
 		isSearchWrapped: false,
+		areStudentsLoaded: false,
 	} as IState,
 	plugins: [
 		createPersistedState({

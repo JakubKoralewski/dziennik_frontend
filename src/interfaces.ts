@@ -57,4 +57,5 @@ export interface IState {
 	currentEdits: string[];
 	viewportBelow500: boolean;
 	isSearchWrapped: boolean;
+	areStudentsLoaded: boolean;
 }
