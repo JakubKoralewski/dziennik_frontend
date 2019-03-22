@@ -2,8 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Meta from 'vue-meta';
 
-import Unauthorized from '@/views/Unauthorized.vue';
-import Authorized from '@/views/Authorized.vue';
+// import Unauthorized from '@/views/Unauthorized.vue';
+// import Authorized from '@/views/Authorized.vue';
 
 Vue.use(Router);
 Vue.use(Meta);
@@ -15,12 +15,18 @@ const router = new Router({
 		{
 			path: '/',
 			name: 'Unauthorized',
-			component: Unauthorized,
+			component: () =>
+				import(/* webpackChunkName: "Unauthorized" */ '@/views/Unauthorized.vue').then(
+					m => m.default
+				),
 		},
 		{
 			path: '/en',
 			name: 'Unauthorized',
-			component: Unauthorized,
+			component: () =>
+				import(/* webpackChunkName: "Unauthorized" */ '@/views/Unauthorized.vue').then(
+					m => m.default
+				),
 			meta: {
 				locale: 'en',
 			},
@@ -28,7 +34,10 @@ const router = new Router({
 		{
 			path: '/pl',
 			name: 'Unauthorized',
-			component: Unauthorized,
+			component: () =>
+				import(/* webpackChunkName: "Unauthorized" */ '@/views/Unauthorized.vue').then(
+					m => m.default
+				),
 			meta: {
 				locale: 'pl',
 			},
@@ -36,7 +45,10 @@ const router = new Router({
 		{
 			path: '/zalogowany',
 			name: 'Authorized',
-			component: Authorized,
+			component: () =>
+				import(/* webpackChunkName: "Authorized" */ '@/views/Authorized.vue').then(
+					m => m.default
+				),
 			meta: {
 				locale: 'pl',
 			},
@@ -44,7 +56,10 @@ const router = new Router({
 		{
 			path: '/logged-in',
 			name: 'Authorized',
-			component: Authorized,
+			component: () =>
+				import(/* webpackChunkName: "Authorized" */ '@/views/Authorized.vue').then(
+					m => m.default
+				),
 			meta: {
 				locale: 'en',
 			},
