@@ -52,6 +52,10 @@ export default {
 		state.isSearchWrapped = isSearchWrapped;
 	},
 
+	setStudentsLoadedStatus(state: IState, areStudentsLoaded: boolean) {
+		state.areStudentsLoaded = areStudentsLoaded;
+	},
+
 	/** Change whether sideBar is open or closed
 	 *  @param { boolean } new_value - whether it's closed or open
 	 */

@@ -46,6 +46,7 @@ const OPEN_SWIPE_SENSITIVITY_PERCENTAGE = 0.05;
 			'sideBarVisibilityChange',
 			'setViewportBelow500',
 			'setIfSearchWrapped',
+			'setStudentsLoadedStatus',
 		]),
 	},
 })
@@ -56,6 +57,8 @@ export default class Authorized extends Mixins(TouchDetection) {
 	coverActuallyHidden: boolean = true;
 
 	ADD_STUDENT_HASH_PATH: string = '';
+
+	areStudentsLoaded: boolean = false;
 
 	/** Value in pixels.
 	 *  Defaults to 50px.
@@ -81,6 +84,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 	sideBarVisibilityChange: (state: boolean) => void;
 	setViewportBelow500: (newValue: boolean) => void;
 	setIfSearchWrapped: (isSearchWrapped: boolean) => void;
+	setStudentsLoadedStatus: (areStudentsLoaded: boolean) => void;
 
 	@Watch('$route')
 	onRouteChange(): void {
@@ -113,6 +117,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 			}
 		};
 		await this.loadStudents();
+		this.setStudentsLoadedStatus(true);
 	}
 
 	// media query change
@@ -195,6 +200,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 			this.sideBarVisibilityChange(false);
 		}
 	}
+
 	async setCoverState(state?: boolean, timeout: number = 0) {
 		if (state == undefined) {
 			state = !this.sideBarVisible;

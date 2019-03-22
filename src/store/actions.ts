@@ -53,6 +53,8 @@ export default {
 		console.log(`searching students for ${searchText}`);
 		searchText = searchText.toLowerCase();
 		Object.values(state.students).forEach((student: IStudent) => {
+			/* Make searching by the full name possible as well. */
+			student.fullName = student.imie + ' ' + student.nazwisko;
 			console.log('student', student);
 			for (let property of Object.values(student)) {
 				if (typeof property === 'boolean') {
