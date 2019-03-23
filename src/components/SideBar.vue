@@ -14,7 +14,7 @@
 			<a id="szkola" class="menu-item">
 				<p>Ipsum</p>
 			</a>
-			<a
+			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_frontend"
 				:title="$t('github.frontend.info')"
 				target="_blank"
@@ -25,7 +25,7 @@
 				<p>frontend</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<a
+			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_backend"
 				:title="$t('github.backend.info')"
 				target="_blank"
@@ -36,7 +36,7 @@
 				<p>backend</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<a
+			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski"
 				:title="$t('github.profile.info')"
 				target="_blank"
@@ -48,7 +48,7 @@
 				<i class="fas fa-external-link-alt"></i>
 			</a>
 			<Languages/>
-			<a
+			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_frontend/issues/new"
 				:title="$t('sidebar.report-issue-gh')"
 				target="_blank"

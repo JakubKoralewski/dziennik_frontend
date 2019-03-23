@@ -1,6 +1,7 @@
 <template>
-	<div class="languages">
-		<div
+	<div class="languages" itemprop="availableLanguage" itemscope itemtype="http://schema.org/Language">
+		<div 
+			itemprop="name"
 			class="language"
 			v-for="(lang, i) in langs"
 			:key="i"
