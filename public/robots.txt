@@ -1,0 +1,1 @@
+Sitemap: https://dziennik.netlify.com/sitemap.xml
