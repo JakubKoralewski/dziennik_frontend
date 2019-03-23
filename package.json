@@ -4,13 +4,11 @@
 	"private": true,
 	"scripts": {
 		"serve": "vue-cli-service serve",
-		"sitemap": "npm i -g typescript && cd src && tsc generateSitemap.ts && node generateSitemap.js && rm generateSitemap.js && rm router.js",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
 		"he": "^1.2.0",
-		"sitemap-webpack-plugin": "^0.6.0",
 		"vue": "^2.6.9",
 		"vue-class-component": "^7.0.1",
 		"vue-contenteditable": "^1.0.2",

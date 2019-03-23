@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+	<url>
+
+		<loc>https://dziennik.netlify.com/</loc>
+		<changefreq>yearly</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/pl" />
+
+		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/en" />
+
+	</url>
+
+	<url>
+
+		<loc>https://dziennik.netlify.com/pl/</loc>
+		<changefreq>yearly</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/en" />
+
+	</url>
+
+	<url>
+
+		<loc>https://dziennik.netlify.com/en/</loc>
+		<changefreq>yearly</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/pl" />
+
+	</url>
+	<url>
+
+		<loc>https://dziennik.netlify.com/logged-in/</loc>
+		<changefreq>always</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/zalogowany" />
+
+	</url>
+	<url>
+
+		<loc>https://dziennik.netlify.com/logged-in#add-student/</loc>
+		<changefreq>always</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/zalogowany#dodaj-ucznia" />
+	
+	</url>
+
+	<url>
+
+		<loc>https://dziennik.netlify.com/zalogowany/</loc>
+		<changefreq>always</changefreq>
+
+		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/logged-in" />
+
+	</url>
+
+	<url>
+
+		<loc>https://dziennik.netlify.com/zalogowany#dodaj-ucznia/</loc>
+		<changefreq>always</changefreq>
+		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/logged-in#add-student" />
+
+	</url>
+
+</urlset>
