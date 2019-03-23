@@ -75,6 +75,9 @@
 		"should-be-a-number": "Wartość {property} powinna być numerem."
 
 	},
-	"not-a-muggle": "Nie jestem mugolem"
+	"not-a-muggle": "Nie jestem mugolem",
+	"alt": {
+		"harwart-bg": "Groźny, powiększający i pomniejszający uniwersytet \"Harwart\""
+	}
 
 }

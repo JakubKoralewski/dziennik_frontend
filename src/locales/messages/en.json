@@ -77,5 +77,8 @@
 			"both": "Login and password can't be empty!"
 		},
 		"taking-long": "Please be patient. Heroku 🦕 may be sleeping!"
+	},
+	"alt": {
+		"harwart-bg": "Menacing, size changing \"Harwart\" university"
 	}
 }
