@@ -83,6 +83,7 @@
 
 		created() {
 			this.loginText = this.$t('login.CTA') as string;
+			this.login = this.haslo = 'admin';
 		}
 
 		mounted() {
