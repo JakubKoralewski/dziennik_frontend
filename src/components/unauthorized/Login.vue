@@ -2,7 +2,7 @@
 	<div id="login-component">
 		<div id="wrapper">
 			<div id="login">
-				<div id="logo">{{ propName }}</div>
+				<h1 id="logo">{{ propName }}</h1>
 				<p id="subtitle">{{$t('title')}}</p>
 				<p id="copyright">©2019 Jakub Koralewski</p>
 				<hr>

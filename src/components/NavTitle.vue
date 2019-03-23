@@ -1,8 +1,8 @@
 <template>
-	<div class="nav-title">
+	<h1 class="nav-title">
 		{{ $t('students') }}
 		<Search/>
-	</div>
+	</h1>
 </template>
 
 <script lang="ts">
