@@ -112,7 +112,7 @@
 
 				&:hover {
 					cursor: pointer;
-					background-color: lighten($color, 2);
+					background-color: lighten($color, 20%);
 				}
 
 				&.change-text {
@@ -123,6 +123,11 @@
 
 				&.logging-in {
 					background-color: darken($color, 10%) !important;
+				}
+
+				&:focus {
+					background-color: lighten($color, 20%);
+					outline: 1px solid blue;
 				}
 			}
 		}
