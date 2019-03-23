@@ -1,159 +1,124 @@
 <!DOCTYPE html>
 <html lang="pl-PL" itemscope itemtype="http://schema.org/WebApplication">
-	<head>
-		<title>Dziennik PHP Jakub Koralewski</title>
-		<meta charset="utf-8" />
-		<meta
-			name="description"
-			content="<%= VUE_APP_DESCRIPTION %>"
-		/>
-		<meta
-			name="keywords"
-			content="Jakub Koralewski, github, vue, spa,
+
+<head>
+	<title>Dziennik PHP Jakub Koralewski</title>
+	<meta charset="utf-8" />
+	<meta name="description" content="<%= VUE_APP_DESCRIPTION %>" />
+	<meta name="keywords" content="Jakub Koralewski, github, vue, spa,
 			dziennik, dziennik-php, php, koralewski, jakub,
 			harwart, register, school, student, project, 
 			portfolio, Vue.js, TypeScript, ts, vue-i18n, 
-			php, heroku, postgresql, scss, SASS"
-		/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-		<meta name="robots" content="index, follow" />
-		<meta
-			name="copyright"
-			content="MIT License ©2019 Jakub Koralewski https://raw.githubusercontent.com/JakubKoralewski/dziennik_php_frontend/master/LICENSE"
-		/>
+			php, heroku, postgresql, scss, SASS" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<meta name="robots" content="index, follow" />
+	<meta name="copyright"
+		content="MIT License ©2019 Jakub Koralewski https://raw.githubusercontent.com/JakubKoralewski/dziennik_php_frontend/master/LICENSE" />
 
-		<!-- Bing Analytics -->
-		<meta name="msvalidate.01" content="D2A9986B95DA0E75CDED1FA77724388A" />
+	<!-- Bing Analytics -->
+	<meta name="msvalidate.01" content="D2A9986B95DA0E75CDED1FA77724388A" />
 
-		<!-- Facebook -->
-		<meta property="og:url" content="https://dziennik.netlify.com" />
-		<meta
-			property="og:url"
-			content="https://github.com/JakubKoralewski/dziennik_php_frontend/"
-		/>
-		<meta
-			property="og:url"
-			content="https://github.com/JakubKoralewski/dziennik_php_backend/"
-		/>
-		<meta
-			property="og:url"
-			content="https://github.com/JakubKoralewski/dziennik_php/"
-		/>
-		<meta property="og:url" content="https://dziennik-php.herokuapp.com/" />
-		<meta property="og:locale" content="pl_PL" />
-		<meta property="og:locale" content="en" />
-		<meta
-			property="og:description"
-			content="<%= VUE_APP_DESCRIPTION %>"
-		/>
-		<meta property="og:title" content="Dziennik PHP Jakub Koralewski" />
-		<meta property="og:image" content="<%= BASE_URL %>hogwarts.jpg" />
-		<meta property="og:image:type" content="image/jpg" />
-		<meta property="og:image:width" content="1920" />
-		<meta property="og:image:height" content="1080" />
-		<meta property="og:image:alt" content="Hogwart czy 2LO?" />
-		<meta property="og:site_name" content="Dziennik PHP" />
-		<meta property="og:type" content="website" />
+	<!-- Facebook -->
+	<meta property="og:url" content="https://dziennik.netlify.com" />
+	<meta property="og:url" content="https://github.com/JakubKoralewski/dziennik_php_frontend/" />
+	<meta property="og:url" content="https://github.com/JakubKoralewski/dziennik_php_backend/" />
+	<meta property="og:url" content="https://github.com/JakubKoralewski/dziennik_php/" />
+	<meta property="og:url" content="https://dziennik-php.herokuapp.com/" />
+	<meta property="og:locale" content="pl_PL" />
+	<meta property="og:locale" content="en" />
+	<meta property="og:description" content="<%= VUE_APP_DESCRIPTION %>" />
+	<meta property="og:title" content="Dziennik PHP Jakub Koralewski" />
+	<meta property="og:image" content="<%= BASE_URL %>hogwarts.jpg" />
+	<meta property="og:image:type" content="image/jpg" />
+	<meta property="og:image:width" content="1920" />
+	<meta property="og:image:height" content="1080" />
+	<meta property="og:image:alt" content="Hogwart czy 2LO?" />
+	<meta property="og:site_name" content="Dziennik PHP" />
+	<meta property="og:type" content="website" />
 
-		<!-- Google+ -->
-		<meta itemprop="name" content="Dziennik SPA Jakub Koralewski" />
-		<meta
-			itemprop="description"
-			content="<%= VUE_APP_DESCRIPTION %>"
-		/>
-		<meta itemprop="image" content="<%= BASE_URL %>hogwarts.jpg" />
-		<meta itemprop="author" content="Jakub Koralewski" />
-		<meta itemprop="creator" content="Jakub Koralewski" />
-		<meta itemprop="applicationCategory" content="School register" />
-		<meta itemprop="applicationSubCategory" content="Portfolio apps" />
-		<meta itemprop="operatingSystem" content="Windows 7, OSX 10.6, Android 1.6, iOS, Linux, Windows Phone" />
-		<meta itemprop="releaseNotes" content="https://github.com/JakubKoralewski/dziennik_php_frontend" />
-		<meta itemprop="installUrl" content="https://github.com/JakubKoralewski/dziennik_php_frontend" />
-		<meta itemprop="inLanguage">
-			<meta itemprop="name" content="Polish" />
-			<meta itemprop="name" content="English" />
-		</meta>
+	<!-- Google+ -->
+	<meta itemprop="name" content="Dziennik SPA Jakub Koralewski" />
+	<meta itemprop="description" content="<%= VUE_APP_DESCRIPTION %>" />
+	<meta itemprop="image" content="<%= BASE_URL %>hogwarts.jpg" />
+	<meta itemprop="author" content="Jakub Koralewski" />
+	<meta itemprop="creator" content="Jakub Koralewski" />
+	<meta itemprop="applicationCategory" content="School register" />
+	<meta itemprop="applicationSubCategory" content="Portfolio apps" />
+	<meta itemprop="operatingSystem" content="Windows 7, OSX 10.6, Android 1.6, iOS, Linux, Windows Phone" />
+	<meta itemprop="releaseNotes" content="https://github.com/JakubKoralewski/dziennik_php_frontend" />
+	<meta itemprop="installUrl" content="https://github.com/JakubKoralewski/dziennik_php_frontend" />
+	<meta itemprop="inLanguage">
+	<meta itemprop="name" content="Polish" />
+	<meta itemprop="name" content="English" />
+	</meta>
 
-		<!-- Twitter -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content="@KoralewskiJakub" />
-		<meta name="twitter:title" content="Dziennik PHP Jakub Koralewski" />
-		<meta
-			name="twitter:description"
-			content="<%= VUE_APP_DESCRIPTION %>"
-		/>
-		<meta name="twitter:creator" content="@KoralewskiJakub" />
-		<meta name="twitter:image:src" content="<%= BASE_URL %>hogwarts.jpg" />
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@KoralewskiJakub" />
+	<meta name="twitter:title" content="Dziennik PHP Jakub Koralewski" />
+	<meta name="twitter:description" content="<%= VUE_APP_DESCRIPTION %>" />
+	<meta name="twitter:creator" content="@KoralewskiJakub" />
+	<meta name="twitter:image:src" content="<%= BASE_URL %>hogwarts.jpg" />
 
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script
-			async
-			src="https://www.googletagmanager.com/gtag/js?id=UA-136796687-1"
-		></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-136796687-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
 
-			function gtag() {
-				dataLayer.push(arguments);
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-136796687-1');
+	</script>
+
+	<!-- Structured data https://search.google.com/structured-data/testing-tool -->
+	<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "WebApplication",
+			"name": "\"Harwart\" - portfolio school register app",
+			"author": {
+				"name": "Jakub Koralewski",
+				"@type": "Person",
+				"url": "https://github.com/JakubKoralewski"
+			},
+			"image": "<%= BASE_URL %>hogwarts.jpg",
+			"description": "<%= VUE_APP_DESCRIPTION %>",
+			"applicationCategory": "School register",
+			"applicationSubCategory": "Portfolio apps",
+			"operatingSystem": "Windows 7, OSX 10.6, Android 1.6, iOS, Linux, Windows Phone",
+			"releaseNotes": "https://github.com/JakubKoralewski/dziennik_php_frontend",
+			"installUrl": "https://github.com/JakubKoralewski/dziennik_php_frontend",
+			"creator": "Jakub Koralewski",
+			"inLanguage": {
+				"@type": "Language",
+				"name": ["Polish", "English"]
 			}
-			gtag('js', new Date());
+		}
+	</script>
 
-			gtag('config', 'UA-136796687-1');
-		</script>
+	<link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700" rel="stylesheet" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+		integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+</head>
 
-		<!-- Structured data https://search.google.com/structured-data/testing-tool -->
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org/",
-				"@type": "WebApplication",
-				"name": "\"Harwart\" - portfolio school register app",
-				"author": {
-					"name": "Jakub Koralewski",
-					"@type": "Person",
-					"url": "https://github.com/JakubKoralewski"
-				},
-				"image": "<%= BASE_URL %>hogwarts.jpg",
-				"description": "<%= VUE_APP_DESCRIPTION %>",
-				"applicationCategory": "School register",
-				"applicationSubCategory": "Portfolio apps",
-				"operatingSystem": "Windows 7, OSX 10.6, Android 1.6, iOS, Linux, Windows Phone",
-				"releaseNotes": "https://github.com/JakubKoralewski/dziennik_php_frontend",
-				"installUrl": "https://github.com/JakubKoralewski/dziennik_php_frontend",
-				"creator": "Jakub Koralewski",
-				"inLanguage": {
-					"@type": "Language",
-					"name": ["Polish", "English"]
-				}
-			}
-		</script>
+<body>
+	<noscript>
+		<strong>
+			<%= VUE_APP_DESCRIPTION %>
+			<hr />
+			We're sorry but Dziennik PHP Jakub Koralewski doesn't work
+			properly without JavaScript enabled. Please enable it to
+			continue.
+			<hr />
+			Prosimy włączyć JavaScript.
+		</strong>
+	</noscript>
+	<div id="app"></div>
+</body>
 
-		<link rel="icon" href="<%= BASE_URL %>favicon.ico" />
-		<link
-			href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-			integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
-			crossorigin="anonymous"
-		/>
-	</head>
-
-	<body>
-		<noscript>
-			<strong>
-				<%= VUE_APP_DESCRIPTION %>
-				<hr />
-				We're sorry but Dziennik PHP Jakub Koralewski doesn't work
-				properly without JavaScript enabled. Please enable it to
-				continue.
-				<hr />
-				Prosimy włączyć JavaScript.
-				</strong
-			>
-		</noscript>
-		<div id="app"></div>
-	</body>
 </html>
