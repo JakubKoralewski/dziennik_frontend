@@ -27,6 +27,7 @@
 		"member-ordering": false,
 		"member-access": false,
 		"no-bitwise": false,
+		"no-string-literal": false,
 
 		"quotemark": [true, "single"],
 		"indent": [true, "tabs", 4],
