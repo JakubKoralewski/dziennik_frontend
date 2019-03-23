@@ -13,6 +13,7 @@
 					autocapitalize="off"
 					spellcheck="false"
 					:title="editMode ? null : $t('student.first-name')"
+					:aria-label="$t('student.first-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-model="student.imie"
 					tag="div"
@@ -28,6 +29,7 @@
 					autocapitalize="off"
 					spellcheck="false"
 					:title="editMode ? null : $t('student.last-name')"
+					:aria-label="$t('student.last-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
 					v-model="student.nazwisko"
 					tag="div"
@@ -58,8 +60,9 @@
 					@click="toggleEditMode"
 					:class="{'edit-mode-active': editMode, 'remind-to-click': remindToClickActive }"
 					:title="$t('edit.edit')"
+					:aria-label="$t('edit.edit')"
 				></i>
-				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('delete.delete')"></i>
+				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('delete.delete')" :aria-label="$t('delete.delete')"></i>
 			</div>
 		</div>
 		<div id="content">
@@ -71,6 +74,7 @@
 					class="info"
 					id="klasa"
 					:contenteditable="editMode"
+					:aria-label="$t('student.class')"
 					@input="refreshCheckmarkStatus"
 					v-model="student.klasa"
 					spellcheck="false"
@@ -88,6 +92,7 @@
 					class="info"
 					id="telefon"
 					:contenteditable="editMode"
+					:aria-label="$t('student.phone-number')"
 					v-model="student.telefon"
 					@input="refreshCheckmarkStatus"
 					spellcheck="false"

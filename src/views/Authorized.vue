@@ -1,12 +1,20 @@
 <template>
 	<div id="authorized">
-		<NewStudent v-show="showNewStudentDialog" @newStudentAdded="showNewStudentDialog=false"/>
+		<NewStudent 
+		v-show="showNewStudentDialog"
+		@newStudentAdded="showNewStudentDialog=false" 
+		:aria-disabled="!showNewStudentDialog" 
+		:aria-hidden="!showNewStudentDialog"
+		/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
 			:class="{'blur-visible': showNewStudentDialog, 'sidebar-visible': sideBarVisible}"
 		/>
 		<div
-			:class="{'visible': showNewStudentDialog || sideBarVisible, 'actually-hidden': !(showNewStudentDialog || sideBarVisible)}"
+			:class="{
+				'visible': showNewStudentDialog || sideBarVisible,
+				'actually-hidden': !(showNewStudentDialog || sideBarVisible)
+				}"
 			id="cover"
 			@click="coverClick()"
 		/>

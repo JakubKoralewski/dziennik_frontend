@@ -15,6 +15,7 @@
 							type="login"
 							spellcheck="false"
 							:placeholder="$t('login.placeholders.login')"
+							:aria-label="$t('login.placeholders.login')"
 						>
 					</div>
 					<div class="login-inputs" id="haslo-container">
@@ -24,12 +25,13 @@
 							v-model="haslo"
 							type="password"
 							:placeholder="$t('login.placeholders.password')"
+							:aria-label="$t('login.placeholders.password')"
 						>
 					</div>
 				</div>
 
 				<!-- <muggle-captcha /> -->
-				<input id="login-button" type="button" :value="loginText" @click="loginRequest()">
+				<input id="login-button" type="button" :value="loginText" :aria-label="loginText" @click="loginRequest()">
 			</div>
 		</div>
 	</div>

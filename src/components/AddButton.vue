@@ -1,5 +1,11 @@
 <template>
-	<div class="add-button" @click="$emit('addButtonClick')">
+	<div 
+	class="add-button"
+	@click="$emit('addButtonClick')"
+	:title="$t('student.add')"
+	:aria-label="$t('student.add')"
+	role="button"
+	>
 		<i class="fas fa-user-plus"></i>
 	</div>
 </template>

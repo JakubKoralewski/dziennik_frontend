@@ -6,6 +6,7 @@
 					type="text"
 					id="imie"
 					:placeholder="$t('student.first-name')"
+					:aria-label="$t('student.first-name')"
 					@keyup.enter="addUser"
 					v-model="newStudent.imie"
 					autofocus
@@ -18,6 +19,7 @@
 					id="nazwisko"
 					@keyup.enter="addUser"
 					:placeholder="$t('student.last-name')"
+					:aria-label="$t('student.last-name')"
 					v-model="newStudent.nazwisko"
 					spellcheck="false"
 					onfocus="this.select()"
@@ -34,6 +36,7 @@
 						id="klasa"
 						placeholder="3d"
 						@keyup.enter="addUser"
+						:aria-label="$t('student.class')"
 						v-model="newStudent.klasa"
 						spellcheck="false"
 						onfocus="this.select()"
@@ -47,6 +50,7 @@
 					<input
 						type="text"
 						id="telefon"
+						:aria-label="$t('student.phone-number')"
 						@keyup.enter="addUser"
 						placeholder="666666666"
 						v-model="newStudent.telefon"
@@ -56,7 +60,7 @@
 					>
 				</span>
 			</div>
-			<div id="checkmark" @click="addUser" :title="checkmarkStatus">
+			<div id="checkmark" @click="addUser" :title="checkmarkStatus" :aria-label="checkmarkStatus">
 				<button>
 					<i class="fas fa-check"></i>
 				</button>
