@@ -213,7 +213,7 @@
 				this.loginInput as HTMLInputElement,
 				this.hasloInput as HTMLInputElement,
 			].forEach(input => input.classList.remove('login-failed'));
-			this.$router.push(this.$t('logged-in'));
+			this.$router.push(this.$t('paths.logged-in'));
 		}
 		loginError(inputs: Array<HTMLInputElement | null>) {
 			this.wasLoginSuccessful = false;

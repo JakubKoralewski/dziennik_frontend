@@ -47,7 +47,7 @@
 				<p>{{ $t('sidebar.profile')}}</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<Languages/>
+			<Languages @localeChange="lang => $emit('localeChange', lang)" />
 			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_frontend/issues/new"
 				:title="$t('sidebar.report-issue-gh')"

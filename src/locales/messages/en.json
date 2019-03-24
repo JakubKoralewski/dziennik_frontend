@@ -2,7 +2,9 @@
 	"title": "\"Harwart\" Online school register SPA",
 	"students": "Students",
 	"students-CTA": "Manage students",
-	"logged-in": "logged-in",
+	"paths": {
+		"logged-in": "logged-in"
+	},
 	"sidebar": {
 		"about": "About",
 		"school": "School",

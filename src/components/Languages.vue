@@ -42,6 +42,7 @@
 		}
 		localeChange(lang: string) {
 			this.$i18n.locale = lang;
+			this.$emit('localeChange', lang);
 		}
 	}
 </script>

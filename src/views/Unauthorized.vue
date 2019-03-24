@@ -6,8 +6,14 @@
 		<Login class="login" prop-logo="logo.png" name="Harwart"/>
 		<div id="cover"/>
 		<canvas id="canvas" class="animate"></canvas>
-		<img class="bg noselect animate" src="hogwarts.jpg" unselectable="on" draggable="false" :alt="$t('alt.harwart-bg')">
-		<Languages/>
+		<img
+			class="bg noselect animate"
+			src="hogwarts.jpg"
+			unselectable="on"
+			draggable="false"
+			:alt="$t('alt.harwart-bg')"
+		>
+		<Languages @localeChange="localeChange"/>
 	</div>
 </template>
 
@@ -37,6 +43,9 @@
 		}
 		destroyed() {
 			document.documentElement.classList.remove('html-unauthorized');
+		}
+		localeChange(lang: string) {
+			this.$router.push(`/${lang}`);
 		}
 		mounted() {
 			// https://codepen.io/ruigewaard/pen/JHDdF

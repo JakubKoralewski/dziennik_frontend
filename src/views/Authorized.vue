@@ -18,7 +18,7 @@
 			id="cover"
 			@click="coverClick()"
 		/>
-		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent"/>
+		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent" @localeChange="localeChange" />
 		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog || sideBarVisible}">
 			<div id="content">
 				<NavTitle/>

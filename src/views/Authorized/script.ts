@@ -171,7 +171,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 		} else {
 			/* Making the dialog disappear */
 			console.log('Making the dialog disappear');
-			this.$router.push(`/${this.$t('logged-in')}`);
+			this.$router.push(`/${this.$t('paths.logged-in')}`);
 			this.setCoverState(true);
 		}
 		this.showNewStudentDialog = !this.showNewStudentDialog;
@@ -212,6 +212,10 @@ export default class Authorized extends Mixins(TouchDetection) {
 		} else {
 			this.coverActuallyHidden = state;
 		}
+	}
+
+	localeChange(lang: string) {
+		this.$router.push(`/${this.$t('paths.logged-in')}`);
 	}
 
 	sideBarToggle(newState: boolean) {

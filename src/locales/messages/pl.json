@@ -5,11 +5,13 @@
 	"hashes": {
 		"add-student": "#dodaj-ucznia"
 	},
+	"paths": {
+		"logged-in": "zalogowany"
+	},
 	"language": {
 		"change-to": "Zmień na język polski",
 		"already-chosen": "Już używasz polskiej wersji językowej"
 	},
-	"logged-in": "zalogowany",
 	"sidebar": {
 		"about": "O mnie",
 		"school": "Szkoła",
