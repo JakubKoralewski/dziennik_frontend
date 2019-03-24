@@ -29,6 +29,9 @@
 		langsTexts: any = {};
 		created() {
 			this.langs = this.$i18n.availableLocales;
+			this.generateLangsTexts();
+		}
+		generateLangsTexts() {
 			for (const lang of this.langs) {
 				this.langsTexts[lang] =
 					this.$i18n.locale === lang
@@ -42,6 +45,7 @@
 		}
 		localeChange(lang: string) {
 			this.$i18n.locale = lang;
+			this.generateLangsTexts();
 			this.$emit('localeChange', lang);
 		}
 	}
