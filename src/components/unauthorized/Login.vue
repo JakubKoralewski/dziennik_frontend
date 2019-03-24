@@ -18,11 +18,11 @@
 							:aria-label="$t('login.placeholders.login')"
 						>
 					</div>
-					<div class="login-inputs" id="haslo-container">
+					<div class="login-inputs" id="password-container">
 						{{$t('login.password')}}:
 						<input
-							id="haslo"
-							v-model="haslo"
+							id="password"
+							v-model="password"
 							type="password"
 							:placeholder="$t('login.placeholders.password')"
 							:aria-label="$t('login.placeholders.password')"
@@ -31,7 +31,13 @@
 				</div>
 
 				<!-- <muggle-captcha /> -->
-				<input id="login-button" type="button" :value="loginText" :aria-label="loginText" @click="loginRequest()">
+				<input
+					id="login-button"
+					type="button"
+					:value="loginText"
+					:aria-label="loginText"
+					@click="loginRequest()"
+				>
 			</div>
 		</div>
 	</div>
@@ -72,10 +78,13 @@
 		login: string = '';
 		loginText: string = '';
 		oldLoginText: string = '';
-		haslo: string = '';
+		password: string = '';
+
+		/* Elements */
 		loginButton: HTMLButtonElement | null = null;
 		loginInput: HTMLInputElement | null = null;
-		hasloInput: HTMLInputElement | null = null;
+		passwordInput: HTMLInputElement | null = null;
+
 		wasLoginSuccessful: boolean = false;
 
 		/* Mixin: Sleep */
@@ -83,15 +92,15 @@
 
 		created() {
 			this.loginText = this.$t('login.CTA') as string;
-			this.login = this.haslo = 'admin';
+			this.login = this.password = 'admin';
 		}
 
 		mounted() {
 			this.loginButton = document.querySelector('#login-button');
 			this.loginInput = document.querySelector('input#login');
-			this.hasloInput = document.querySelector('input#haslo');
+			this.passwordInput = document.querySelector('input#password');
 
-			Array.from(document.querySelectorAll('#login, #haslo')).forEach(
+			Array.from(document.querySelectorAll('#login, #password')).forEach(
 				input => {
 					input.addEventListener('keyup', (event: Event) => {
 						if ((event as KeyboardEvent).key !== 'Enter') {
@@ -114,20 +123,20 @@
 		loginRequest() {
 			const invalidInputs = this.credentialsValid([
 				this.loginInput as HTMLInputElement,
-				this.hasloInput as HTMLInputElement,
+				this.passwordInput as HTMLInputElement,
 			]);
 			if (invalidInputs != false) {
 				console.log('Found invalid inputs', invalidInputs);
 				if (!this.wasLoginSuccessful) {
 					[
 						this.loginInput as HTMLInputElement,
-						this.hasloInput as HTMLInputElement,
+						this.passwordInput as HTMLInputElement,
 					].forEach(input => input.classList.remove('login-failed'));
 				}
 				this.loginError(invalidInputs as HTMLInputElement[]);
 				return;
 			}
-			console.log(`login: ${this.login}\nhaslo: ${this.haslo}`);
+			console.log(`login: ${this.login}\npassword: ${this.password}`);
 			this.loginButton.classList.add('logging-in');
 			this.setLoginText(this.$t('login.logging-in') as string);
 			const loginTask = new Promise(resolve => {
@@ -137,7 +146,7 @@
 						method: 'POST',
 						body: JSON.stringify({
 							login: this.login,
-							haslo: this.haslo,
+							password: this.password,
 						}),
 						headers: {
 							'Content-Type': 'application/json; charset=UTF-8',
@@ -149,7 +158,7 @@
 							if ((response as any).status !== true) {
 								this.loginError([
 									this.loginInput as HTMLInputElement,
-									this.hasloInput as HTMLInputElement,
+									this.passwordInput as HTMLInputElement,
 								]);
 							} else {
 								this.setLoginText(this.$t(
@@ -211,7 +220,7 @@
 			this.wasLoginSuccessful = true;
 			[
 				this.loginInput as HTMLInputElement,
-				this.hasloInput as HTMLInputElement,
+				this.passwordInput as HTMLInputElement,
 			].forEach(input => input.classList.remove('login-failed'));
 			this.$router.push(this.$t('paths.logged-in'));
 		}
