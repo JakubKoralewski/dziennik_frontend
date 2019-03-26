@@ -1,6 +1,23 @@
 @mixin nav-shadow($size: 1px) {
 	box-shadow: $size $size 72px -14px rgba(0, 0, 0, 0.1);
 }
+
 @mixin nav-border($size) {
 	border: $size solid darken($main-color, 20%);
+}
+
+@mixin textured-bg($opacity: 0.2, $z-index: -1) {
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: $z-index;
+		opacity: $opacity;
+		background-image: url(/gravel.png);
+		background-repeat: repeat;
+	}
 }

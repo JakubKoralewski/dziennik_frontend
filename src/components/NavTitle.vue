@@ -18,6 +18,8 @@
 </script>
 
 <style scoped lang="scss">
+	@import '@/scss/_mixins.scss';
+
 	.nav-title {
 		display: flex;
 		flex-direction: row;
@@ -27,6 +29,13 @@
 		font-size: 2rem;
 		// flex-wrap: wrap;
 		justify-content: space-between;
+
+		.search {
+			z-index: 5;
+		}
+
+		@include textured-bg(0.15, 2);
+
 		@media screen and (max-width: 600px) {
 			flex-direction: column;
 		}
