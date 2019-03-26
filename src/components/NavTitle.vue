@@ -27,8 +27,10 @@
 		padding: 2rem calc(2rem + 5vw);
 		font-weight: 400;
 		font-size: 2rem;
-		// flex-wrap: wrap;
 		justify-content: space-between;
+		width: 100%;
+		box-sizing: border-box;
+		position: relative;
 
 		.search {
 			z-index: 5;
