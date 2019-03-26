@@ -146,7 +146,7 @@
 						method: 'POST',
 						body: JSON.stringify({
 							login: this.login,
-							password: this.password,
+							haslo: this.password,
 						}),
 						headers: {
 							'Content-Type': 'application/json; charset=UTF-8',
