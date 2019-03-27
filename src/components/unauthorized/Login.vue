@@ -45,7 +45,7 @@
 
 <script lang="ts">
 	/* import MuggleCaptcha from '@/components/MuggleCaptcha.vue'; */
-	import { Vue, Component, Mixins } from 'vue-property-decorator';
+	import { Vue, Component, Mixins, Watch } from 'vue-property-decorator';
 	import { API_URL } from '@/config';
 	import { Sleep, ISleep } from '@/mixins/Sleep';
 
@@ -79,6 +79,7 @@
 		loginText: string = '';
 		oldLoginText: string = '';
 		password: string = '';
+		loginI18nText: string = '';
 
 		/* Elements */
 		loginButton: HTMLButtonElement | null = null;
@@ -113,9 +114,17 @@
 				}
 			);
 		}
-		setLoginText(new_text: string) {
+		@Watch('$i18n.locale')
+		onLocaleChange() {
+			this.setLoginText(this.loginI18nText);
+		}
+		/** Takes in a string that can be used
+		 *  to find i18n message.
+		 */
+		private setLoginText(i18n_text: string) {
 			this.oldLoginText = this.loginText;
-			this.loginText = new_text;
+			this.loginI18nText = i18n_text;
+			this.loginText = this.$t(i18n_text) as string;
 		}
 		restoreOldLoginText() {
 			this.loginText = this.oldLoginText;
@@ -138,7 +147,7 @@
 			}
 			console.log(`login: ${this.login}\npassword: ${this.password}`);
 			this.loginButton.classList.add('logging-in');
-			this.setLoginText(this.$t('login.logging-in') as string);
+			this.setLoginText('login.logging-in');
 			const loginTask = new Promise(resolve => {
 				this.loginButton.classList.remove('change-text');
 				resolve(
@@ -161,31 +170,23 @@
 									this.passwordInput as HTMLInputElement,
 								]);
 							} else {
-								this.setLoginText(this.$t(
-									'login.invalid-credentials'
-								) as string);
+								this.setLoginText('login.invalid-credentials');
 							}
 							return response.json();
 						})
 						.then(async data => {
 							console.log(data);
 							if (data.status === true) {
-								this.setLoginText(this.$t(
-									'login.successful'
-								) as string);
+								this.setLoginText('login.successful');
 								console.log('zalogowano.');
 								this.loginSuccessful();
 							} else {
-								this.setLoginText(this.$t(
-									'login.invalid-credentials'
-								) as string);
+								this.setLoginText('login.invalid-credentials');
 								this.loginButton.classList.add('change-text');
 								// tslint:disable-next-line:no-unused-expression
 								new Promise(x => {
 									setTimeout(() => {
-										this.setLoginText(this.$t(
-											'login.CTA'
-										) as string);
+										this.setLoginText('login.CTA');
 										this.loginButton.classList.remove(
 											'change-text'
 										);
@@ -196,7 +197,7 @@
 						})
 						.catch(error => {
 							console.error(error);
-							this.setLoginText(this.$t('login.error') as string);
+							this.setLoginText('login.error');
 						})
 						.finally(() => {
 							this.loginButton.classList.remove('logging-in');
@@ -211,7 +212,7 @@
 			Promise.race([checkIfTakingTooLongTask(1000), loginTask]).then(
 				async (taskType: any) => {
 					if (taskType === TASKS.CheckIfTakingTooLongTask) {
-						this.setLoginText(this.$t('login.taking-long') as string);
+						this.setLoginText('login.taking-long');
 					}
 				}
 			);
@@ -237,9 +238,7 @@
 			const invalidInputs = inputs
 				.map(input => {
 					if (!!input!.value == false) {
-						this.setLoginText(this.$t(
-							`login.empty-input.${input.type}`
-						) as string);
+						this.setLoginText(`login.empty-input.${input.type}`);
 						return input;
 					}
 					return null;
@@ -252,7 +251,7 @@
 				return true;
 			} else {
 				if (invalidInputs.length == 2) {
-					this.setLoginText(this.$t(`login.empty-input.both`) as string);
+					this.setLoginText('login.empty-input.both');
 				}
 				return invalidInputs as HTMLInputElement[];
 			}
