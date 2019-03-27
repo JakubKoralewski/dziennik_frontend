@@ -36,7 +36,7 @@
 					type="button"
 					:value="loginText"
 					:aria-label="loginText"
-					@click="loginRequest()"
+					v-on="{click: !isLoggingIn ? loginRequest : () => null}"
 				>
 			</div>
 		</div>
@@ -80,6 +80,7 @@
 		oldLoginText: string = '';
 		password: string = '';
 		loginI18nText: string = '';
+		isLoggingIn: boolean = false;
 
 		/* Elements */
 		loginButton: HTMLButtonElement | null = null;
@@ -130,6 +131,7 @@
 			this.loginText = this.oldLoginText;
 		}
 		loginRequest() {
+			this.isLoggingIn = true;
 			const invalidInputs = this.credentialsValid([
 				this.loginInput as HTMLInputElement,
 				this.passwordInput as HTMLInputElement,
@@ -193,6 +195,7 @@
 									}, 1500);
 								});
 							}
+							this.isLoggingIn = false;
 							return TASKS.LoginTask;
 						})
 						.catch(error => {
