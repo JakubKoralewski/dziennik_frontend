@@ -4,7 +4,7 @@
 
 	<url>
 
-		<loc>https://dziennik.netlify.com/</loc>
+		<loc>https://dziennik.netlify.com</loc>
 		<changefreq>yearly</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/pl" />
@@ -15,7 +15,7 @@
 
 	<url>
 
-		<loc>https://dziennik.netlify.com/pl/</loc>
+		<loc>https://dziennik.netlify.com/pl</loc>
 		<changefreq>yearly</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/en" />
@@ -24,7 +24,7 @@
 
 	<url>
 
-		<loc>https://dziennik.netlify.com/en/</loc>
+		<loc>https://dziennik.netlify.com/en</loc>
 		<changefreq>yearly</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/pl" />
@@ -32,7 +32,7 @@
 	</url>
 	<url>
 
-		<loc>https://dziennik.netlify.com/logged-in/</loc>
+		<loc>https://dziennik.netlify.com/logged-in</loc>
 		<changefreq>always</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/zalogowany" />
@@ -40,7 +40,7 @@
 	</url>
 	<url>
 
-		<loc>https://dziennik.netlify.com/logged-in#add-student/</loc>
+		<loc>https://dziennik.netlify.com/logged-in#add-student</loc>
 		<changefreq>always</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="pl" href="https://dziennik.netlify.com/zalogowany#dodaj-ucznia" />
@@ -49,7 +49,7 @@
 
 	<url>
 
-		<loc>https://dziennik.netlify.com/zalogowany/</loc>
+		<loc>https://dziennik.netlify.com/zalogowany</loc>
 		<changefreq>always</changefreq>
 
 		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/logged-in" />
@@ -58,7 +58,7 @@
 
 	<url>
 
-		<loc>https://dziennik.netlify.com/zalogowany#dodaj-ucznia/</loc>
+		<loc>https://dziennik.netlify.com/zalogowany#dodaj-ucznia</loc>
 		<changefreq>always</changefreq>
 		<xhtml:link rel="alternate" hreflang="en" href="https://dziennik.netlify.com/logged-in#add-student" />
 
