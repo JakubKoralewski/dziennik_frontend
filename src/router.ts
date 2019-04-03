@@ -21,7 +21,7 @@ const router = new Router({
 				),
 		},
 		{
-			path: '/en',
+			path: '/en/',
 			name: 'Unauthorized',
 			component: () =>
 				import(/* webpackChunkName: "Unauthorized" */ '@/views/Unauthorized.vue').then(
@@ -32,7 +32,7 @@ const router = new Router({
 			},
 		},
 		{
-			path: '/pl',
+			path: '/pl/',
 			name: 'Unauthorized',
 			component: () =>
 				import(/* webpackChunkName: "Unauthorized" */ '@/views/Unauthorized.vue').then(
@@ -43,7 +43,7 @@ const router = new Router({
 			},
 		},
 		{
-			path: '/zalogowany',
+			path: '/zalogowany/',
 			name: 'Authorized',
 			component: () =>
 				import(/* webpackChunkName: "Authorized" */ '@/views/Authorized.vue').then(
@@ -54,7 +54,7 @@ const router = new Router({
 			},
 		},
 		{
-			path: '/logged-in',
+			path: '/logged-in/',
 			name: 'Authorized',
 			component: () =>
 				import(/* webpackChunkName: "Authorized" */ '@/views/Authorized.vue').then(
