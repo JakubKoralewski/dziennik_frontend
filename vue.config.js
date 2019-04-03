@@ -11,28 +11,13 @@ module.exports = {
 	},
 	devServer: {
 		proxy: {
+			/** You need to be running the backend locally. 
+			 *  This will let you test your app in development on a local machine. */
 			'/api': {
 				target: 'http://localhost:80',
 			},
 		}
 	},
-	// '' -> https://dziennik-php.herokuapp.com
-	// 'dziennik_php' -> localhost/dziennik_php
 	publicPath: process.env.NODE_ENV === 'production' ? '/' : 'dziennik_php',
-	productionSourceMap: false,
-
-	/* ,
-	build: {
-		// Template for index.html
-		index: path.resolve(__dirname, '../dist/index.html'),
-
-		// Paths
-		assetsRoot: path.resolve(__dirname, '../dist'),
-		assetsSubDirectory: 'static',
-		assetsPublicPath: '/',
-
-		productionSourceMap: true,
-
-		// skipping the rest ...
-	}, */
+	productionSourceMap: false
 };
