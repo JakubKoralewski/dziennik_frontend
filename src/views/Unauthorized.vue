@@ -8,7 +8,7 @@
 		<canvas id="canvas" class="animate"></canvas>
 		<img
 			class="bg noselect animate"
-			src="hogwarts.jpg"
+			src="/hogwarts.jpg"
 			unselectable="on"
 			draggable="false"
 			:alt="$t('alt.harwart-bg')"
