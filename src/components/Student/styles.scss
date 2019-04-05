@@ -8,7 +8,7 @@
 	// height: 25%; // makes elements unnaturally shrink when height very small
 
 	// flex-basis: 25%;
-	max-width: calc(61.8% + 6.18rem); // golden ratio
+	//max-width: calc(61.8% + 6.18rem); // golden ratio
 
 	border-radius: 1rem;
 	$student-bg-color: lighten($main-color, 2%);
@@ -237,6 +237,10 @@
 			}
 
 			i {
+
+				&.fa-trash-alt {
+					margin-right: 1vw;
+				}
 
 				&.fa-edit,
 				&.fa-trash-alt {
