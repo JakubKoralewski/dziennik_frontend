@@ -14,7 +14,9 @@
 			<a id="szkola" class="menu-item">
 				<p>Ipsum</p>
 			</a>
-			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
+			<a
+				itemscope
+				itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_frontend"
 				:title="$t('github.frontend.info')"
 				target="_blank"
@@ -25,7 +27,9 @@
 				<p>frontend</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
+			<a
+				itemscope
+				itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_backend"
 				:title="$t('github.backend.info')"
 				target="_blank"
@@ -36,7 +40,9 @@
 				<p>backend</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
+			<a
+				itemscope
+				itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski"
 				:title="$t('github.profile.info')"
 				target="_blank"
@@ -47,8 +53,10 @@
 				<p>{{ $t('sidebar.profile')}}</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<Languages @localeChange="lang => $emit('localeChange', lang)" />
-			<a itemscope itemtype="http://schema.org/SoftwareSourceCode"
+			<Languages @localeChange="lang => $emit('localeChange', lang)"/>
+			<a
+				itemscope
+				itemtype="http://schema.org/SoftwareSourceCode"
 				href="https://github.com/JakubKoralewski/dziennik_php_frontend/issues/new"
 				:title="$t('sidebar.report-issue-gh')"
 				target="_blank"
@@ -103,6 +111,8 @@
 </style>
 
 <style scoped lang="scss">
+	@import '@/scss/_mixins.scss';
+
 	.sidebar {
 		// The whole navigation div
 		display: flex;
@@ -117,6 +127,8 @@
 		position: fixed;
 		height: 100vh;
 		z-index: 200;
+
+		@include textured-bg(0.2);
 
 		.scrollable {
 			overflow-y: auto;

@@ -1,10 +1,10 @@
 <template>
 	<div id="authorized">
-		<NewStudent 
-		v-show="showNewStudentDialog"
-		@newStudentAdded="showNewStudentDialog=false" 
-		:aria-disabled="!showNewStudentDialog" 
-		:aria-hidden="!showNewStudentDialog"
+		<NewStudent
+			v-show="showNewStudentDialog"
+			@newStudentAdded="showNewStudentDialog=false"
+			:aria-disabled="!showNewStudentDialog"
+			:aria-hidden="!showNewStudentDialog"
 		/>
 		<AddButton
 			@addButtonClick="addButtonClick()"
@@ -18,7 +18,7 @@
 			id="cover"
 			@click="coverClick()"
 		/>
-		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent" @localeChange="localeChange" />
+		<SideBar @sideBarToggle="sideBarToggle" ref="sideBarComponent" @localeChange="localeChange"/>
 		<div class="blur-container" :class="{'blur-visible': showNewStudentDialog || sideBarVisible}">
 			<div id="content">
 				<NavTitle/>
