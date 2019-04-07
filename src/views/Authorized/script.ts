@@ -159,6 +159,12 @@ export default class Authorized extends Mixins(TouchDetection) {
 		}
 	}
 
+	onStudentAdded() {
+		console.log('onStudentAdded');
+		this.showNewStudentDialog = false;
+		this.$router.push(`/${this.$t('paths.logged-in')}`);
+	}
+
 	toggleNewStudentDialog() {
 		if (this.showNewStudentDialog === false) {
 			/* Making the dialog appear */

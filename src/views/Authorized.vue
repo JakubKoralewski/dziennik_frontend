@@ -2,7 +2,7 @@
 	<div id="authorized">
 		<NewStudent 
 		v-show="showNewStudentDialog"
-		@newStudentAdded="showNewStudentDialog=false" 
+		@newStudentAdded="onStudentAdded" 
 		:aria-disabled="!showNewStudentDialog" 
 		:aria-hidden="!showNewStudentDialog"
 		/>
