@@ -29,12 +29,12 @@
 		langsTexts: any = {};
 		created() {
 			this.langs = this.$i18n.availableLocales;
-			this.generateLangsTexts();
+			this.generateLangsTexts(this.$i18n.locale);
 		}
-		generateLangsTexts() {
+		generateLangsTexts(newLang: string) {
 			for (const lang of this.langs) {
 				this.langsTexts[lang] =
-					this.$i18n.locale === lang
+					newLang === lang
 						? (this.$i18n.messages as any)[lang]['language'][
 								'already-chosen'
 						  ]
@@ -44,9 +44,9 @@
 			}
 		}
 		localeChange(lang: string) {
+			this.generateLangsTexts(lang);
+			this.$emit('localeChange', lang, this.$i18n.locale);
 			this.$i18n.locale = lang;
-			this.generateLangsTexts();
-			this.$emit('localeChange', lang);
 		}
 	}
 </script>

@@ -169,9 +169,15 @@ export default class Authorized extends Mixins(TouchDetection) {
 		if (this.showNewStudentDialog === false) {
 			/* Making the dialog appear */
 			console.log(this.$t('hashes.add-student'));
-			history.pushState('', 'Dodaj ucznia', this.$t(
+			/* history.pushState('', 'Dodaj ucznia', this.$t(
 				'hashes.add-student'
-			) as string);
+			) as string); */
+			this.$router.push(
+				`/${this.$t('paths.logged-in')}${this.$t(
+					'hashes.add-student'
+				) as string}`
+			);
+			this.$emit('newStudentDialogAppered');
 			this.setCoverState(false, 100);
 			/* If making NewStudentDialog appear show cover. */
 		} else {
@@ -220,8 +226,38 @@ export default class Authorized extends Mixins(TouchDetection) {
 		}
 	}
 
-	localeChange(lang: string) {
-		this.$router.push(`/${this.$t('paths.logged-in')}`);
+	/** Fired off from Authorized <- SideBar <- Languages */
+	localeChange(newLang: string, oldLang: string) {
+		const oldHash = this.$route.hash;
+		// Find the new corresponding hash.
+		let newHash = '';
+		if (oldHash) {
+			for (const hashKeyValue of Object.entries(
+				this.$i18n.messages[oldLang]['hashes']
+			)) {
+				// debugger;
+				if (hashKeyValue[1] === oldHash) {
+					console.log('Found corresponding hash: ', hashKeyValue[0]);
+					newHash = (this.$i18n.messages[newLang]['hashes'] as any)[
+						hashKeyValue[0]
+					] as string;
+				}
+			}
+		}
+
+		console.log(`newHash:`, newHash);
+		console.log(`newLang:`, newLang);
+		console.log(`oldLang:`, oldLang);
+		console.log(`oldHash:`, oldHash);
+		// console.log(`route:`, this.$route);
+		// console.log(`router:`, this.$router);
+		console.log('this.$i18n.messages: ', this.$i18n.messages);
+		const newPath: any = (this.$i18n.messages[newLang]['paths'] as any)[
+			'logged-in'
+		] as string;
+		console.log('newPath: ', newPath);
+		console.log('newHash: ', newHash);
+		this.$router.push('/' + newPath + newHash);
 	}
 
 	sideBarToggle(newState: boolean) {
