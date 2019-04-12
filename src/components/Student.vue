@@ -62,7 +62,7 @@
 					:title="$t('edit.edit')"
 					:aria-label="$t('edit.edit')"
 				></i>
-				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('delete.delete')" :aria-label="$t('delete.delete')"></i>
+				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('student.delete')" :aria-label="$t('student.delete')"></i>
 			</div>
 		</div>
 		<div id="content">
