@@ -22,16 +22,7 @@ export default new Vuex.Store({
 	} as IState,
 	plugins: [
 		createPersistedState({
-			paths: ['sideBarVisible', 'searchText'],
-
-			// arrayMerger: function(state, saved) {
-			// 	/* When a change happens while the site is open
-			// 	and then a refresh happens,
-			// 	*/
-			// 	for(const key of Object.keys(saved.students)) {
-			// 		saved[key].visible
-			// 	}
-			// },
+			paths: ['sideBarVisible', 'searchText', 'currentURL'],
 		}),
 	],
 	mutations,

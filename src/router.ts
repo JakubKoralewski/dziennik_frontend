@@ -51,6 +51,7 @@ const router = new Router({
 				),
 			meta: {
 				locale: 'pl',
+				transition: { name: 'slide', from: 'Unauthorized' },
 			},
 		},
 		{
@@ -62,6 +63,7 @@ const router = new Router({
 				),
 			meta: {
 				locale: 'en',
+				transition: { name: 'slide', from: 'Unauthorized' },
 			},
 		},
 

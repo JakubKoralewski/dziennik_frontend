@@ -1,24 +1,44 @@
 <template>
 	<div id="app">
-		<transition name="slide">
-			<router-view class="router-view" :class="{'no-animation': !urlChanged}"/>
+		<transition :name="transitionName">
+			<router-view class="router-view"/>
 		</transition>
 	</div>
 </template>
 
 <script lang="ts">
 	import { Vue, Component, Watch } from 'vue-property-decorator';
+	import { mapState, mapMutations } from 'vuex';
+
+	const DEFAULT_TRANSITION = '';
 
 	@Component({
 		name: 'App',
+		computed: mapState(['currentURL']),
+		methods: mapMutations(['setCurrentURL']),
 	})
 	export default class App extends Vue {
-		urlChanged: boolean = false;
+		transitionName = DEFAULT_TRANSITION;
 
 		@Watch('$route')
-		onRouteChange() {
-			if (this.$route.name !== 'Unauthorized') {
-				this.urlChanged = true;
+		onRouteChange(newRoute: any, oldRoute: any) {
+			console.log('RouteChange!');
+			let transition = newRoute.meta.transition || oldRoute.meta.transition;
+
+			/** The following checks if either of the routes' meta.transition.from
+			 *  is same as the other's name. If it is then it should transition. */
+			if (
+				(newRoute.meta.hasOwnProperty('transition') && 
+				newRoute.meta.transition.hasOwnProperty('from') 
+				&& newRoute.meta.transition.from === oldRoute.name) 
+				||
+				(oldRoute.meta.hasOwnProperty('transition') && 
+				oldRoute.meta.transition.hasOwnProperty('from') 
+				&& oldRoute.meta.transition.from === newRoute.name) 
+			) {
+				this.transitionName = transition.name || DEFAULT_TRANSITION;
+			} else {
+				this.transitionName = '';
 			}
 		}
 	}

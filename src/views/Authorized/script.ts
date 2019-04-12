@@ -229,7 +229,6 @@ export default class Authorized extends Mixins(TouchDetection) {
 	/** Fired off from Authorized <- SideBar <- Languages */
 	localeChange(newLang: string, oldLang: string) {
 		const oldHash = this.$route.hash;
-		
 		// Find the new corresponding hash.
 		let newHash = '';
 		if (oldHash) {
