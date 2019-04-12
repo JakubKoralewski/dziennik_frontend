@@ -23,9 +23,6 @@
 		"cancel": "Anuluj edycję",
 		"save": "Zapisz edycję"
 	},
-	"delete": {
-		"delete": "Usuń ucznia"
-	},
 	"search": {
 		"placeholder": "Wyszukaj ucznia, np. 'xd'"
 	},
@@ -41,6 +38,7 @@
 		}
 	},
 	"student": {
+		"delete": "Usuń ucznia",
 		"add": "Dodaj ucznia",
 		"first-name": "Imię",
 		"last-name": "Nazwisko",

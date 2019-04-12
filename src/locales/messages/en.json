@@ -24,9 +24,6 @@
 		"cancel": "Cancel edit",
 		"save": "Save edit"
 	},
-	"delete": {
-		"delete": "Delete student"
-	},
 	"search": {
 		"placeholder": "Search for a student, e.g.: 'xd'"
 	},
@@ -54,6 +51,7 @@
 	"not-a-muggle": "I'm not a muggle",
 
 	"student": {
+		"delete": "Delete student",
 		"add": "Add student",
 		"first-name": "First name",
 		"last-name": "Last name",
