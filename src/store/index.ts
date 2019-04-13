@@ -5,7 +5,18 @@ Vue.use(Vuex);
 
 import { IStudent, IState } from '@/interfaces';
 
-import createPersistedState from 'vuex-persistedstate';
+import VuexPersistence from 'vuex-persist';
+
+const vuexLocal = new VuexPersistence({
+	storage: window.sessionStorage,
+	reducer: (state: any) => {
+		return {
+			sideBarVisible: state.sideBarVisible,
+			currentURL: state.currentURL,
+			searchText: state.searchText,
+		};
+	},
+});
 
 import mutations from './mutations';
 import actions from './actions';
@@ -20,11 +31,7 @@ export default new Vuex.Store({
 		isSearchWrapped: false,
 		areStudentsLoaded: false,
 	} as IState,
-	plugins: [
-		createPersistedState({
-			paths: ['sideBarVisible', 'searchText', 'currentURL'],
-		}),
-	],
+	plugins: [vuexLocal.plugin],
 	mutations,
 	actions,
 	getters: {
