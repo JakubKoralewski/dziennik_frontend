@@ -117,7 +117,7 @@
 		}
 		@Watch('$i18n.locale')
 		onLocaleChange() {
-			this.setLoginText(this.loginI18nText);
+			this.setLoginText(this.$t('login.CTA') as string);
 		}
 		/** Takes in a string that can be used
 		 *  to find i18n message.
