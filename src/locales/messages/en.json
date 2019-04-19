@@ -29,10 +29,10 @@
 	},
 	"github": {
 		"frontend": {
-			"info": "GitHub frontend respository - dziennik_php_frontend"
+			"info": "GitHub frontend respository - dziennik-frontend"
 		},
 		"backend": {
-			"info": "GitHub backend repository - dziennik_php_backend"
+			"info": "GitHub backend repository - dziennik-rust"
 		},
 		"profile": {
 			"info": "GitHub profile - Jakub Koralewski"

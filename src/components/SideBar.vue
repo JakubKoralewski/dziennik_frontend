@@ -17,7 +17,7 @@
 			<a
 				itemscope
 				itemtype="http://schema.org/SoftwareSourceCode"
-				href="https://github.com/JakubKoralewski/dziennik_php_frontend"
+				href="https://github.com/JakubKoralewski/dziennik-frontend"
 				:title="$t('github.frontend.info')"
 				target="_blank"
 				class="menu-item gh"
@@ -30,7 +30,7 @@
 			<a
 				itemscope
 				itemtype="http://schema.org/SoftwareSourceCode"
-				href="https://github.com/JakubKoralewski/dziennik_php_backend"
+				href="https://github.com/JakubKoralewski/dziennik-rust"
 				:title="$t('github.backend.info')"
 				target="_blank"
 				class="menu-item gh"
@@ -53,13 +53,11 @@
 				<p>{{ $t('sidebar.profile')}}</p>
 				<i class="fas fa-external-link-alt"></i>
 			</a>
-			<Languages
-				@localeChange="(lang, oldLang) => $emit('localeChange', lang, oldLang)"
-			/>
+			<Languages @localeChange="(lang, oldLang) => $emit('localeChange', lang, oldLang)"/>
 			<a
 				itemscope
 				itemtype="http://schema.org/SoftwareSourceCode"
-				href="https://github.com/JakubKoralewski/dziennik_php_frontend/issues/new"
+				href="https://github.com/JakubKoralewski/dziennik-frontend/issues/new"
 				:title="$t('sidebar.report-issue-gh')"
 				target="_blank"
 				class="menu-item gh"

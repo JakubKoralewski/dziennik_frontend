@@ -44,27 +44,27 @@
 	}
 
 	/* On Edit Mode active somehow make it visible that these elements are editable. */
-	#imie,
-	#nazwisko,
-	#klasa,
-	#telefon {
+	#first-name,
+	#last-name,
+	#class,
+	#phone-number {
 		cursor: default;
 	}
 
-	#imie,
-	#nazwisko,
-	#klasa,
-	#telefon {
+	#first-name,
+	#last-name,
+	#class,
+	#phone-number {
 		min-width: 2px;
 		z-index: 1;
 		transition: all 0.25s ease;
 	}
 
 	&.edit-mode-active {
-		#imie,
-		#nazwisko,
-		#klasa,
-		#telefon {
+		#first-name,
+		#last-name,
+		#class,
+		#phone-number {
 			padding-left: 1px;
 			cursor: text;
 			position: relative;
@@ -152,7 +152,7 @@
 			word-break: break-word;
 			display: flex;
 
-			#imie {
+			#first-name {
 				margin-right: 0.25rem;
 			}
 		}

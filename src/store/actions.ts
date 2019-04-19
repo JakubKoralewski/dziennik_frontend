@@ -1,6 +1,5 @@
 import { API_URL } from '@/config';
 import { ActionContext } from 'vuex';
-import findId from './findId';
 import {
 	IStudent,
 	INewStudent,
@@ -12,13 +11,14 @@ import {
 
 interface IActionContext extends ActionContext<IState, any> {}
 // tslint:disable:jsdoc-format
+// tslint:disable:quotemark
 
 export default {
 	/** Creates GET API request for all students.
 	 *  Adds them to Vuex state.
 	 */
 	async loadStudents({ state, commit }: IActionContext) {
-		return fetch(`${API_URL}api/uczniowie.php`, {
+		return fetch(`${API_URL}api/students`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json; charset=UTF-8',
@@ -54,7 +54,7 @@ export default {
 		searchText = searchText.toLowerCase();
 		Object.values(state.students).forEach((student: IStudent) => {
 			/* Make searching by the full name possible as well. */
-			student.fullName = student.imie + ' ' + student.nazwisko;
+			student.fullName = student.first_name + ' ' + student.last_name;
 			console.log('student', student);
 			for (let property of Object.values(student)) {
 				if (typeof property === 'boolean') {
@@ -95,16 +95,9 @@ export default {
 		{ state, commit }: IActionContext,
 		newStudent: INewStudent
 	) {
-		// Find new ID
-		const studentsIds = Object.keys(state.students)
-			.map(id => parseInt(id, 10))
-			.sort((a, b) => a - b);
-		const newId = findId(studentsIds);
-		const body = JSON.stringify(
-			Object.assign({ id: newId.toString() }, newStudent)
-		);
+		const body = JSON.stringify(newStudent);
 		console.log('requestBody:', body);
-		return fetch(`${API_URL}api/uczniowie.php`, {
+		return fetch(`${API_URL}api/students`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json; charset=UTF-8',
@@ -113,17 +106,15 @@ export default {
 			},
 			body,
 		})
-			.then(response => {
+			.then(async response => {
+				const data = await response.json();
 				if (response.ok !== true) {
 					console.error(`Couldn't add student`);
 				} else {
-					return response.json();
+					console.log(`commit('add',`, data, `);`);
+					commit('add', data.student);
+					console.log('state.students', state.students);
 				}
-			})
-			.then(data => {
-				console.log(`commit('add',`, data, `);`);
-				commit('add', data.uczen);
-				console.log('state.students', state.students);
 				return state.students;
 			})
 			.catch(error => {
@@ -134,26 +125,24 @@ export default {
 	 *  @param { number } id - student to delete
 	 */
 	async deleteStudent({ state, commit }: IActionContext, id: number) {
-		return fetch(`${API_URL}api/uczniowie.php`, {
+		return fetch(`${API_URL}api/students/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': 'true',
 			},
-			body: JSON.stringify({ id }),
 		})
 			.then(response => {
-				if (response.ok !== true) {
-					console.error('Nie udało się usunąć ucznia.');
+				if (response.ok === true) {
+					console.log(`commit('delete',`, id, `);`);
+					commit('delete', id);
+					console.log('state.students', state.students);
+					return true;
+				} else {
+					console.error("Can't delete student.");
+					return false;
 				}
-				return response.json() as Promise<IDeleteResponse>;
-			})
-			.then(data => {
-				console.log(`commit('add',`, data, `);`);
-				commit('delete', data.uczen);
-				console.log('state.students', state.students);
-				return state.students;
 			})
 			.catch(error => {
 				console.error(error);
@@ -164,31 +153,24 @@ export default {
 	 * 	```{
 	 *		"id": 2,
 	 *		"new_data": {
-	 *			"imie": 'xd2',
-	 *			"telefon": 123123123
+	 *			"first_name": 'xd2',
+	 *			"phone_number": 123123123
 	 *		}
 	 *	}```
 	 */
 	async editStudent({}, edit_data: IEditData) {
-		return fetch(`${API_URL}api/uczniowie.php`, {
+		return fetch(`${API_URL}api/students/${edit_data.id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json; charset=UTF-8',
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Credentials': 'true',
 			},
-			/* Should look like this:
-			
-			
-			*/
-			body: JSON.stringify({
-				id: parseInt(edit_data.id, 10),
-				new_data: edit_data.new_properties,
-			}),
+			body: JSON.stringify(edit_data.new_properties),
 		})
 			.then(response => {
 				if (response.ok !== true) {
-					console.error('Nie udało się edytować ucznia.');
+					console.error("Can't edit student.");
 				}
 				return response.json() as Promise<IEditResponse>;
 			})

@@ -153,11 +153,11 @@
 			const loginTask = new Promise(resolve => {
 				this.loginButton.classList.remove('change-text');
 				resolve(
-					fetch(`${API_URL}api/login.php`, {
+					fetch(`${API_URL}api/login`, {
 						method: 'POST',
 						body: JSON.stringify({
 							login: this.login,
-							haslo: this.password,
+							password: this.password,
 						}),
 						headers: {
 							'Content-Type': 'application/json; charset=UTF-8',
@@ -166,23 +166,16 @@
 						},
 					})
 						.then(response => {
-							if ((response as any).status !== true) {
+							debugger;
+							if (response.ok === true) {
+								this.setLoginText('login.successful');
+								console.log('Logged in.');
+								this.loginSuccessful();
+							} else {
 								this.loginError([
 									this.loginInput as HTMLInputElement,
 									this.passwordInput as HTMLInputElement,
 								]);
-							} else {
-								this.setLoginText('login.invalid-credentials');
-							}
-							return response.json();
-						})
-						.then(async data => {
-							console.log(data);
-							if (data.status === true) {
-								this.setLoginText('login.successful');
-								console.log('zalogowano.');
-								this.loginSuccessful();
-							} else {
 								this.setLoginText('login.invalid-credentials');
 								this.loginButton.classList.add('change-text');
 								// tslint:disable-next-line:no-unused-expression

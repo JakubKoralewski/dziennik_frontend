@@ -5,7 +5,7 @@
 				<contenteditable
 					:noNL="true"
 					@returned="saveEdit"
-					id="imie"
+					id="first-name"
 					:contenteditable="editMode"
 					@input="refreshCheckmarkStatus"
 					autocomplete="off"
@@ -15,13 +15,13 @@
 					:title="editMode ? null : $t('student.first-name')"
 					:aria-label="$t('student.first-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-					v-model="student.imie"
+					v-model="student.first_name"
 					tag="div"
 				/>
 				<contenteditable
 					:noNL="true"
 					@returned="saveEdit"
-					id="nazwisko"
+					id="last-name"
 					:contenteditable="editMode"
 					@input="refreshCheckmarkStatus"
 					autocomplete="off"
@@ -31,7 +31,7 @@
 					:title="editMode ? null : $t('student.last-name')"
 					:aria-label="$t('student.last-name')"
 					v-on="!editMode ? { click: uneditableInputClick } : {}"
-					v-model="student.nazwisko"
+					v-model="student.last_name"
 					tag="div"
 				/>
 			</div>
@@ -41,8 +41,8 @@
 					:class="{'edit-mode-active': editMode, 'edit-mode-narrow': viewportBelow500, 'can-not-be-saved': !canBeSaved}"
 				>
 					<div id="student-name" v-if="viewportBelow500">
-						<p v-html="student.imie"></p>&nbsp;
-						<p v-html="student.nazwisko"></p>
+						<p v-html="student.first_name"></p>&nbsp;
+						<p v-html="student.last_name"></p>
 					</div>
 					<div id="controls">
 						<i class="fas fa-times" id="edit-cancel" :title="$t('edit.cancel')" @click="cancelEdit"></i>
@@ -62,7 +62,12 @@
 					:title="$t('edit.edit')"
 					:aria-label="$t('edit.edit')"
 				></i>
-				<i class="fas fa-trash-alt" @click="deleteStudent" :title="$t('student.delete')" :aria-label="$t('student.delete')"></i>
+				<i
+					class="fas fa-trash-alt"
+					@click="deleteStudent"
+					:title="$t('student.delete')"
+					:aria-label="$t('student.delete')"
+				></i>
 			</div>
 		</div>
 		<div id="content">
@@ -72,11 +77,11 @@
 					:noNL="true"
 					@returned="saveEdit"
 					class="info"
-					id="klasa"
+					id="class"
 					:contenteditable="editMode"
 					:aria-label="$t('student.class')"
 					@input="refreshCheckmarkStatus"
-					v-model="student.klasa"
+					v-model="student.class"
 					spellcheck="false"
 					autocomplete="off"
 					autocorrect="off"
@@ -90,10 +95,10 @@
 					:noNL="true"
 					@returned="saveEdit"
 					class="info"
-					id="telefon"
+					id="phone-number"
 					:contenteditable="editMode"
 					:aria-label="$t('student.phone-number')"
-					v-model="student.telefon"
+					v-model="student.phone_number"
 					@input="refreshCheckmarkStatus"
 					spellcheck="false"
 					autocapitalize="off"
