@@ -1,4 +1,4 @@
-# dziennik_php_frontend [![Netlify Status](https://api.netlify.com/api/v1/badges/0e6d27e2-99e4-4e2b-8d1c-0a78ec2c25b6/deploy-status)](https://dziennik.netlify.com) [![Heroku](https://heroku-badge.herokuapp.com/?app=dziennik-php)](https://dziennik-php.herokuapp.com)
+# dziennik-frontend [![Netlify Status](https://api.netlify.com/api/v1/badges/0e6d27e2-99e4-4e2b-8d1c-0a78ec2c25b6/deploy-status)](https://dziennik.netlify.com) [![Heroku](https://heroku-badge.herokuapp.com/?app=dziennik-php)](https://dziennik-php.herokuapp.com)
 
 ### Video demo:
 
