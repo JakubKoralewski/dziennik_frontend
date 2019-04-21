@@ -1,0 +1,16 @@
+{
+    "name": "dziennik-rust",
+    "description": "A simple CRUD REST API backend application using Rust with actix-web, Diesel and PostgreSQL.",
+    "repository": "https://github.com/JakubKoralewski/dziennik-rust",
+    "success_url": "/",
+    "keywords": ["rust", "actix", "actix-web", "dziennik", "diesel", "postgresql"],
+    "website": "https://dziennik.netlify.com",
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-apt"
+        },
+        {
+            "url": "https://github.com/emk/heroku-buildpack-rust.git"
+        }
+    ]
+}
