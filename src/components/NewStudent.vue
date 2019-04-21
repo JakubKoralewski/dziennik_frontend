@@ -4,11 +4,11 @@
 			<div id="name">
 				<input
 					type="text"
-					id="imie"
+					id="first-name"
 					:placeholder="$t('student.first-name')"
 					:aria-label="$t('student.first-name')"
 					@keyup.enter="addUser"
-					v-model="newStudent.imie"
+					v-model="newStudent.first_name"
 					autofocus
 					spellcheck="false"
 					onfocus="this.select()"
@@ -16,11 +16,11 @@
 				>
 				<input
 					type="text"
-					id="nazwisko"
+					id="last-name"
 					@keyup.enter="addUser"
 					:placeholder="$t('student.last-name')"
 					:aria-label="$t('student.last-name')"
-					v-model="newStudent.nazwisko"
+					v-model="newStudent.last_name"
 					spellcheck="false"
 					onfocus="this.select()"
 					tabindex="2"
@@ -28,32 +28,32 @@
 			</div>
 		</div>
 		<div id="content">
-			<div id="klasa">
+			<div id="class">
 				<p>{{$t('student.class')}}:</p>
 				<span class="info">
 					<input
 						type="text"
-						id="klasa"
+						id="class"
 						placeholder="3d"
 						@keyup.enter="addUser"
 						:aria-label="$t('student.class')"
-						v-model="newStudent.klasa"
+						v-model="newStudent.class"
 						spellcheck="false"
 						onfocus="this.select()"
 						tabindex="3"
 					>
 				</span>
 			</div>
-			<div id="telefon">
+			<div id="phone-number">
 				<p>{{$t('student.phone-number')}}:</p>
 				<span class="info">
 					<input
 						type="text"
-						id="telefon"
+						id="phone-number"
 						:aria-label="$t('student.phone-number')"
 						@keyup.enter="addUser"
 						placeholder="666666666"
-						v-model="newStudent.telefon"
+						v-model="newStudent.phone_number"
 						spellcheck="false"
 						onfocus="this.select()"
 						tabindex="4"
@@ -89,10 +89,10 @@
 	})
 	export default class NewStudent extends Mixins(PropertiesValid) {
 		newStudent: INewStudent = {
-			imie: '',
-			nazwisko: '',
-			klasa: '',
-			telefon: '',
+			first_name: '',
+			last_name: '',
+			class: '',
+			phone_number: '',
 		};
 		allPropertiesValid: boolean = false;
 		checkmarkStatus: string = '';
@@ -130,7 +130,12 @@
 				return;
 			}
 			this.$emit('newStudentAdded');
-			const response = await this.addStudent(this.newStudent);
+			const response = await this.addStudent(
+				Object.assign(
+					this.newStudent,
+					{phone_number: parseInt(this.newStudent.phone_number, 10)} 
+				)
+			);
 		}
 	}
 </script>
@@ -179,14 +184,14 @@
 			@include new-student-padding();
 			padding-top: 2rem;
 
-			#klasa,
-			div#telefon {
+			#class,
+			div#phone-number {
 				align-items: center;
 				justify-content: space-around;
 				width: calc(50% + 2rem);
 			}
 
-			div#telefon {
+			div#phone-number {
 				margin-top: calc(1rem + 1vh);
 			}
 

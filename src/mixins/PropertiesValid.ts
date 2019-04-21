@@ -2,17 +2,17 @@ import { Vue, Component } from 'vue-property-decorator';
 import { IStudentsPropertiesRequiringValidation } from '@/interfaces';
 
 const studentProperties = {
-	imie: 'first-name',
-	nazwisko: 'last-name',
-	klasa: 'class',
-	telefon: 'phone-number',
+	first_name: 'first-name',
+	last_name: 'last-name',
+	class: 'class',
+	phone_number: 'phone-number',
 } as IStudentProperties;
 
 interface IStudentProperties {
-	imie: string;
-	nazwisko: string;
-	klasa: string;
-	telefon: string;
+	first_name: string;
+	last_name: string;
+	class: string;
+	phone_number: string;
 	[key: string]: string;
 }
 
@@ -34,7 +34,7 @@ export class PropertiesValid extends Vue {
 			const value = student[key];
 			if (key === 'id') {
 				continue;
-			} else if (key === 'telefon' && isNaN(value as any)) {
+			} else if (key === 'phone_number' && isNaN(value as any)) {
 				let property: string = this.$t(
 					'student.phone-number-genitive'
 				) as string;

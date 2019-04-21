@@ -14,10 +14,9 @@ module.exports = {
 			/** You need to be running the backend locally. 
 			 *  This will let you test your app in development on a local machine. */
 			'/api': {
-				target: 'http://localhost:80',
+				target: 'http://localhost:3000',
 			},
 		}
 	},
-	publicPath: process.env.NODE_ENV === 'production' ? '/' : 'dziennik_php',
 	productionSourceMap: false
 };

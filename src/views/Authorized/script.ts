@@ -169,9 +169,6 @@ export default class Authorized extends Mixins(TouchDetection) {
 		if (this.showNewStudentDialog === false) {
 			/* Making the dialog appear */
 			console.log(this.$t('hashes.add-student'));
-			/* history.pushState('', 'Dodaj ucznia', this.$t(
-				'hashes.add-student'
-			) as string); */
 			this.$router.push(
 				`/${this.$t('paths.logged-in')}${this.$t(
 					'hashes.add-student'
@@ -192,7 +189,7 @@ export default class Authorized extends Mixins(TouchDetection) {
 	addButtonClick() {
 		this.toggleNewStudentDialog();
 		const firstNameElement: HTMLInputElement = document.querySelector(
-			'.new-student input#imie'
+			'.new-student input#first_name'
 		);
 		console.log('focusing', firstNameElement);
 		setTimeout(() => {

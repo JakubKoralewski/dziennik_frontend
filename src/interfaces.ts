@@ -1,33 +1,33 @@
 export interface IStudent {
 	[index: string]: any;
 	id: string;
-	imie: string;
-	nazwisko: string;
-	klasa: string;
-	telefon: string;
+	first_name: string;
+	last_name: string;
+	class: string;
+	phone_number: string;
 	visible?: boolean;
 }
 interface IStudentsEditableProperties {
 	id?: number;
-	imie?: string;
-	nazwisko?: string;
-	klasa?: string;
-	telefon?: number;
+	first_name?: string;
+	last_name?: string;
+	class?: string;
+	phone_number?: number;
 }
 export interface IStudentsPropertiesRequiringValidation {
 	[index: string]: string;
-	imie?: string;
-	nazwisko?: string;
-	klasa?: string;
+	first_name?: string;
+	last_name?: string;
+	class?: string;
 	/** It's a string, because that what's gotten from the input!  */
-	telefon?: string;
+	phone_number?: string;
 }
 
 export interface INewStudent {
-	imie: string;
-	nazwisko: string;
-	klasa: string;
-	telefon: string;
+	first_name: string;
+	last_name: string;
+	class: string;
+	phone_number: string;
 	[key: string]: string;
 }
 
@@ -42,12 +42,12 @@ export interface IEditData {
 
 export interface IDeleteResponse {
 	/** The id   */
-	uczen: number;
+	student: number;
 }
 
 export interface IEditResponse {
 	/** New student  */
-	uczen: IStudent;
+	student: IStudent;
 }
 
 export interface IState {

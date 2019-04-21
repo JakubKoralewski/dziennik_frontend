@@ -52,7 +52,11 @@ export default class Student extends StudentComponentProps {
 	viewportBelow500: boolean;
 
 	/* Actions */
-	storeDeleteStudent: (id: string) => Promise<IStudents>;
+	storeDeleteStudent: (id: string) => Promise<boolean>;
+	storeEditStudent: (object: {
+		id: string;
+		new_properties: any;
+	}) => Promise<IStudent>;
 
 	/* Mutations */
 	addCurrentEdit: (id: string) => void;
@@ -85,15 +89,15 @@ export default class Student extends StudentComponentProps {
 		const wantsToDelete: boolean = confirm(this.$t(
 			'alert.delete.are-you-sure',
 			{
-				firstName: this.student.imie,
-				lastName: this.student.nazwisko,
+				firstName: this.student.first_name,
+				lastName: this.student.last_name,
 			}
 		) as string);
 		if (!wantsToDelete) {
 			return;
 		}
 		console.log(this.$t('alert.deleting-student', { id: this.student.id }));
-		(this as any).storeDeleteStudent(this.student.id);
+		this.storeDeleteStudent(this.student.id);
 	}
 	toggleEditMode() {
 		if (this.editMode === false) {
@@ -149,13 +153,13 @@ export default class Student extends StudentComponentProps {
 		);
 		this.$el.classList.add('editing-in-progress');
 
-		const editResponse = await (this as any).storeEditStudent({
+		const editResponse = await this.storeEditStudent({
 			id: this.student.id,
 			new_properties,
 		});
 		this.$el.classList.remove('editing-in-progress');
 
-		if (editResponse == false) {
+		if (editResponse.ok == false) {
 			this.restoreBackup();
 			return;
 		}

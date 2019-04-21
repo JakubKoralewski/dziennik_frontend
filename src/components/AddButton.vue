@@ -47,12 +47,6 @@
 			box-shadow: 7px 6px 21px 0px rgba(0, 0, 0, 0.4);
 		}
 
-		@media screen and (max-width: 600px) {
-			// bottom: auto;
-			// top: calc(1rem + 5vmin);
-			// position: sticky;
-		}
-
 		&:hover {
 			transition: transform 100ms ease-in, box-shadow 300ms ease-out;
 			transform: scale(1.01);
